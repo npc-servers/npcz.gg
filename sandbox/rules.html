@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>NPCZ Sandbox Rules</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="NPC Sandbox Rules page">
+    <link href="/css/sandbox/rules.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="rules">
+        <h1 class="header">Rules:</h1>
+        <button class="collapsible">1. COMMON SENSE</button>
+        <div class="content">
+            <p>Don't do dumb shit that would go against conventional thinking. If it seems like its hurtful to others,
+                the server, or just seems like a bad idea.</p>
+        </div>
+        <button class="collapsible">2. PROP ABUSE</button>
+        <div class="content">
+            <p>Propkill, proppush, propblock, propclimb, propspam, etc., is not allowed.</p>
+        </div>
+        <button class="collapsible">3. BASING</button>
+        <div class="content">
+            <p>When making your base, make sure its possible to enter, with a keypad on both sides of the entrance door.
+                Bases do not generally have any limits on doors or the amount of space they take up, but keep the
+                ability for others to raid your base fun and possible, and don't have it negatively impact the
+                experience of others. In addition, keeping your spawn in someone's base, or spawning in props/entities
+                without permission is not allowed.</p>
+        </div>
+        <button class="collapsible">4. WIREMOD/E2/STARFALL</button>
+        <div class="content">
+            <p>The use of Wiremod/E2/Starfall in a way that negatively affects the way others play is not allowed. If it
+                seems unbalanced, unoptimized, or something you wouldn't fight against, don't use it.</p>
+        </div>
+        <button class="collapsible">5. PAC3</button>
+        <div class="content">
+            <p>The use of an NSFW PAC (stuff considered 18+), or a playermodel smaller than the regular citizen
+                playermodel is not allowed (this includes Outfitter).</p>
+        </div>
+        <button class="collapsible">6. CHEATING/EXPLOITING</button>
+        <div class="content">
+            <p>Don't cheat, plain and simple. The use of anything that isn't intended to be used in-game that gives you
+                an advantage (like cheats), including bugs & server/addon exploits, is not allowed.</p>
+        </div>
+    </div>
+
+    <script>
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+
+        for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
+            });
+        }
+    </script>
+
+</body>
+
+</html>
