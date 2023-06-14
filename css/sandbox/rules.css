@@ -14,9 +14,21 @@ body {
     background-color: #2b2b2b;
 }
 
-.header {
+.rules-header {
+    background-color: rgb(38,38,38);
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.server-name {
     font-family: "Arial Black";
     color: white;
+}
+
+.description {
+    font-family: "Segoe UI";
+    color: white;
+    font-weight: 400;
 }
 
 .rules {
