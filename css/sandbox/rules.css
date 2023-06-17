@@ -99,6 +99,10 @@ body {
     padding: 0px 10px 0px 10px;
 }
 
+li {
+    margin-bottom: 3px;
+}
+
 ::-webkit-scrollbar {
     width: 8px;
 }
