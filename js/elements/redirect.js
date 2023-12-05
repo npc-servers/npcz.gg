@@ -16,7 +16,6 @@ class Header extends HTMLElement {
 
         <div class="redirect-container">
         <p class="display-text">${displayText}</p>
-        <div class="redirect-spinner"></div>
         </div>
         `;
     }
