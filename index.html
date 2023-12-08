@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="content-width=device-width, initial-scale=1.0">
     <title>Landing Page</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://unpkg.com/atropos/atropos.min.css">
+    <link rel="stylesheet" href="/css/main_style.css">
+    <link rel="stylesheet" href="/css/atropos.min.css">
 </head>
+
 <body>
 
     <nav id="navbar">
@@ -34,10 +35,10 @@
 
     <div class="gradient-section">
         <div class="card-container">
-            <div class="atropos my-atropos">
-                <div class="atropos-rotate">
-                    <div class="atropos-inner">
-                        <div class="atropos-card">
+            <div class="atropos atropos-main">
+                <div class="atropos-scale">
+                    <div class="atropos-rotate">
+                        <div class="atropos-inner">
                             <div class="card-content">
                                 <h3>Server 1</h3>
                                 <p>Server 1 Description - maybe player count too? Additionally, clicking these cards will lead to their server pages, while clicking the join button will join the server.</p>
@@ -47,10 +48,10 @@
                     </div>
                 </div>
             </div>
-            <div class="atropos my-atropos">
-                <div class="atropos-rotate">
-                    <div class="atropos-inner">
-                        <div class="atropos-card">
+            <div class="atropos atropos-main">
+                <div class="atropos-scale">
+                    <div class="atropos-rotate">
+                        <div class="atropos-inner">
                             <div class="card-content">
                                 <h3>Server 2</h3>
                                 <p>Server 2 Description</p>
@@ -60,10 +61,10 @@
                     </div>
                 </div>
             </div>
-            <div class="atropos my-atropos">
-                <div class="atropos-rotate">
-                    <div class="atropos-inner">
-                        <div class="atropos-card">
+            <div class="atropos atropos-main">
+                <div class="atropos-scale">
+                    <div class="atropos-rotate">
+                        <div class="atropos-inner">
                             <div class="card-content">
                                 <h3>Server 3</h3>
                                 <p>Server 3 Description</p>
@@ -76,7 +77,15 @@
         </div>
     </div>
 
-    <script src="https://unpkg.com/atropos/atropos.min.js"></script>
-    <script src="script.js"></script>
+    <script src="/js/atropos.min.js"></script>
+    <script>
+        document.querySelectorAll('.atropos-main').forEach((element) => {
+            console.log(element);
+            Atropos({
+                el: element,
+            });
+        })
+      </script>
 </body>
+
 </html>
