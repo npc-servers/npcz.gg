@@ -39,13 +39,9 @@
                 <div class="atropos-scale">
                     <div class="atropos-rotate">
                         <div class="atropos-inner">
-                            <div class="card-content">
-                                <h3>Server 1</h3>
-                                <p>Server 1 Description - maybe player count too? Additionally, clicking these cards will lead to their server pages, while clicking the join button will join the server.</p>
-                                <button>Join</button>
+                            <img src="images/card-background/cardimage1.png" data-atropos-offset="0"/>
                             </div>
                         </div>
-                    </div>
                 </div>
             </div>
             <div class="atropos atropos-main">
@@ -85,7 +81,20 @@
                 el: element,
             });
         })
-      </script>
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navbar blur effect on scroll
+            window.addEventListener('scroll', function() {
+                var navbar = document.getElementById('navbar');
+                if (window.pageYOffset > 0) {
+                    navbar.classList.add('blur');
+                } else {
+                    navbar.classList.remove('blur');
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
