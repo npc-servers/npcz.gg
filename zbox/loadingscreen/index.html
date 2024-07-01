@@ -40,14 +40,12 @@
         function changeBackground() {
             const div = document.querySelector('.background');
 
-            setTimeout(() => {
-                currentBackground = ++currentBackground;
-                if (currentBackground >= possibleBackgrounds.length) {
-                    currentBackground = 0;
-                }
-                
-                div.style.backgroundImage = `url('${possibleBackgrounds[currentBackground]}')`;
-            }, 1000);
+            currentBackground = ++currentBackground;
+            if (currentBackground >= possibleBackgrounds.length) {
+                currentBackground = 0;
+            }
+
+            div.style.backgroundImage = `url('${possibleBackgrounds[currentBackground]}')`;
         }
 
         setInterval(changeBackground, 3000);
