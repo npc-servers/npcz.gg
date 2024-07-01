@@ -22,7 +22,15 @@ Config.enableAnnouncements = true;
  */
 Config.announceMessages = [
     "Enjoy your stay!",
-
+    "Don't forget to join the discord! discord.gg/npc",
+    "Is a player breaking the rules? Report them in the discord!",
+    "Look how fast you load in!",
+    "A custom version of M9K for extra fun!",
+    "Got any suggestions? Let us know in the discord!",
+    "This is in fact a loading screen!",
+    "Simplisticy is quality on its own",
+    "Do people even read these?",
+    "I sure hope so!",
 ];
 
 /**
@@ -30,9 +38,3 @@ Config.announceMessages = [
  * only works if enableAnnouncements = true
  */
 Config.announcementLength = 3000;
-
-/**
- * Image Filename
- * DROP IMAGE IN "images" FOLDER
- */
-Config.backgroundImage = "temp.jpg";

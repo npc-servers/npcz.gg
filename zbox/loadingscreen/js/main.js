@@ -121,11 +121,6 @@ function loadAll() {
     }
   }, 10000);
 }
-function loadBackground() {
-  if (Config.backgroundImage) {
-    document.querySelector(".background").style.backgroundImage = 'url("images/' + Config.backgroundImage + '")';
-  }
-}
 function setLoad(percentage) {
   document.querySelector(".overhaul").style.left = percentage + "%";
 }
@@ -151,9 +146,6 @@ function fadeIn(element) {
  * Initial function
  */
 document.addEventListener("DOMContentLoaded", function() {
-  // load everything in when ready
-  loadBackground();
-
   // print announcement messages every few seconds
   if (
     Config.announceMessages &&

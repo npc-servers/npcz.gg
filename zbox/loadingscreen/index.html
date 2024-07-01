@@ -32,5 +32,27 @@
 
     <script src="./js/config.js"></script>
     <script src="./js/main.js"></script>
+    <script>
+        const possibleBackgrounds = [
+            "images/zbox1.jpg",
+            "images/zbox2.jpg"
+        ]
+        let currentBackground = 0;
+
+        function changeBackground() {
+            const div = document.querySelector('.background');
+
+            setTimeout(() => {
+                currentBackground = ++currentBackground;
+                if (currentBackground >= possibleBackgrounds.length) {
+                    currentBackground = 0;
+                }
+                
+                div.style.backgroundImage = `url('${possibleBackgrounds[currentBackground]}')`;
+            }, 1000);
+        }
+
+        setInterval(changeBackground, 3000);
+    </script>
   </body>
 </html>
