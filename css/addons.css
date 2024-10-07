@@ -1,0 +1,15 @@
+.container {
+	display: flex-grow;
+	position: relative;
+	padding: 20px;
+}
+
+#background {
+	position: relative;
+	background-image: url("/assets/banners/banner1.png");
+	background-repeat: no-repeat;
+}
+
+#top {
+	padding-top: 60px;
+}
