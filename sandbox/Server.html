@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="content-width=device-width, initial-scale=1.0">
+    <title>NPCZ | Sandbox</title>
+    <link rel="stylesheet" href="/css/main_style.css">
+    <link rel="stylesheet" href="https://use.typekit.net/cya2xsd.css"> <!-- Licenced to Eve - "helpx.adobe.com/fonts/using/font-licensing.html"-->
+    <link rel="stylesheet" href="/css/atropos.min.css">
+    <link rel="stylesheet" href="/css/server.css">
+</head>
+<body>
+    <nav id="navbar">
+        <div class="menu-items left-menu">
+            <a href="https://files.npcz.gg">Abyss</a>
+            <a href="https://discord.gg/npc">Discord</a>
+            <a href="https://store.npcz.gg">Store</a>
+            
+        </div>
+        <div class="logo-container">
+            <a href="/index.html"><img src="/assets/logos/navbarlogo_whiteout.png" alt="Logo" class="navbar-logo"></a>
+        </div>
+        <div class="menu-items right-menu">
+            <a href="/rules.html">Guidelines</a>
+            <a href="https://discord.com/channels/539289943004938251/863743032431869952">Report</a>
+            <a href="/uptime.html">Status</a>
+        </div>
+        </nav>
+        <div class="banner">
+            <div class="banner-images-alt" style="padding-top: 54px;">
+	            <div id="beans">
+                    <h1 id="beans" style="color: white;">Join</h1>
+                </div>
+                <div id="container-container">
+                    <div id="sandbox-container" class="table-container" style="float: left;">
+                        <h2 style="text-align: center; color: #b60e07;">Sandbox</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+<script src="/js/atropos.min.js"></script> <!-- setup the bullshittery-->
+<script>
+        document.querySelectorAll('.atropos-main').forEach((element) => {
+            console.log(element);
+            Atropos({
+                el: element,
+            });
+        })
+</script>
+<script>    //this ain't my code so im just not gonna touch it. 
+            //ain't broke don't fix (it may well be broke)
+    document.addEventListener('DOMContentLoaded', function() {
+        window.addEventListener('scroll', function() {
+            var navbar = document.getElementById('navbar');
+            if (window.pageYOffset > 0) {
+                navbar.classList.add('blur');
+            } else {
+                navbar.classList.remove('blur');
+            }
+        });
+    });
+</script>
+<script>
+    fetch('https://gameserveranalytics.com/api/v2/query?game=source&ip=193.243.190.18&port=27015&type=players') // Replace with your API URL
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+
+        const table = document.createElement('table');
+        const headerRow = document.createElement('tr');
+
+        const headers = ['Name', 'Score', 'Playtime'];
+        headers.forEach(headerText => {
+            const header = document.createElement('th');
+            header.textContent = headerText;
+            headerRow.appendChild(header);
+        });
+        table.appendChild(headerRow);
+
+        data.forEach(item => {
+            const row = document.createElement('tr');
+            const cell1 = document.createElement('td');
+            const cell2 = document.createElement('td');
+            const cell3 = document.createElement('td');
+
+            cell1.textContent = item.name; 
+            cell2.textContent = item.score; 
+            cell3.textContent = item.duration_formatted; 
+
+            row.appendChild(cell1);
+            row.appendChild(cell2);
+            row.appendChild(cell3);
+            table.appendChild(row);
+        });
+        document.getElementById('sandbox-container').appendChild(table);
+    })
+    .catch(error => console.error('Error fetching data:', error));
+</script>
+<script>
+    let sandbox = document.getElementById("beans");
+			sandbox.addEventListener("click", () => {
+				window.location.href = "/sandbox/connect.html";
+			});
+</script>
+</body>
