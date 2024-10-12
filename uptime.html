@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="/assets/MadeYouLook.gif" id="favicon">
+    <link rel="stylesheet" href="https://use.typekit.net/cya2xsd.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NPCZ Uptime</title>
+	<link rel="stylesheet" href="/css/main_style.css">
+<style>
+    .container-container{
+        width: 100%;
+        height: fit-content;
+        display: inline-flex;
+    }
+    .table-container{
+        padding-top: 60px;
+        width: 25%;
+    }
+    table {
+        color: black;
+        border: 1px, outset, white;
+        border-radius: 2px;
+        background-color: white;
+        margin: 0 auto;
+        padding-left: 0%;
+        padding-right: 0%;
+        min-width: 75%;
+        max-width: 95%;
+    }
+    td, tr, th {
+        color: white;
+        border: 1px, inset, white;
+        background-color: black;
+        border-radius: 2px;
+        font-family: "Courier New", Courier, monospace;
+    }
+    th {
+        text-transform: uppercase;
+    }
+</style>
+</head>
+<body style="background-color: black;">
+    <nav id="navbar">
+        <div class="menu-items left-menu">
+            <a href="https://files.npcz.gg">Abyss</a>
+            <a href="https://discord.gg/npc">Discord</a>
+            <a href="https://store.npcz.gg">Store</a>
+            
+        </div>
+        <div class="logo-container">
+            <a href="/index.html"><img src="/assets/logos/navbarlogo_whiteout.png" alt="Logo" class="navbar-logo"></a>
+        </div>
+        <div class="menu-items right-menu">
+            <a href="/rules.html">Guidelines</a>
+            <a href="https://discord.com/channels/539289943004938251/863743032431869952">Report</a>
+            <a href="/uptime.html">Status</a>
+        </div>
+        </nav>
+<div class="container-container">
+    <div id="sandbox-container" class="table-container">
+        <h2 style="text-align: center; color: #FFFFFF;">Sandbox</h2>
+    </div>
+    <div id="zbox-container" class="table-container">
+        <h2 style="text-align: center; color: #FFFFFF;">Zbox</h2>
+    </div>
+    <div id="shelter-container" class="table-container">
+        <h2 style="text-align: center; color: #FFFFFF;">Shelter</h2>
+    </div>
+    <div id="whore-container" class="table-container">
+        <h2 style="text-align: center; color: #FFFFFF;">Horde</h2>
+    </div>
+</div>
+</body>
+<script>
+        fetch('https://gameserveranalytics.com/api/v2/query?game=source&ip=193.243.190.18&port=27015&type=players') // Replace with your API URL
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+
+            const table = document.createElement('table');
+            const headerRow = document.createElement('tr');
+
+            const headers = ['Name', 'Playtime'];
+            headers.forEach(headerText => {
+                const header = document.createElement('th');
+                header.textContent = headerText;
+                headerRow.appendChild(header);
+            });
+            table.appendChild(headerRow);
+
+            data.forEach(item => {
+                const row = document.createElement('tr');
+                const cell1 = document.createElement('td');
+                const cell2 = document.createElement('td');
+                //const cell3 = document.createElement('td');
+
+                cell1.textContent = item.name; 
+                //cell2.textContent = item.score; 
+                cell2.textContent = item.duration_formatted; 
+
+                row.appendChild(cell1);
+                row.appendChild(cell2);
+                //row.appendChild(cell3);
+                table.appendChild(row);
+            });
+            document.getElementById('sandbox-container').appendChild(table);
+        })
+        .catch(error => console.error('Error fetching data:', error));
+</script>
+<script>
+        fetch('https://gameserveranalytics.com/api/v2/query?game=source&ip=193.243.190.18&port=27064&type=players')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const table = document.createElement('table');
+            const headerRow = document.createElement('tr');
+
+            const headers = ['Name', 'Playtime'];
+            headers.forEach(headerText => {
+                const header = document.createElement('th');
+                header.textContent = headerText;
+                headerRow.appendChild(header);
+            });
+            table.appendChild(headerRow);
+
+            data.forEach(item => {
+                const row = document.createElement('tr');
+                const cell1 = document.createElement('td');
+                const cell2 = document.createElement('td');
+                //const cell3 = document.createElement('td');
+
+                cell1.textContent = item.name; 
+                //cell2.textContent = item.score;
+                cell2.textContent = item.duration_formatted;
+
+                row.appendChild(cell1);
+                row.appendChild(cell2);
+                //row.appendChild(cell3);
+                table.appendChild(row);
+            });
+            document.getElementById('zbox-container').appendChild(table);
+        })
+        .catch(error => console.error('Error fetching data:', error));
+</script>
+<script>
+    fetch('https://gameserveranalytics.com/api/v2/query?game=source&ip=193.243.190.18&port=27025&type=players') // Replace with your API URL
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+
+        const table = document.createElement('table');
+        const headerRow = document.createElement('tr');
+
+        const headers = ['Name', 'Playtime'];
+        headers.forEach(headerText => {
+            const header = document.createElement('th');
+            header.textContent = headerText;
+            headerRow.appendChild(header);
+        });
+        table.appendChild(headerRow);
+
+        data.forEach(item => {
+            const row = document.createElement('tr');
+            const cell1 = document.createElement('td');
+            const cell2 = document.createElement('td');
+            //const cell3 = document.createElement('td');
+
+            cell1.textContent = item.name; 
+            //cell2.textContent = item.score; 
+            cell2.textContent = item.duration_formatted; 
+
+            row.appendChild(cell1);
+            row.appendChild(cell2);
+            //row.appendChild(cell3);
+            table.appendChild(row);
+        });
+        document.getElementById('shelter-container').appendChild(table);
+    })
+    .catch(error => console.error('Error fetching data:', error));
+</script>
+<script>
+    fetch('https://gameserveranalytics.com/api/v2/query?game=source&ip=193.243.190.18&port=27065&type=players') // Replace with your API URL
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+
+        const table = document.createElement('table');
+        const headerRow = document.createElement('tr');
+
+        const headers = ['Name', 'Playtime'];
+        headers.forEach(headerText => {
+            const header = document.createElement('th');
+            header.textContent = headerText;
+            headerRow.appendChild(header);
+        });
+        table.appendChild(headerRow);
+
+        data.forEach(item => {
+            const row = document.createElement('tr');
+            const cell1 = document.createElement('td');
+            const cell2 = document.createElement('td');
+            //const cell3 = document.createElement('td');
+
+            cell1.textContent = item.name; 
+            //cell2.textContent = item.score; 
+            cell2.textContent = item.duration_formatted; 
+
+            row.appendChild(cell1);
+            row.appendChild(cell2);
+            //row.appendChild(cell3);
+            table.appendChild(row);
+        });
+        document.getElementById('whore-container').appendChild(table);
+    })
+    .catch(error => console.error('Error fetching data:', error));
+</script>
+<script> //this ain't my code so im just not gonna touch it. ain't broke don't fix (it may well be broke)
+    document.addEventListener('DOMContentLoaded', function() {
+        // Navbar blur effect on scroll
+        window.addEventListener('scroll', function() {
+            var navbar = document.getElementById('navbar');
+            if (window.pageYOffset > 0) {
+                navbar.classList.add('blur');
+            } else {
+                navbar.classList.remove('blur');
+            }
+        });
+    });
+</script>
+<script>
+    function changeFavicon() {
+        const favicon = document.getElementById('favicon');
+        favicon.href = 'favicon.ico';
+    }
+    setTimeout(changeFavicon, 200);
+</script>
+</html>
+<!--<p style="opacity: 0;text-align: center; font-family: sans-serif; color: #C9A0DC; background-color: #660000;">Ooh look! an easter egg!</p>
+-->
