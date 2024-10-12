@@ -3,86 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="content-width=device-width, initial-scale=1.0">
-    <title>Landing Page</title>
-    <link rel="stylesheet" href="/css/main_style.css">
+    <title>NPCZ | Home</title>
     <link rel="stylesheet" href="/css/atropos.min.css">
+    <link rel="stylesheet" href="/css/main_style.css">
+    <link rel="stylesheet" href="https://use.typekit.net/cya2xsd.css"> <!--Licenced to Eve. "helpx.adobe.com/fonts/using/font-licensing.html"-->
+	<link rel="stylesheet" href="/css/index.css">
 </head>
 
 <body>
-
-    <nav id="navbar">
-        <div class="menu-items left-menu">
-            <a href="#">Servers</a>
-            <a href="#">Discord</a>
-            <a href="#">Store</a>
-        </div>
-        <div class="logo-container">
-            <img src="images/logos/navbarlogo_whiteout.png" alt="Logo" class="navbar-logo">
-        </div>
-        <div class="menu-items right-menu">
-            <a href="#">Guidelines</a>
-            <a href="#">Apply</a>
-            <a href="#">Information</a>
-        </div>
-    </nav>
-
+	<nav id="navbar">
+    <div class="menu-items left-menu">
+		<a href="https://files.npcz.gg">Abyss</a>
+		<a href="https://discord.gg/npc">Discord</a>
+		<a href="https://store.npcz.gg">Store</a>
+        
+    </div>
+    <div class="logo-container">
+        <a href="/index.html"><img src="/assets/logos/navbarlogo_whiteout.png" alt="Logo" class="navbar-logo"></a>
+    </div>
+    <div class="menu-items right-menu">
+        <a href="/rules.html">Guidelines</a>
+        <a href="https://discord.com/channels/539289943004938251/863743032431869952">Report</a>
+        <a href="/uptime.html">Status</a>
+    </div>
+	</nav>
     <div class="banner">
         <div class="banner-images">
             <div class="banner-image"></div>
         </div>
-        <img src="images/logos/mainlogo.png" alt="Large Logo" class="large-logo">
+        <img src="/assets/logos/large_logo.png" alt="Large Logo" class="large-logo">
     </div>
-
-    <div class="gradient-section">
+	<div class="gradient-section">
         <div class="card-container">
-            <div class="atropos atropos-main">
-                <div class="atropos-scale">
-                    <div class="atropos-rotate">
-                        <div class="atropos-inner">
-                            <img src="images/card-background/cardimage1.png" data-atropos-offset="0"/>
-                            </div>
-                        </div>
+            <div class="cunt" id=1>
+                <div class="card-content" id="sandbox">
+                    <img id="card-1-img" src="images/cards/cardimage1.png"/>
+                    <h3 id="card-1-h3"> Sandbox </h3>
+                    <p id="card-1-p">Build & Kill</p>
+                    <p id="card-1-p2">Click to Join</p>
                 </div>
             </div>
-            <div class="atropos atropos-main">
-                <div class="atropos-scale">
-                    <div class="atropos-rotate">
-                        <div class="atropos-inner">
-                            <div class="card-content">
-                                <h3>Server 2</h3>
-                                <p>Server 2 Description</p>
-                                <button>Join</button>
-                            </div>
-                        </div>
+                <div class="cunt" id="2">
+                    <div class="card-content" id="horde">
+                        <img id="card-2-img" src="images/cards/cardimage1.png"/>
+                        <h3 id="card-2-h3"> Horde </h3>
+                        <p id="card-2-p">Killing Floor</p>
+                        <p id="card-2-p2">Click to Join</p>
                     </div>
                 </div>
-            </div>
-            <div class="atropos atropos-main">
-                <div class="atropos-scale">
-                    <div class="atropos-rotate">
-                        <div class="atropos-inner">
-                            <div class="card-content">
-                                <h3>Server 3</h3>
-                                <p>Server 3 Description</p>
-                                <button>Join</button>
-                            </div>
-                        </div>
+                <div class="cunt" id="3">
+                    <div class="card-content" id="zbox">
+                        <img id="card-3-img" src="images/cards/cardimage1.png"/>
+                        <h3 id="card-3-h3"> Zbox </h3>
+                        <p id="card-3-p">Sandbox</p>
+                        <p id="card-3-p2">Click to Join</p>
                     </div>
+                </div>					
+			    <div class="cunt" id="4">
+					<div class="card-content" id="shelter">
+                        <img id="card-4-img" src="images/cards/cardimage1.png"/>
+                        <h3 id="card-4-h3"> Shelter </h3>
+                        <p id="card-4-p">Tower Defence</p>
+                        <p id="card-4-p2">Click to Join</p>
+					</div>
+                </div>
+            </div>
+		</div>
+        <div id="store-footer">
+            <a href="https://store.npcz.gg"><img src="/images/banners/footer1.png" style="width: 100%;"></a>
+        <div class="footer-gradient">
+            <div id="text-footer">
+                <div style="padding-left: 10%; float: inline-start">
+                    <img src="assets/logos/navbarlogo_whiteout.png" width="150" height="150">
+                </div>
+                <div style="padding-left: 10%; float: inline-start;">
+                    <h3>About</h3>
+                    <p>NPCZ is a server network focused around zombie<br>survival experiences on Garry's Mod. EST 2016</p>
+                </div>
+                <div style="padding-left: 10%; float: inline-start">
+                    <h3>Support</h3>
+                    <p>Having Issues?  contact us at: <a href="mailto:contact@npcz.gg">Contact@npcz.gg</a></p>
+                    <p>or create a support ticket in our <a href="https://discord.com/npc">Discord.</a></p>
                 </div>
             </div>
         </div>
     </div>
-
-    <script src="/js/atropos.min.js"></script>
-    <script>
-        document.querySelectorAll('.atropos-main').forEach((element) => {
-            console.log(element);
-            Atropos({
-                el: element,
-            });
-        })
-    </script>
-    <script>
+    <script> //ain't broke don't fix (it may well be broke)
         document.addEventListener('DOMContentLoaded', function() {
             // Navbar blur effect on scroll
             window.addEventListener('scroll', function() {
@@ -95,6 +101,26 @@
             });
         });
     </script>
-</body>
+	<script>
+			let sandbox = document.getElementById("sandbox");
+			sandbox.addEventListener("click", () => {
+				window.location.href = "/sandbox/connect.html";
+			});
 
+			let horde = document.getElementById("horde");
+			horde.addEventListener("click", () => {
+				window.location.href = "/horde/connect.html";
+			});
+	
+			let zbox = document.getElementById("zbox");
+			zbox.addEventListener("click", () => {
+				window.location.href = "/zbox/connect.html";
+			});
+			
+			let shelter = document.getElementById("shelter");
+			shelter.addEventListener("click", () => {
+				window.location.href = "/shelter/server.html";
+			});
+	</script>
+</body>
 </html>
