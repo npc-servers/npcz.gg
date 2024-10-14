@@ -70,7 +70,7 @@ function showMessage(message) {
 
 document.addEventListener("DOMContentLoaded", function() {
 	var video = document.querySelector('video');
-	if (video.canPlayType('video/mp4')) {
+	if ('fetch' in window) {
 		video.addEventListener('play', function() {
 			// Set the background color of the HTML element
 			document.documentElement.style.backgroundColor = "transparent";
