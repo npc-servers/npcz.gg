@@ -6,25 +6,7 @@
     <meta name="viewport" content="width=device-width">
     <title>NPC Plants vs. Zombies</title>
 
-    <!-- CSS vh vw fallback -->
-    <script src="/js/sandbox/loadingscreen/lib/vunit-0.2.0.min.js"></script>
-    <script>
-        new vUnit({
-            CSSMap: {
-                ".vh": {
-                    property: "max-height",
-                    reference: "vh"
-                },
-                ".vw": {
-                    property: "max-width",
-                    reference: "vw"
-                }
-            }
-        }).init();
-    </script>
-
     <link rel="stylesheet" href="/css/sandbox/loadingscreen/loading.min.css">
-    <script src="/js/sandbox/loadingscreen/lib/jquery-3.6.1.slim.min.js"></script>
 </head>
 
 <body>
@@ -39,11 +21,12 @@
         <div id="messages"></div>
     </div>
 
-    <video loop autoplay muted>
+    <video id="loadingvideo" loop autoplay muted>
         <source src="/assets/videos/ambience.webm" type="video/webm">
     </video>
 
-    <script src="/js/sandbox/loadingscreen/loading.min.js"></script>
+
+    <script src="/js/sandbox/loadingscreen/loading.js"></script>
 </body>
 
 </html>
