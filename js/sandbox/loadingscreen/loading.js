@@ -90,5 +90,12 @@ document.addEventListener("DOMContentLoaded", function() {
 		body.style.backgroundImage = "url('/assets/logos/large_logo.png')";
 		body.style.backgroundRepeat = "no-repeat";
 		body.style.backgroundPosition = "center";
+
+		// Shuffle the messages and display the first one
+		shuffle(messages);
+		showMessage(0);
+
+		// Center align the header
+		document.getElementById("header").style.textAlign = "center";
 	}	
 });
