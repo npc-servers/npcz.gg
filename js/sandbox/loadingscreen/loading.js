@@ -68,18 +68,27 @@ function showMessage(message) {
 	}
 }
 
-var video = document.querySelector('video');
+document.addEventListener("DOMContentLoaded", function() {
+	var video = document.querySelector('video');
+	if (video.canPlayType('video/mp4')) {
+		video.addEventListener('play', function() {
+			// Set the background color of the HTML element
+			document.documentElement.style.backgroundColor = "transparent";
+	
+			// Shuffle the messages and display the first one
+			shuffle(messages);
+			showMessage(0);
+	
+			// Center align the header
+			document.getElementById("header").style.textAlign = "center";
+		});
+	}else{
+		var body = document.getElementsByTagName("body")[0];
+		body.style.backgroundColor = "black";
 
-if (video !== null) {
-	video.addEventListener('play', () => {
-		// Set the background color of the HTML element
-		document.documentElement.style.backgroundColor = "transparent";
-
-		// Shuffle the messages and display the first one
-		shuffle(messages);
-		showMessage(0);
-
-		// Center align the header
-		document.getElementById("header").style.textAlign = "center";
-	});
-}
+		// Set large_logo.png as the background
+		body.style.backgroundImage = "url('/assets/logos/large_logo.png')";
+		body.style.backgroundRepeat = "no-repeat";
+		body.style.backgroundPosition = "center";
+	}	
+});
