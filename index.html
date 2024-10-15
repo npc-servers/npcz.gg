@@ -7,35 +7,6 @@
     <link rel="stylesheet" href="https://use.typekit.net/cya2xsd.css">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/cards.css">
-    <style>
-        .down-arrow {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            cursor: pointer;
-            animation: bounce 2s infinite;
-            z-index: 1000;
-            width: 40px;
-            height: 40px;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateX(-50%) translateY(0);
-            }
-            40% {
-                transform: translateX(-50%) translateY(-10px);
-            }
-            60% {
-                transform: translateX(-50%) translateY(-5px);
-            }
-        }
-
-        .hide-arrow {
-            display: none;
-        }
-    </style>
 </head>
 
 <body>
@@ -54,7 +25,7 @@
             <a href="/uptime.html">Status</a>
         </div>
     </nav>
-    <div class="banner" style="background-image: url('assets/cards-banners/index-banner.jpg'); background-size: cover; background-position: center;">
+    <div class="banner">
         <img src="/assets/logos/large-logo.png" alt="Large Logo" class="large-logo">
         <div class="down-arrow" id="downArrow">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 1);">
@@ -100,17 +71,17 @@
         </div>
     </div>
     <div id="store-footer">
-        <a href="https://store.npcz.gg"><img src="assets/cards-banners/store-banner.png" style="width: 100%;"></a>
+        <a href="https://store.npcz.gg"><img src="assets/cards-banners/store-banner.png" class="store-banner-image"></a>
         <div class="footer-gradient">
             <div id="text-footer">
-                <div style="padding-left: 10%; float: inline-start">
+                <div class="footer-column">
                     <img src="assets/logos/logo-whiteout.png" width="150" height="150">
                 </div>
-                <div style="padding-left: 10%; float: inline-start;">
+                <div class="footer-column">
                     <h3>About</h3>
                     <p>NPCZ is a server network focused around zombie<br>survival experiences on Garry's Mod. EST 2016</p>
                 </div>
-                <div style="padding-left: 10%; float: inline-start">
+                <div class="footer-column">
                     <h3>Support</h3>
                     <p>Having Issues? Contact us at: <a href="mailto:contact@npcz.gg">contact@npcz.gg</a></p>
                     <p>Or create a support ticket in our <a href="https://discord.com/npc">Discord</a>.</p>
@@ -133,9 +104,13 @@
                 }
             });
 
-            // Scroll down to gradient-section when arrow is clicked
+            // Scroll down to the bottom of the banner when arrow is clicked
             downArrow.addEventListener('click', function() {
-                document.querySelector('.gradient-section').scrollIntoView({
+                var banner = document.querySelector('.banner');
+                var bannerBottom = banner.offsetTop + banner.offsetHeight;
+
+                window.scrollTo({
+                    top: bannerBottom,
                     behavior: 'smooth'
                 });
             });
