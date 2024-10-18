@@ -25,6 +25,7 @@
             <a href="/uptime.html">Status</a>
         </div>
     </nav>
+
     <div class="banner">
         <img src="/assets/logos/large-logo.png" alt="Large Logo" class="large-logo">
         <div class="down-arrow" id="downArrow">
@@ -38,44 +39,45 @@
         <div class="card-container">
             <div class="card" id="1">
                 <div class="card-content" id="sandbox">
-                    <img id="card-1-img" src="assets/cards-banners/sandbox-card.png"/>
+                    <img id="card-1-img" src="assets/cards-banners/sandbox-card.png" alt="Sandbox Card"/>
                     <h3 id="card-1-h3"> Sandbox </h3>
                     <p id="card-1-p">Build & Kill</p>
-                    <p id="card-1-p2">Click to Join</p>
+                    <a href="/sandbox/connect.html" class="server-button" id="card-1-p2">Click to Join</a>
                 </div>
             </div>
             <div class="card" id="2">
                 <div class="card-content" id="horde">
-                    <img id="card-2-img" src="assets/cards-banners/horde-card.png"/>
+                    <img id="card-2-img" src="assets/cards-banners/horde-card.png" alt="Horde Card"/>
                     <h3 id="card-2-h3"> Horde </h3>
                     <p id="card-2-p">Wave Survival</p>
-                    <p id="card-2-p2">Click to Join</p>
+                    <a href="/horde/connect.html" class="server-button" id="card-2-p2">Click to Join</a>
                 </div>
             </div>
             <div class="card" id="3">
                 <div class="card-content" id="zbox">
-                    <img id="card-3-img" src="assets/cards-banners/zbox-card.png"/>
+                    <img id="card-3-img" src="assets/cards-banners/zbox-card.png" alt="ZBox Card"/>
                     <h3 id="card-3-h3"> ZBox </h3>
                     <p id="card-3-p">Vanilla Sandbox</p>
-                    <p id="card-3-p2">Click to Join</p>
+                    <a href="/zbox/connect.html" class="server-button" id="card-3-p2">Click to Join</a>
                 </div>
             </div>					
             <div class="card" id="4">
                 <div class="card-content" id="shelter">
-                    <img id="card-4-img" src="assets/cards-banners/shelter-card.png"/>
+                    <img id="card-4-img" src="assets/cards-banners/shelter-card.png" alt="Shelter Card"/>
                     <h3 id="card-4-h3"> Shelter </h3>
                     <p id="card-4-p">Tower Defense</p>
-                    <p id="card-4-p2">Click to Join</p>
+                    <a href="/shelter/server.html" class="server-button" id="card-4-p2">Click to Join</a>
                 </div>
             </div>
         </div>
     </div>
+
     <div id="store-footer">
-        <a href="https://store.npcz.gg"><img src="assets/cards-banners/store-banner.png" class="store-banner-image"></a>
+        <a href="https://store.npcz.gg"><img src="assets/cards-banners/store-banner.png" class="store-banner-image" alt="Store Banner"></a>
         <div class="footer-gradient">
             <div id="text-footer">
                 <div class="footer-column">
-                    <img src="assets/logos/logo-whiteout.png" width="150" height="150">
+                    <img src="assets/logos/logo-whiteout.png" width="150" height="150" alt="Footer Logo">
                 </div>
                 <div class="footer-column">
                     <h3>About</h3>
@@ -89,6 +91,7 @@
             </div>
         </div>
     </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var navbar = document.getElementById('navbar');
@@ -104,7 +107,6 @@
                 }
             });
 
-            // Scroll down to the bottom of the banner when arrow is clicked
             downArrow.addEventListener('click', function() {
                 var banner = document.querySelector('.banner');
                 var bannerBottom = banner.offsetTop + banner.offsetHeight;
@@ -115,26 +117,6 @@
                 });
             });
 
-            // Card click events
-            let sandbox = document.getElementById("sandbox");
-            sandbox.addEventListener("click", () => {
-                window.location.href = "/sandbox/connect.html";
-            });
-
-            let horde = document.getElementById("horde");
-            horde.addEventListener("click", () => {
-                window.location.href = "/horde/connect.html";
-            });
-
-            let zbox = document.getElementById("zbox");
-            zbox.addEventListener("click", () => {
-                window.location.href = "/zbox/connect.html";
-            });
-
-            let shelter = document.getElementById("shelter");
-            shelter.addEventListener("click", () => {
-                window.location.href = "/shelter/server.html";
-            });
         });
     </script>
 </body>

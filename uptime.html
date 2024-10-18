@@ -5,48 +5,18 @@
     <link rel="stylesheet" href="https://use.typekit.net/cya2xsd.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Uptime</title>
-	<link rel="stylesheet" href="/css/style.css">
-<style>
-    .container-container{
-        width: 100%;
-        height: fit-content;
-        display: inline-flex;
-    }
-    .table-container{
-        padding-top: 60px;
-        width: 25%;
-    }
-    table {
-        color: black;
-        border: 1px, outset, white;
-        border-radius: 2px;
-        background-color: white;
-        margin: 0 auto;
-        padding-left: 0%;
-        padding-right: 0%;
-        min-width: 75%;
-        max-width: 95%;
-    }
-    td, tr, th {
-        color: white;
-        border: 1px, inset, white;
-        background-color: black;
-        border-radius: 2px;
-        font-family: "Courier New", Courier, monospace;
-    }
-    th {
-        text-transform: uppercase;
-    }
-</style>
+    <title>Server Status</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/cards.css">
+    <link rel="stylesheet" href="/css/uptime.css">
 </head>
-<body style="background-color: black;">
+
+<body>
     <nav id="navbar">
         <div class="menu-items left-menu">
             <a href="https://files.npcz.gg">Abyss</a>
             <a href="https://discord.gg/npc">Discord</a>
             <a href="https://store.npcz.gg">Store</a>
-            
         </div>
         <div class="logo-container">
             <a href="/index.html"><img src="assets/logos/logo-whiteout.png" alt="Logo" class="navbar-logo"></a>
@@ -56,201 +26,443 @@
             <a href="">Report</a>
             <a href="/index.html">Home</a>
         </div>
-        </nav>
-<div class="container-container">
-    <div id="sandbox-container" class="table-container">
-        <h2 style="text-align: center; color: #FFFFFF;">Sandbox</h2>
+    </nav>
+
+    <div class="container-container">
     </div>
-    <div id="zbox-container" class="table-container">
-        <h2 style="text-align: center; color: #FFFFFF;">Zbox</h2>
+
+    <div id="store-footer">
+        <div class="footer-gradient">
+            <div id="text-footer">
+                <div class="footer-column">
+                    <img src="assets/logos/logo-whiteout.png" width="150" height="150" alt="Footer Logo">
+                </div>
+                <div class="footer-column">
+                    <h3>About</h3>
+                    <p>NPCZ is a server network focused around zombie<br>survival experiences on Garry's Mod. EST 2016</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <p>Having Issues? Contact us at: <a href="mailto:contact@npcz.gg">contact@npcz.gg</a></p>
+                    <p>Or create a support ticket in our <a href="https://discord.com/npc">Discord</a>.</p>
+                </div>
+            </div>
+        </div>
     </div>
-    <div id="shelter-container" class="table-container">
-        <h2 style="text-align: center; color: #FFFFFF;">Shelter</h2>
-    </div>
-    <div id="whore-container" class="table-container">
-        <h2 style="text-align: center; color: #FFFFFF;">Horde</h2>
-    </div>
-</div>
-</body>
-<script>
-        fetch('https://gameserveranalytics.com/api/v2/query?game=source&ip=193.243.190.18&port=27015&type=players') // Replace with your API URL
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
 
-            const table = document.createElement('table');
-            const headerRow = document.createElement('tr');
-
-            const headers = ['Name', 'Playtime'];
-            headers.forEach(headerText => {
-                const header = document.createElement('th');
-                header.textContent = headerText;
-                headerRow.appendChild(header);
-            });
-            table.appendChild(headerRow);
-
-            data.forEach(item => {
-                const row = document.createElement('tr');
-                const cell1 = document.createElement('td');
-                const cell2 = document.createElement('td');
-                //const cell3 = document.createElement('td');
-
-                cell1.textContent = item.name; 
-                //cell2.textContent = item.score; 
-                cell2.textContent = item.duration_formatted; 
-
-                row.appendChild(cell1);
-                row.appendChild(cell2);
-                //row.appendChild(cell3);
-                table.appendChild(row);
-            });
-            document.getElementById('sandbox-container').appendChild(table);
-        })
-        .catch(error => console.error('Error fetching data:', error));
-</script>
-<script>
-        fetch('https://gameserveranalytics.com/api/v2/query?game=source&ip=193.243.190.18&port=27064&type=players')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            const table = document.createElement('table');
-            const headerRow = document.createElement('tr');
-
-            const headers = ['Name', 'Playtime'];
-            headers.forEach(headerText => {
-                const header = document.createElement('th');
-                header.textContent = headerText;
-                headerRow.appendChild(header);
-            });
-            table.appendChild(headerRow);
-
-            data.forEach(item => {
-                const row = document.createElement('tr');
-                const cell1 = document.createElement('td');
-                const cell2 = document.createElement('td');
-                //const cell3 = document.createElement('td');
-
-                cell1.textContent = item.name; 
-                //cell2.textContent = item.score;
-                cell2.textContent = item.duration_formatted;
-
-                row.appendChild(cell1);
-                row.appendChild(cell2);
-                //row.appendChild(cell3);
-                table.appendChild(row);
-            });
-            document.getElementById('zbox-container').appendChild(table);
-        })
-        .catch(error => console.error('Error fetching data:', error));
-</script>
-<script>
-    fetch('https://gameserveranalytics.com/api/v2/query?game=source&ip=193.243.190.18&port=27025&type=players') // Replace with your API URL
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-
-        const table = document.createElement('table');
-        const headerRow = document.createElement('tr');
-
-        const headers = ['Name', 'Playtime'];
-        headers.forEach(headerText => {
-            const header = document.createElement('th');
-            header.textContent = headerText;
-            headerRow.appendChild(header);
-        });
-        table.appendChild(headerRow);
-
-        data.forEach(item => {
-            const row = document.createElement('tr');
-            const cell1 = document.createElement('td');
-            const cell2 = document.createElement('td');
-            //const cell3 = document.createElement('td');
-
-            cell1.textContent = item.name; 
-            //cell2.textContent = item.score; 
-            cell2.textContent = item.duration_formatted; 
-
-            row.appendChild(cell1);
-            row.appendChild(cell2);
-            //row.appendChild(cell3);
-            table.appendChild(row);
-        });
-        document.getElementById('shelter-container').appendChild(table);
-    })
-    .catch(error => console.error('Error fetching data:', error));
-</script>
-<script>
-    fetch('https://gameserveranalytics.com/api/v2/query?game=source&ip=193.243.190.18&port=27065&type=players') // Replace with your API URL
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-
-        const table = document.createElement('table');
-        const headerRow = document.createElement('tr');
-
-        const headers = ['Name', 'Playtime'];
-        headers.forEach(headerText => {
-            const header = document.createElement('th');
-            header.textContent = headerText;
-            headerRow.appendChild(header);
-        });
-        table.appendChild(headerRow);
-
-        data.forEach(item => {
-            const row = document.createElement('tr');
-            const cell1 = document.createElement('td');
-            const cell2 = document.createElement('td');
-            //const cell3 = document.createElement('td');
-
-            cell1.textContent = item.name; 
-            //cell2.textContent = item.score; 
-            cell2.textContent = item.duration_formatted; 
-
-            row.appendChild(cell1);
-            row.appendChild(cell2);
-            //row.appendChild(cell3);
-            table.appendChild(row);
-        });
-        document.getElementById('whore-container').appendChild(table);
-    })
-    .catch(error => console.error('Error fetching data:', error));
-</script>
-<script> //this ain't my code so im just not gonna touch it. ain't broke don't fix (it may well be broke)
-    document.addEventListener('DOMContentLoaded', function() {
-        // Navbar blur effect on scroll
-        window.addEventListener('scroll', function() {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
             var navbar = document.getElementById('navbar');
-            if (window.pageYOffset > 0) {
-                navbar.classList.add('blur');
+
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 0) {
+                    navbar.classList.add('blur');
+                } else {
+                    navbar.classList.remove('blur');
+                }
+            });
+        });
+    </script>
+
+    <script>
+        const servers = [
+            {
+                id: 'sandbox',
+                name: 'Sandbox',
+                ip: '193.243.190.18',
+                port: 27015,
+                link: '/sandbox/connect.html',
+            },
+            {
+                id: 'zbox',
+                name: 'ZBox',
+                ip: '193.243.190.18',
+                port: 27064,
+                link: '/zbox/connect.html',
+            },
+            {
+                id: 'shelter',
+                name: 'Shelter',
+                ip: '193.243.190.18',
+                port: 27025,
+                link: '/shelter/server.html',
+            },
+            {
+                id: 'horde',
+                name: 'Horde',
+                ip: '193.243.190.18',
+                port: 27065,
+                link: '/horde/connect.html',
+            },
+        ];
+
+        function formatDuration(duration) {
+            const parts = duration.split(':').map(Number);
+
+            if (parts.length === 3) {
+                const hours = parts[0];
+                const minutes = parts[1];
+                return `${hours}h ${minutes}m`;
+            } else if (parts.length === 2) {
+                const minutes = parts[0];
+                return `${minutes} minutes`;
             } else {
-                navbar.classList.remove('blur');
+                return duration;
+            }
+        }
+
+        const RATE_LIMIT_DURATION = 5000;
+
+        servers.forEach(server => {
+            server.lastRefreshTime = 0;
+        });
+
+        const serverPromises = servers.map(server => {
+            return fetch(`https://gameserveranalytics.com/api/v2/query?game=source&ip=${server.ip}&port=${server.port}&type=info`)
+            .then(response => {
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.json();
+            })
+            .then(serverInfo => {
+                console.log(`${server.name} Server Info:`, serverInfo);
+
+                if (
+                    (serverInfo && serverInfo.status && serverInfo.status.toLowerCase() === 'online') ||
+                    (serverInfo && (serverInfo.players !== undefined || serverInfo.map))
+                ) {
+                    server.online = true;
+                    server.currentPlayers = serverInfo.players || serverInfo.num_players || serverInfo.playercount || 0;
+                    server.maxPlayers = serverInfo.maxplayers || serverInfo.max_players || serverInfo.maxclients || 0;
+                    server.mapName = serverInfo.map || 'Unknown Map';
+
+                    if (server.currentPlayers > 0) {
+                        return fetch(`https://gameserveranalytics.com/api/v2/query?game=source&ip=${server.ip}&port=${server.port}&type=players`)
+                        .then(response => {
+                            if (!response.ok) throw new Error('Failed to fetch players data');
+                            return response.json();
+                        })
+                        .then(data => {
+                            server.playersList = data;
+                        });
+                    } else {
+                        server.playersList = [];
+                    }
+                } else {
+                    throw new Error('Server is offline');
+                }
+            })
+            .catch(error => {
+                console.error(`Error fetching data for ${server.name}:`, error);
+                server.online = false;
+                server.currentPlayers = 0;
+                server.maxPlayers = 0;
+                server.mapName = 'Unknown Map';
+                server.playersList = [];
+            });
+        });
+
+        Promise.all(serverPromises).then(() => {
+            servers.sort((a, b) => b.currentPlayers - a.currentPlayers);
+
+            const container = document.querySelector('.container-container');
+
+            servers.forEach(server => {
+                const serverPanel = document.createElement('div');
+                serverPanel.classList.add('server-panel');
+
+                const serverHeader = document.createElement('div');
+                serverHeader.classList.add('server-header');
+
+                const serverTitle = document.createElement('h2');
+                serverTitle.textContent = server.name;
+                serverHeader.appendChild(serverTitle);
+
+                const statusContainer = document.createElement('div');
+                statusContainer.classList.add('status-container');
+
+                const serverStatus = document.createElement('span');
+                serverStatus.id = `${server.id}-status`;
+                serverStatus.textContent = server.online ? 'Online' : 'Offline';
+                serverStatus.classList.add('server-status');
+                if (!server.online) {
+                    serverStatus.classList.add('offline');
+                }
+
+                const boltSVG = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                boltSVG.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+                boltSVG.setAttribute("viewBox", "0 0 24 24");
+                boltSVG.classList.add('status-bolt');
+                const boltPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                boltPath.setAttribute("d", "M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm-1 16v-5H7l6-7v5h4l-6 7z");
+                boltSVG.appendChild(boltPath);
+
+                serverStatus.appendChild(boltSVG);
+                statusContainer.appendChild(serverStatus);
+
+                const refreshButton = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                refreshButton.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+                refreshButton.setAttribute("viewBox", "0 0 24 24");
+                refreshButton.classList.add('refresh-button');
+                refreshButton.setAttribute('data-server-id', server.id);
+                refreshButton.setAttribute('aria-label', `Refresh ${server.name} status`);
+
+                const refreshPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                refreshPath.setAttribute("d", "M10 11H7.101l.001-.009a4.956 4.956 0 0 1 .752-1.787 5.054 5.054 0 0 1 2.2-1.811c.302-.128.617-.226.938-.291a5.078 5.078 0 0 1 2.018 0 4.978 4.978 0 0 1 2.525 1.361l1.416-1.412a7.036 7.036 0 0 0-2.224-1.501 6.921 6.921 0 0 0-1.315-.408 7.079 7.079 0 0 0-2.819 0 6.94 6.94 0 0 0-1.316.409 7.04 7.04 0 0 0-3.08 2.534 6.978 6.978 0 0 0-1.054 2.505c-.028.135-.043.273-.063.41H2l4 4 4-4zm4 2h2.899l-.001.008a4.976 4.976 0 0 1-2.103 3.138 4.943 4.943 0 0 1-1.787.752 5.073 5.073 0 0 1-2.017 0 4.956 4.956 0 0 1-1.787-.752 5.072 5.072 0 0 1-.74-.61L7.05 16.95a7.032 7.032 0 0 0 2.225 1.5c.424.18.867.317 1.315.408a7.07 7.07 0 0 0 2.818 0 7.031 7.031 0 0 0 4.395-2.945 6.974 6.974 0 0 0 1.053-2.503c.027-.135.043-.273.063-.41H22l-4-4-4 4z");
+                refreshButton.appendChild(refreshPath);
+
+                statusContainer.appendChild(refreshButton);
+                serverHeader.appendChild(statusContainer);
+
+                serverPanel.appendChild(serverHeader);
+
+                const serverInfo = document.createElement('div');
+                serverInfo.classList.add('server-info');
+
+                const playerCount = document.createElement('p');
+                playerCount.id = `${server.id}-playercount`;
+                if (server.online) {
+                    const playerCountText = server.currentPlayers > 0
+                        ? `${server.currentPlayers}/${server.maxPlayers} players online`
+                        : 'No players online';
+                    playerCount.textContent = playerCountText;
+                } else {
+                    playerCount.textContent = 'Server Offline';
+                }
+                serverInfo.appendChild(playerCount);
+
+                const mapName = document.createElement('p');
+                mapName.id = `${server.id}-map`;
+                mapName.textContent = `Current Map: ${server.mapName}`;
+                serverInfo.appendChild(mapName);
+
+                serverPanel.appendChild(serverInfo);
+
+                const joinButton = document.createElement('a');
+                joinButton.href = server.link;
+                joinButton.classList.add('join-button');
+                joinButton.textContent = `Join ${server.name}`;
+                if (!server.online) {
+                    joinButton.classList.add('disabled');
+                    joinButton.onclick = (e) => e.preventDefault();
+                }
+                serverPanel.appendChild(joinButton);
+
+                if (server.playersList && server.playersList.length > 0) {
+                    const playersTable = document.createElement('table');
+                    playersTable.classList.add('player-table');
+
+                    const thead = document.createElement('thead');
+                    const headerRow = document.createElement('tr');
+
+                    const headers = ['Name', 'Playtime'];
+                    headers.forEach(headerText => {
+                        const th = document.createElement('th');
+                        th.textContent = headerText;
+                        headerRow.appendChild(th);
+                    });
+                    thead.appendChild(headerRow);
+                    playersTable.appendChild(thead);
+
+                    const tbody = document.createElement('tbody');
+
+                    server.playersList.forEach(player => {
+                        const row = document.createElement('tr');
+
+                        const nameCell = document.createElement('td');
+                        nameCell.textContent = player.name && player.name.trim() ? player.name : 'Connecting...';
+                        row.appendChild(nameCell);
+
+                        const timeCell = document.createElement('td');
+                        timeCell.textContent = formatDuration(player.duration_formatted);
+                        row.appendChild(timeCell);
+
+                        tbody.appendChild(row);
+                    });
+
+                    playersTable.appendChild(tbody);
+                    serverPanel.appendChild(playersTable);
+                }
+
+                container.appendChild(serverPanel);
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelector('.container-container').addEventListener('click', function(event) {
+                const refreshButton = event.target.closest('.refresh-button');
+                if (refreshButton) {
+                    const serverId = refreshButton.getAttribute('data-server-id');
+                    const server = servers.find(s => s.id === serverId);
+                    if (!server) {
+                        console.error(`Server with ID ${serverId} not found.`);
+                        return;
+                    }
+
+                    const currentTime = Date.now();
+                    if (currentTime - server.lastRefreshTime < RATE_LIMIT_DURATION) {
+                        alert('Please wait before refreshing again.');
+                        return;
+                    }
+
+                    server.lastRefreshTime = currentTime;
+
+                    refreshButton.classList.add('active', 'spin');
+
+                    fetch(`https://gameserveranalytics.com/api/v2/query?game=source&ip=${server.ip}&port=${server.port}&type=info`)
+                    .then(response => {
+                        if (!response.ok) throw new Error('Network response was not ok');
+                        return response.json();
+                    })
+                    .then(serverInfo => {
+                        console.log(`${server.name} Server Info (Refresh):`, serverInfo);
+
+                        if (
+                            (serverInfo && serverInfo.status && serverInfo.status.toLowerCase() === 'online') ||
+                            (serverInfo && (serverInfo.players !== undefined || serverInfo.map))
+                        ) {
+                            server.online = true;
+                            server.currentPlayers = serverInfo.players || serverInfo.num_players || serverInfo.playercount || 0;
+                            server.maxPlayers = serverInfo.maxplayers || serverInfo.max_players || serverInfo.maxclients || 0;
+                            server.mapName = serverInfo.map || 'Unknown Map';
+
+                            if (server.currentPlayers > 0) {
+                                return fetch(`https://gameserveranalytics.com/api/v2/query?game=source&ip=${server.ip}&port=${server.port}&type=players`)
+                                .then(response => {
+                                    if (!response.ok) throw new Error('Failed to fetch players data');
+                                    return response.json();
+                                })
+                                .then(data => {
+                                    server.playersList = data;
+                                });
+                            } else {
+                                server.playersList = [];
+                            }
+                        } else {
+                           
+                            throw new Error('Server is offline');
+                        }
+                    })
+                    .catch(error => {
+                        console.error(`Error refreshing data for ${server.name}:`, error);
+                        server.online = false;
+                        server.currentPlayers = 0;
+                        server.maxPlayers = 0;
+                        server.mapName = 'Unknown Map';
+                        server.playersList = [];
+                    })
+                    .finally(() => {
+                        
+                        setTimeout(() => {
+                            
+                            updateServerPanelUI(server);
+
+                           
+                            refreshButton.classList.remove('active', 'spin');
+                        }, 1000); 
+                    });
+                }
+            });
+
+            function updateServerPanelUI(server) {
+                const statusElement = document.getElementById(`${server.id}-status`);
+                if (statusElement) {
+                    statusElement.childNodes.forEach(node => {
+                        if (node.nodeType === Node.TEXT_NODE) {
+                            node.textContent = server.online ? 'Online' : 'Offline';
+                        }
+                    });
+
+                    if (server.online) {
+                        statusElement.classList.remove('offline');
+                    } else {
+                        statusElement.classList.add('offline');
+                    }
+                }
+
+                const playerCountElement = document.getElementById(`${server.id}-playercount`);
+                if (playerCountElement) {
+                    if (server.online) {
+                        const playerCountText = server.currentPlayers > 0
+                            ? `${server.currentPlayers}/${server.maxPlayers} players online`
+                            : 'No players online';
+                        playerCountElement.textContent = playerCountText;
+                    } else {
+                        playerCountElement.textContent = 'Server Offline';
+                    }
+                }
+
+                const mapNameElement = document.getElementById(`${server.id}-map`);
+                if (mapNameElement) {
+                    mapNameElement.textContent = `Current Map: ${server.mapName}`;
+                }
+
+                const joinButton = document.querySelector(`.join-button[href="${server.link}"]`);
+                if (joinButton) {
+                    if (server.online) {
+                        joinButton.classList.remove('disabled');
+                        joinButton.onclick = null;
+                        joinButton.href = server.link; 
+                    } else {
+                        joinButton.classList.add('disabled');
+                        joinButton.onclick = (e) => e.preventDefault();
+                    }
+                }
+
+                const serverPanel = joinButton.closest('.server-panel');
+                if (serverPanel) {
+                    const existingTable = serverPanel.querySelector('.player-table');
+                    if (existingTable) {
+                        existingTable.remove();
+                    }
+
+                    if (server.playersList && server.playersList.length > 0) {
+                        const playersTable = document.createElement('table');
+                        playersTable.classList.add('player-table');
+
+                        const thead = document.createElement('thead');
+                        const headerRow = document.createElement('tr');
+
+                        const headers = ['Name', 'Playtime'];
+                        headers.forEach(headerText => {
+                            const th = document.createElement('th');
+                            th.textContent = headerText;
+                            headerRow.appendChild(th);
+                        });
+                        thead.appendChild(headerRow);
+                        playersTable.appendChild(thead);
+
+                        const tbody = document.createElement('tbody');
+
+                        server.playersList.forEach(player => {
+                            const row = document.createElement('tr');
+
+                            const nameCell = document.createElement('td');
+                            nameCell.textContent = player.name && player.name.trim() ? player.name : 'Connecting...';
+                            row.appendChild(nameCell);
+
+                            const timeCell = document.createElement('td');
+                            timeCell.textContent = formatDuration(player.duration_formatted);
+                            row.appendChild(timeCell);
+
+                            tbody.appendChild(row);
+                        });
+
+                        playersTable.appendChild(tbody);
+                        serverPanel.appendChild(playersTable);
+                    }
+                }
             }
         });
-    });
-</script>
-<script>
-    function changeFavicon() {
-        const favicon = document.getElementById('favicon');
-        favicon.href = 'favicon.ico';
-    }
-    setTimeout(changeFavicon, 200);
-</script>
+    </script>
+
+    <script>
+        function changeFavicon() {
+            const favicon = document.getElementById('favicon');
+            favicon.href = 'favicon.ico';
+        }
+        setTimeout(changeFavicon, 200);
+    </script>
+</body>
 </html>
-<!--<p style="opacity: 0;text-align: center; font-family: sans-serif; color: #C9A0DC; background-color: #660000;">Ooh look! an easter egg!</p>
--->
