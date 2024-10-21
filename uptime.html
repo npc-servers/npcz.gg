@@ -6,22 +6,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Server Status</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/cards.css">
     <link rel="stylesheet" href="/css/uptime.css">
 </head>
 
 <body>
     <nav id="navbar">
-        <div class="menu-items left-menu">
-            <a href="https://files.npcz.gg">Abyss</a>
-            <a href="https://discord.gg/npc">Discord</a>
-            <a href="https://store.npcz.gg">Store</a>
-        </div>
         <div class="logo-container">
             <a href="/index.html"><img src="assets/logos/logo-whiteout.png" alt="Logo" class="navbar-logo"></a>
         </div>
-        <div class="menu-items right-menu">
+        <button class="hamburger" id="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+        <div class="menu-items right-menu" id="nav-menu">
+            <a href="https://files.npcz.gg">Abyss</a>
+            <a href="https://discord.gg/npc">Discord</a>
+            <a href="https://store.npcz.gg">Store</a>
             <a href="/sandbox/rules">Guidelines</a>
             <a href="">Report</a>
             <a href="/index.html">Home</a>
@@ -29,23 +30,22 @@
     </nav>
 
     <div class="container-container">
+        <!-- Server panels will be dynamically inserted here -->
     </div>
 
-    <div id="store-footer">
-        <div class="footer-gradient">
-            <div id="text-footer">
-                <div class="footer-column">
-                    <img src="assets/logos/logo-whiteout.png" width="150" height="150" alt="Footer Logo">
-                </div>
-                <div class="footer-column">
-                    <h3>About</h3>
-                    <p>NPCZ is a server network focused around zombie<br>survival experiences on Garry's Mod. EST 2016</p>
-                </div>
-                <div class="footer-column">
-                    <h3>Support</h3>
-                    <p>Having Issues? Contact us at: <a href="mailto:contact@npcz.gg">contact@npcz.gg</a></p>
-                    <p>Or create a support ticket in our <a href="https://discord.com/npc">Discord</a>.</p>
-                </div>
+    <div class="footer-gradient">
+        <div id="text-footer">
+            <div class="footer-column">
+                <img src="assets/logos/logo-whiteout.png" width="150" height="150" alt="Footer Logo">
+            </div>
+            <div class="footer-column">
+                <h3>About</h3>
+                <p>NPCZ is a server network focused around zombie<br>survival experiences on Garry's Mod. EST 2016</p>
+            </div>
+            <div class="footer-column">
+                <h3>Support</h3>
+                <p>Having Issues? Contact us at: <a href="mailto:contact@npcz.gg">contact@npcz.gg</a></p>
+                <p>Or create a support ticket in our <a href="https://discord.com/npc">Discord</a>.</p>
             </div>
         </div>
     </div>
@@ -60,6 +60,14 @@
                 } else {
                     navbar.classList.remove('blur');
                 }
+            });
+
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.getElementById('nav-menu');
+
+            hamburger.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                hamburger.classList.toggle('active');
             });
         });
     </script>
