@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" href="/assets/MadeYouLook.gif" id="favicon">
+    <link rel="stylesheet" href="https://use.typekit.net/cya2xsd.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="stylesheet" href="https://use.typekit.net/cya2xsd.css">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/cards.css">
+    <title>Server Status</title>
+    <link rel="stylesheet" href="/css/uptime.css">
     <link rel="stylesheet" href="/css/shared.css">
+
 </head>
 
 <body>
@@ -30,58 +31,8 @@
         </div>
     </nav>
 
-    <div class="banner">
-        <img src="/assets/logos/large-logo.png" alt="Large Logo" class="large-logo">
-        <div class="down-arrow" id="downArrow">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 1);">
-                <path d="M16.939 7.939L12 12.879l-4.939-4.94-2.122 2.122L12 17.121l7.061-7.06z"></path>
-            </svg>
-        </div>
-    </div>
-
-    <div class="gradient-section">
-        <div class="card-container">
-            <div class="card" id="1">
-                <div class="card-content" id="sandbox">
-                    <div class="img-wrapper">
-                        <img id="card-1-img" src="assets/cards-banners/sandbox-card.png" alt="Sandbox Card"/>
-                    </div>
-                    <h3 id="card-1-h3"> Sandbox </h3>
-                    <p id="card-1-p">Build & Kill</p>
-                    <a href="/sandbox/connect.html" class="server-button" id="card-1-p2">Click to Join</a>
-                </div>
-            </div>
-            <div class="card" id="2">
-                <div class="card-content" id="horde">
-                    <div class="img-wrapper">
-                        <img id="card-2-img" src="assets/cards-banners/horde-card.png" alt="Horde Card"/>
-                    </div>
-                    <h3 id="card-2-h3"> Horde </h3>
-                    <p id="card-2-p">Wave Survival</p>
-                    <a href="/horde/connect.html" class="server-button" id="card-2-p2">Click to Join</a>
-                </div>
-            </div>
-            <div class="card" id="3">
-                <div class="card-content" id="zbox">
-                    <div class="img-wrapper">
-                        <img id="card-3-img" src="assets/cards-banners/zbox-card.png" alt="ZBox Card"/>
-                    </div>
-                    <h3 id="card-3-h3"> ZBox </h3>
-                    <p id="card-3-p">Vanilla Sandbox</p>
-                    <a href="/zbox/connect.html" class="server-button" id="card-3-p2">Click to Join</a>
-                </div>
-            </div>
-            <div class="card" id="4">
-                <div class="card-content" id="shelter">
-                    <div class="img-wrapper">
-                        <img id="card-4-img" src="assets/cards-banners/shelter-card.png" alt="Shelter Card"/>
-                    </div>
-                    <h3 id="card-4-h3"> Shelter </h3>
-                    <p id="card-4-p">Tower Defense</p>
-                    <a href="/shelter/connect.html" class="server-button" id="card-4-p2">Click to Join</a>
-                </div>
-            </div>
-        </div>
+    <div class="container-container">
+        <!-- Server panels will be dynamically inserted here -->
     </div>
 
     <div class="footer-gradient">
@@ -104,26 +55,13 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var navbar = document.getElementById('navbar');
-            var downArrow = document.getElementById('downArrow');
 
             window.addEventListener('scroll', function() {
                 if (window.pageYOffset > 0) {
                     navbar.classList.add('blur');
-                    downArrow.classList.add('hide-arrow');
                 } else {
                     navbar.classList.remove('blur');
-                    downArrow.classList.remove('hide-arrow');
                 }
-            });
-
-            downArrow.addEventListener('click', function() {
-                var banner = document.querySelector('.banner');
-                var bannerBottom = banner.offsetTop + banner.offsetHeight;
-
-                window.scrollTo({
-                    top: bannerBottom,
-                    behavior: 'smooth'
-                });
             });
 
             const hamburger = document.getElementById('hamburger');
@@ -133,28 +71,408 @@
                 navMenu.classList.toggle('active');
                 hamburger.classList.toggle('active');
             });
+        });
+    </script>
 
-            // Adding hover effect using JavaScript for red outline animation on img-wrapper without affecting the image's corner radius
-            const cards = document.querySelectorAll('.card-content');
+    <script>
+        const servers = [
+            {
+                id: 'sandbox',
+                name: 'Sandbox',
+                ip: '193.243.190.18',
+                port: 27015,
+                link: '/sandbox/connect.html',
+            },
+            {
+                id: 'zbox',
+                name: 'ZBox',
+                ip: '193.243.190.18',
+                port: 27064,
+                link: '/zbox/connect.html',
+            },
+            {
+                id: 'shelter',
+                name: 'Shelter',
+                ip: '193.243.190.18',
+                port: 27025,
+                link: '/shelter/server.html',
+            },
+            {
+                id: 'horde',
+                name: 'Horde',
+                ip: '193.243.190.18',
+                port: 27065,
+                link: '/horde/connect.html',
+            },
+        ];
 
-            cards.forEach(card => {
-                card.addEventListener('mouseover', () => {
-                    const imgWrapper = card.querySelector('.img-wrapper');
-                    if (imgWrapper) {
-                        imgWrapper.classList.add('red-outline');
-                        console.log(`Added red-outline to card ID: ${card.id}`);
+        function formatDuration(duration) {
+            const parts = duration.split(':').map(Number);
+
+            if (parts.length === 3) {
+                const hours = parts[0];
+                const minutes = parts[1];
+                return `${hours}h ${minutes}m`;
+            } else if (parts.length === 2) {
+                const minutes = parts[0];
+                return `${minutes} minutes`;
+            } else {
+                return duration;
+            }
+        }
+
+        const RATE_LIMIT_DURATION = 5000;
+
+        servers.forEach(server => {
+            server.lastRefreshTime = 0;
+        });
+
+        const serverPromises = servers.map(server => {
+            return fetch(`https://gameserveranalytics.com/api/v2/query?game=source&ip=${server.ip}&port=${server.port}&type=info`)
+            .then(response => {
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.json();
+            })
+            .then(serverInfo => {
+                console.log(`${server.name} Server Info:`, serverInfo);
+
+                if (
+                    (serverInfo && serverInfo.status && serverInfo.status.toLowerCase() === 'online') ||
+                    (serverInfo && (serverInfo.players !== undefined || serverInfo.map))
+                ) {
+                    server.online = true;
+                    server.currentPlayers = serverInfo.players || serverInfo.num_players || serverInfo.playercount || 0;
+                    server.maxPlayers = serverInfo.maxplayers || serverInfo.max_players || serverInfo.maxclients || 0;
+                    server.mapName = serverInfo.map || 'Unknown Map';
+
+                    if (server.currentPlayers > 0) {
+                        return fetch(`https://gameserveranalytics.com/api/v2/query?game=source&ip=${server.ip}&port=${server.port}&type=players`)
+                        .then(response => {
+                            if (!response.ok) throw new Error('Failed to fetch players data');
+                            return response.json();
+                        })
+                        .then(data => {
+                            server.playersList = data;
+                        });
+                    } else {
+                        server.playersList = [];
                     }
-                });
-
-                card.addEventListener('mouseout', () => {
-                    const imgWrapper = card.querySelector('.img-wrapper');
-                    if (imgWrapper) {
-                        imgWrapper.classList.remove('red-outline');
-                        console.log(`Removed red-outline from card ID: ${card.id}`);
-                    }
-                });
+                } else {
+                    throw new Error('Server is offline');
+                }
+            })
+            .catch(error => {
+                console.error(`Error fetching data for ${server.name}:`, error);
+                server.online = false;
+                server.currentPlayers = 0;
+                server.maxPlayers = 0;
+                server.mapName = 'Unknown Map';
+                server.playersList = [];
             });
         });
+
+        Promise.all(serverPromises).then(() => {
+            servers.sort((a, b) => b.currentPlayers - a.currentPlayers);
+
+            const container = document.querySelector('.container-container');
+
+            servers.forEach(server => {
+                const serverPanel = document.createElement('div');
+                serverPanel.classList.add('server-panel');
+
+                const serverHeader = document.createElement('div');
+                serverHeader.classList.add('server-header');
+
+                const serverTitle = document.createElement('h2');
+                serverTitle.textContent = server.name;
+                serverHeader.appendChild(serverTitle);
+
+                const statusContainer = document.createElement('div');
+                statusContainer.classList.add('status-container');
+
+                const serverStatus = document.createElement('span');
+                serverStatus.id = `${server.id}-status`;
+                serverStatus.textContent = server.online ? 'Online' : 'Offline';
+                serverStatus.classList.add('server-status');
+                if (!server.online) {
+                    serverStatus.classList.add('offline');
+                }
+
+                const boltSVG = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                boltSVG.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+                boltSVG.setAttribute("viewBox", "0 0 24 24");
+                boltSVG.classList.add('status-bolt');
+                const boltPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                boltPath.setAttribute("d", "M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm-1 16v-5H7l6-7v5h4l-6 7z");
+                boltSVG.appendChild(boltPath);
+
+                serverStatus.appendChild(boltSVG);
+                statusContainer.appendChild(serverStatus);
+
+                const refreshButton = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                refreshButton.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+                refreshButton.setAttribute("viewBox", "0 0 24 24");
+                refreshButton.classList.add('refresh-button');
+                refreshButton.setAttribute('data-server-id', server.id);
+                refreshButton.setAttribute('aria-label', `Refresh ${server.name} status`);
+
+                const refreshPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                refreshPath.setAttribute("d", "M10 11H7.101l.001-.009a4.956 4.956 0 0 1 .752-1.787 5.054 5.054 0 0 1 2.2-1.811c.302-.128.617-.226.938-.291a5.078 5.078 0 0 1 2.018 0 4.978 4.978 0 0 1 2.525 1.361l1.416-1.412a7.036 7.036 0 0 0-2.224-1.501 6.921 6.921 0 0 0-1.315-.408 7.079 7.079 0 0 0-2.819 0 6.94 6.94 0 0 0-1.316.409 7.04 7.04 0 0 0-3.08 2.534 6.978 6.978 0 0 0-1.054 2.505c-.028.135-.043.273-.063.41H2l4 4 4-4zm4 2h2.899l-.001.008a4.976 4.976 0 0 1-2.103 3.138 4.943 4.943 0 0 1-1.787.752 5.073 5.073 0 0 1-2.017 0 4.956 4.956 0 0 1-1.787-.752 5.072 5.072 0 0 1-.74-.61L7.05 16.95a7.032 7.032 0 0 0 2.225 1.5c.424.18.867.317 1.315.408a7.07 7.07 0 0 0 2.818 0 7.031 7.031 0 0 0 4.395-2.945 6.974 6.974 0 0 0 1.053-2.503c.027-.135.043-.273.063-.41H22l-4-4-4 4z");
+                refreshButton.appendChild(refreshPath);
+
+                statusContainer.appendChild(refreshButton);
+                serverHeader.appendChild(statusContainer);
+
+                serverPanel.appendChild(serverHeader);
+
+                const serverInfo = document.createElement('div');
+                serverInfo.classList.add('server-info');
+
+                const playerCount = document.createElement('p');
+                playerCount.id = `${server.id}-playercount`;
+                if (server.online) {
+                    const playerCountText = server.currentPlayers > 0
+                        ? `${server.currentPlayers}/${server.maxPlayers} players online`
+                        : 'No players online';
+                    playerCount.textContent = playerCountText;
+                } else {
+                    playerCount.textContent = 'Server Offline';
+                }
+                serverInfo.appendChild(playerCount);
+
+                const mapName = document.createElement('p');
+                mapName.id = `${server.id}-map`;
+                mapName.textContent = `Current Map: ${server.mapName}`;
+                serverInfo.appendChild(mapName);
+
+                serverPanel.appendChild(serverInfo);
+
+                const joinButton = document.createElement('a');
+                joinButton.href = server.link;
+                joinButton.classList.add('join-button');
+                joinButton.textContent = `Join ${server.name}`;
+                if (!server.online) {
+                    joinButton.classList.add('disabled');
+                    joinButton.onclick = (e) => e.preventDefault();
+                }
+                serverPanel.appendChild(joinButton);
+
+                if (server.playersList && server.playersList.length > 0) {
+                    const playersTable = document.createElement('table');
+                    playersTable.classList.add('player-table');
+
+                    const thead = document.createElement('thead');
+                    const headerRow = document.createElement('tr');
+
+                    const headers = ['Name', 'Playtime'];
+                    headers.forEach(headerText => {
+                        const th = document.createElement('th');
+                        th.textContent = headerText;
+                        headerRow.appendChild(th);
+                    });
+                    thead.appendChild(headerRow);
+                    playersTable.appendChild(thead);
+
+                    const tbody = document.createElement('tbody');
+
+                    server.playersList.forEach(player => {
+                        const row = document.createElement('tr');
+
+                        const nameCell = document.createElement('td');
+                        nameCell.textContent = player.name && player.name.trim() ? player.name : 'Connecting...';
+                        row.appendChild(nameCell);
+
+                        const timeCell = document.createElement('td');
+                        timeCell.textContent = formatDuration(player.duration_formatted);
+                        row.appendChild(timeCell);
+
+                        tbody.appendChild(row);
+                    });
+
+                    playersTable.appendChild(tbody);
+                    serverPanel.appendChild(playersTable);
+                }
+
+                container.appendChild(serverPanel);
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelector('.container-container').addEventListener('click', function(event) {
+                const refreshButton = event.target.closest('.refresh-button');
+                if (refreshButton) {
+                    const serverId = refreshButton.getAttribute('data-server-id');
+                    const server = servers.find(s => s.id === serverId);
+                    if (!server) {
+                        console.error(`Server with ID ${serverId} not found.`);
+                        return;
+                    }
+
+                    const currentTime = Date.now();
+                    if (currentTime - server.lastRefreshTime < RATE_LIMIT_DURATION) {
+                        alert('Please wait before refreshing again.');
+                        return;
+                    }
+
+                    server.lastRefreshTime = currentTime;
+
+                    refreshButton.classList.add('active', 'spin');
+
+                    fetch(`https://gameserveranalytics.com/api/v2/query?game=source&ip=${server.ip}&port=${server.port}&type=info`)
+                    .then(response => {
+                        if (!response.ok) throw new Error('Network response was not ok');
+                        return response.json();
+                    })
+                    .then(serverInfo => {
+                        console.log(`${server.name} Server Info (Refresh):`, serverInfo);
+
+                        if (
+                            (serverInfo && serverInfo.status && serverInfo.status.toLowerCase() === 'online') ||
+                            (serverInfo && (serverInfo.players !== undefined || serverInfo.map))
+                        ) {
+                            server.online = true;
+                            server.currentPlayers = serverInfo.players || serverInfo.num_players || serverInfo.playercount || 0;
+                            server.maxPlayers = serverInfo.maxplayers || serverInfo.max_players || serverInfo.maxclients || 0;
+                            server.mapName = serverInfo.map || 'Unknown Map';
+
+                            if (server.currentPlayers > 0) {
+                                return fetch(`https://gameserveranalytics.com/api/v2/query?game=source&ip=${server.ip}&port=${server.port}&type=players`)
+                                .then(response => {
+                                    if (!response.ok) throw new Error('Failed to fetch players data');
+                                    return response.json();
+                                })
+                                .then(data => {
+                                    server.playersList = data;
+                                });
+                            } else {
+                                server.playersList = [];
+                            }
+                        } else {
+                           
+                            throw new Error('Server is offline');
+                        }
+                    })
+                    .catch(error => {
+                        console.error(`Error refreshing data for ${server.name}:`, error);
+                        server.online = false;
+                        server.currentPlayers = 0;
+                        server.maxPlayers = 0;
+                        server.mapName = 'Unknown Map';
+                        server.playersList = [];
+                    })
+                    .finally(() => {
+                        
+                        setTimeout(() => {
+                            
+                            updateServerPanelUI(server);
+
+                           
+                            refreshButton.classList.remove('active', 'spin');
+                        }, 1000); 
+                    });
+                }
+            });
+
+            function updateServerPanelUI(server) {
+                const statusElement = document.getElementById(`${server.id}-status`);
+                if (statusElement) {
+                    statusElement.childNodes.forEach(node => {
+                        if (node.nodeType === Node.TEXT_NODE) {
+                            node.textContent = server.online ? 'Online' : 'Offline';
+                        }
+                    });
+
+                    if (server.online) {
+                        statusElement.classList.remove('offline');
+                    } else {
+                        statusElement.classList.add('offline');
+                    }
+                }
+
+                const playerCountElement = document.getElementById(`${server.id}-playercount`);
+                if (playerCountElement) {
+                    if (server.online) {
+                        const playerCountText = server.currentPlayers > 0
+                            ? `${server.currentPlayers}/${server.maxPlayers} players online`
+                            : 'No players online';
+                        playerCountElement.textContent = playerCountText;
+                    } else {
+                        playerCountElement.textContent = 'Server Offline';
+                    }
+                }
+
+                const mapNameElement = document.getElementById(`${server.id}-map`);
+                if (mapNameElement) {
+                    mapNameElement.textContent = `Current Map: ${server.mapName}`;
+                }
+
+                const joinButton = document.querySelector(`.join-button[href="${server.link}"]`);
+                if (joinButton) {
+                    if (server.online) {
+                        joinButton.classList.remove('disabled');
+                        joinButton.onclick = null;
+                        joinButton.href = server.link; 
+                    } else {
+                        joinButton.classList.add('disabled');
+                        joinButton.onclick = (e) => e.preventDefault();
+                    }
+                }
+
+                const serverPanel = joinButton.closest('.server-panel');
+                if (serverPanel) {
+                    const existingTable = serverPanel.querySelector('.player-table');
+                    if (existingTable) {
+                        existingTable.remove();
+                    }
+
+                    if (server.playersList && server.playersList.length > 0) {
+                        const playersTable = document.createElement('table');
+                        playersTable.classList.add('player-table');
+
+                        const thead = document.createElement('thead');
+                        const headerRow = document.createElement('tr');
+
+                        const headers = ['Name', 'Playtime'];
+                        headers.forEach(headerText => {
+                            const th = document.createElement('th');
+                            th.textContent = headerText;
+                            headerRow.appendChild(th);
+                        });
+                        thead.appendChild(headerRow);
+                        playersTable.appendChild(thead);
+
+                        const tbody = document.createElement('tbody');
+
+                        server.playersList.forEach(player => {
+                            const row = document.createElement('tr');
+
+                            const nameCell = document.createElement('td');
+                            nameCell.textContent = player.name && player.name.trim() ? player.name : 'Connecting...';
+                            row.appendChild(nameCell);
+
+                            const timeCell = document.createElement('td');
+                            timeCell.textContent = formatDuration(player.duration_formatted);
+                            row.appendChild(timeCell);
+
+                            tbody.appendChild(row);
+                        });
+
+                        playersTable.appendChild(tbody);
+                        serverPanel.appendChild(playersTable);
+                    }
+                }
+            }
+        });
+    </script>
+
+    <script>
+        function changeFavicon() {
+            const favicon = document.getElementById('favicon');
+            favicon.href = 'favicon.ico';
+        }
+        setTimeout(changeFavicon, 200);
     </script>
 </body>
 </html>
