@@ -1,3 +1,6 @@
+/* CSS for Card Content and Fancy Card Buttons */
+
+/* Card Content Styling (updated CSS) */
 .card-content {
     display: flex;
     flex-direction: column;
@@ -6,14 +9,61 @@
     width: 100%;
     height: 100%;
     padding-top: 20px;
-    position: relative; 
+    position: relative;
     filter: grayscale(100%);
     transition: filter 0.3s ease;
-    cursor: pointer; 
+    cursor: pointer;
+    border-radius: 5px;
 }
 
 .card-content:hover {
     filter: grayscale(0%);
+}
+
+.img-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 5px;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 0, 0, 0.5);
+    transition: box-shadow 0.5s ease, filter 0.3s ease;
+}
+
+.img-wrapper::before,
+.img-wrapper::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    border-radius: 5px;
+    border: 2px solid transparent;
+    transition: all 0.5s ease;
+    box-sizing: border-box;
+}
+
+.img-wrapper::before {
+    border-top: 2px solid rgba(255, 0, 0, 0.8);
+    border-bottom: 2px solid rgba(255, 0, 0, 0.8);
+    transform: scaleX(0);
+    transition: transform 0.5s ease;
+}
+
+.img-wrapper::after {
+    border-left: 2px solid rgba(255, 0, 0, 0.8);
+    border-right: 2px solid rgba(255, 0, 0, 0.8);
+    transform: scaleY(0);
+    transition: transform 0.5s ease;
+}
+
+.card-content:hover .img-wrapper::before {
+    transform: scaleX(1);
+}
+
+.card-content:hover .img-wrapper::after {
+    transform: scaleY(1);
 }
 
 .card-content img {
@@ -23,13 +73,14 @@
     height: 100%;
     width: 100%;
     border-radius: 5px;
+    transition: filter 0.3s ease;
 }
 
 .card-content h3 {
     text-align: center;
     color: #FFFFFF;
     text-decoration: none;
-    z-index: 2;
+    z-index: 3;
     position: absolute;
     top: 20%;
     width: 90%;
@@ -40,12 +91,12 @@
     text-align: center;
     color: #FFFFFF;
     text-decoration: none;
-    z-index: 2;
+    z-index: 3;
     position: absolute;
     top: 35%;
     width: 90%;
     margin: 0;
-    transition: opacity 0.3s ease; 
+    transition: opacity 0.3s ease;
 }
 
 .card-content .server-button {
@@ -53,58 +104,85 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    opacity: 0; 
-    pointer-events: none; 
+    opacity: 0;
+    pointer-events: none;
     width: 80%;
-    z-index: 3;
+    z-index: 4;
     text-align: center;
-    transition: opacity 0.3s ease, transform 0.3s ease; 
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .card-content:hover .server-button {
     opacity: 1;
     pointer-events: auto;
-    transform: translate(-50%, -50%) translateY(-10px); 
+    transform: translate(-50%, -50%) translateY(-10px);
 }
 
 .card-content:hover p {
     opacity: 0;
 }
 
+/* Fancy Neon Button Styling (updated CSS) */
 .server-button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: rgba(255,0,0,0.8);
-    color: #FFFFFF;
-    border: 1px solid #000000;
-    border-radius: 2px;
-    cursor: pointer;
-    text-decoration: none;
     font-size: 16px;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    padding: 10px 20px;
+    border: none;
+    color: #fff;
+    background: #111;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 2px;
+    border-radius: 5px;
+    position: relative;
+    transition: 0.3s;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
 }
 
 .server-button:hover {
-    filter: brightness(1.1);
-    transform: translate(-50%, -50%) translateY(-12px); 
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
+    color: #111;
+    background: #fff;
+    box-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 40px #ff0000, 0 0 80px #ff0000;
 }
 
-.server-button:active {
-    transform: translate(-50%, -50%) translateY(-10px); 
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+.server-button::before,
+.server-button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #ff0000, #ff0000, #ff0000, #ff0000, #ff0000, #ff0000, #ff0000, #ff0000);
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    transition: opacity 0.3s ease;
+    opacity: 0;
 }
 
-.server-button.disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+.server-button:hover::before,
+.server-button:hover::after {
+    opacity: 1;
+    animation: neon-glow 6s linear infinite;
+}
+
+@keyframes neon-glow {
+    0% {
+        background-position: 0%;
+    }
+    100% {
+        background-position: 400%;
+    }
+}
+
+.server-button::after {
+    filter: blur(10px);
 }
 
 @media (max-width: 768px) {
     .server-button {
         width: 90%;
-        font-size: 14px;
-        padding: 8px 16px;
+        font-size: 16px;
+        padding: 10px 20px;
     }
 }
