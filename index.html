@@ -41,44 +41,48 @@
 
     <div class="gradient-section">
         <div class="card-container">
-            <div class="card" id="1">
-                <div class="card-content" id="sandbox">
+            <!-- Card Template -->
+            <div class="card" data-title="Sandbox" data-description="Build & Kill" data-img-src="assets/cards-banners/sandbox-card.png" data-link="/sandbox/connect.html">
+                <div class="card-content">
                     <div class="img-wrapper">
-                        <img id="card-1-img" src="assets/cards-banners/sandbox-card.png" alt="Sandbox Card"/>
+                        <img src="" alt="Card Image" class="card-img">
                     </div>
-                    <h3 id="card-1-h3"> Sandbox </h3>
-                    <p id="card-1-p">Build & Kill</p>
-                    <a href="/sandbox/connect.html" class="server-button" id="card-1-p2">Click to Join</a>
+                    <h3 class="card-title"></h3>
+                    <p class="card-description"></p>
+                    <a href="" class="server-button">Click to Join</a>
                 </div>
             </div>
-            <div class="card" id="2">
-                <div class="card-content" id="horde">
+
+            <div class="card" data-title="Horde" data-description="Wave Survival" data-img-src="assets/cards-banners/horde-card.png" data-link="/horde/connect.html">
+                <div class="card-content">
                     <div class="img-wrapper">
-                        <img id="card-2-img" src="assets/cards-banners/horde-card.png" alt="Horde Card"/>
+                        <img src="" alt="Card Image" class="card-img">
                     </div>
-                    <h3 id="card-2-h3"> Horde </h3>
-                    <p id="card-2-p">Wave Survival</p>
-                    <a href="/horde/connect.html" class="server-button" id="card-2-p2">Click to Join</a>
+                    <h3 class="card-title"></h3>
+                    <p class="card-description"></p>
+                    <a href="" class="server-button">Click to Join</a>
                 </div>
             </div>
-            <div class="card" id="3">
-                <div class="card-content" id="zbox">
+
+            <div class="card" data-title="ZBox" data-description="Vanilla Sandbox" data-img-src="assets/cards-banners/zbox-card.png" data-link="/zbox/connect.html">
+                <div class="card-content">
                     <div class="img-wrapper">
-                        <img id="card-3-img" src="assets/cards-banners/zbox-card.png" alt="ZBox Card"/>
+                        <img src="" alt="Card Image" class="card-img">
                     </div>
-                    <h3 id="card-3-h3"> ZBox </h3>
-                    <p id="card-3-p">Vanilla Sandbox</p>
-                    <a href="/zbox/connect.html" class="server-button" id="card-3-p2">Click to Join</a>
+                    <h3 class="card-title"></h3>
+                    <p class="card-description"></p>
+                    <a href="" class="server-button">Click to Join</a>
                 </div>
             </div>
-            <div class="card" id="4">
-                <div class="card-content" id="shelter">
+
+            <div class="card" data-title="Shelter" data-description="Tower Defense" data-img-src="assets/cards-banners/shelter-card.png" data-link="/shelter/connect.html">
+                <div class="card-content">
                     <div class="img-wrapper">
-                        <img id="card-4-img" src="assets/cards-banners/shelter-card.png" alt="Shelter Card"/>
+                        <img src="" alt="Card Image" class="card-img">
                     </div>
-                    <h3 id="card-4-h3"> Shelter </h3>
-                    <p id="card-4-p">Tower Defense</p>
-                    <a href="/shelter/connect.html" class="server-button" id="card-4-p2">Click to Join</a>
+                    <h3 class="card-title"></h3>
+                    <p class="card-description"></p>
+                    <a href="" class="server-button">Click to Join</a>
                 </div>
             </div>
         </div>
@@ -103,6 +107,19 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            var cards = document.querySelectorAll('.card');
+            cards.forEach(function(card) {
+                var img = card.querySelector('.card-img');
+                var title = card.querySelector('.card-title');
+                var description = card.querySelector('.card-description');
+                var button = card.querySelector('.server-button');
+
+                img.src = card.dataset.imgSrc;
+                title.textContent = card.dataset.title;
+                description.textContent = card.dataset.description;
+                button.href = card.dataset.link;
+            });
+
             var navbar = document.getElementById('navbar');
             var downArrow = document.getElementById('downArrow');
 
