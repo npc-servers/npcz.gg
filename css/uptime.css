@@ -7,14 +7,14 @@ body, html {
 }
 
 .container-container {
-    width: calc(100% - 40px);
-    max-width: 1200px;
-    margin: 80px auto 50px auto;
+    max-width: 2000px;     /* Max width for the container */
+    margin: 80px auto;     /* Center container horizontally */
+    padding: 0 20px;       /* Add consistent padding on left and right */
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;  /* Center align panels when fewer are available */
     align-items: flex-start;
-    gap: 20px;
+    gap: 20px;             /* Space between individual panels */
     box-sizing: border-box;
 }
 
@@ -22,8 +22,8 @@ body, html {
     background-color: transparent;
     border: 2px solid #800000;
     border-radius: 10px;
-    padding: 20px;
-    width: calc(33.333% - 40px);
+    padding: 15px;
+    flex: 0 1 350px;    /* Prevent growing, allow shrinking, and set width */
     box-shadow: none;
     transition: all 0.3s ease;
     display: flex;
@@ -32,11 +32,19 @@ body, html {
     box-sizing: border-box;
 }
 
+@media (max-width: 600px) {
+    .server-panel {
+        flex-basis: calc(100% - 20px);  /* Full width for one panel on narrow screens */
+    }
+}
+
 .server-panel:hover {
     background-color: #2b2b2b;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     transform: translateY(-5px);
 }
+
+/* Rest of your styles */
 
 .server-header {
     display: flex;
@@ -164,22 +172,6 @@ body, html {
 .join-button.disabled {
     opacity: 0.5;
     cursor: not-allowed;
-}
-
-@media (max-width: 1200px) {
-    .server-panel {
-        width: calc(50% - 40px);
-    }
-}
-
-@media (max-width: 768px) {
-    .container-container {
-        justify-content: space-between;
-    }
-
-    .server-panel {
-        width: 100%;
-    }
 }
 
 ::-webkit-scrollbar {
