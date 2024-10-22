@@ -10,14 +10,12 @@
     height: 100%;
     padding-top: 20px;
     position: relative;
-    filter: grayscale(100%);
-    transition: filter 0.3s ease;
     cursor: pointer;
     border-radius: 5px;
 }
 
 .card-content:hover {
-    filter: grayscale(0%);
+    filter: none;
 }
 
 .img-wrapper {
@@ -27,7 +25,20 @@
     overflow: hidden;
     border-radius: 5px;
     box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 0, 0, 0.5);
-    transition: box-shadow 0.5s ease, filter 0.3s ease;
+    transition: box-shadow 0.5s ease;
+}
+
+.card-img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    transition: filter 0.3s ease;
+    filter: grayscale(100%);
+    z-index: 1;
+}
+
+.card-content:hover .card-img {
+    filter: grayscale(0%);
 }
 
 .img-wrapper::before,
@@ -42,6 +53,13 @@
     border: 2px solid transparent;
     transition: all 0.5s ease;
     box-sizing: border-box;
+    z-index: 3;
+    filter: grayscale(100%);
+}
+
+.card-content:hover .img-wrapper::before,
+.card-content:hover .img-wrapper::after {
+    filter: grayscale(0%);
 }
 
 .img-wrapper::before {
@@ -66,30 +84,24 @@
     transform: scaleY(1);
 }
 
-.card-img {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-    transition: filter 0.3s ease;
-}
-
 .card-title {
     text-align: center;
     color: #FFFFFF;
     text-decoration: none;
-    z-index: 3;
+    z-index: 4;
     position: absolute;
     top: 20%;
     width: 90%;
     margin: 0;
     padding: 10px 0;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
 }
 
 .card-description {
     text-align: center;
     color: #FFFFFF;
     text-decoration: none;
-    z-index: 3;
+    z-index: 4;
     position: absolute;
     top: 35%;
     width: 90%;
@@ -106,7 +118,7 @@
     opacity: 0;
     pointer-events: none;
     width: 80%;
-    z-index: 4;
+    z-index: 5;
     text-align: center;
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
@@ -184,4 +196,56 @@
         font-size: 16px;
         padding: 10px 20px;
     }
+}
+
+/* Card Status and Player Info Styling */
+.card-status {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    z-index: 15; /* Ensure it draws above all other elements */
+    pointer-events: none; /* Prevent it from being affected by interactions with card-content */
+}
+
+.card-status.online {
+    background-color: #00ff00;
+}
+
+.card-status.offline {
+    background-color: #ff0000;
+}
+
+.card-players {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.9em;
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.cannot-connect {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1em;
+    color: #ff0000;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    border-radius: 5px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.card-content:hover .cannot-connect {
+    opacity: 1;
+    pointer-events: auto;
 }

@@ -41,48 +41,74 @@
 
     <div class="gradient-section">
         <div class="card-container">
-            <!-- Card Template -->
-            <div class="card" data-title="Sandbox" data-description="Build & Kill" data-img-src="assets/cards-banners/sandbox-card.png" data-link="/sandbox/connect.html">
+            <!-- Cards updated to reflect uptime.html server details -->
+            <div class="card" data-id="sandbox" data-title="Sandbox" data-description="Build & Kill" data-img-src="assets/cards-banners/sandbox-card.png" data-link="/sandbox/connect.html">
                 <div class="card-content">
                     <div class="img-wrapper">
                         <img src="" alt="Card Image" class="card-img">
+                        <div class="card-status"></div>
+                        <p class="card-players"></p>
                     </div>
                     <h3 class="card-title"></h3>
                     <p class="card-description"></p>
                     <a href="" class="server-button">Click to Join</a>
+                    <p class="cannot-connect" style="display: none;">Cannot connect</p>
                 </div>
             </div>
 
-            <div class="card" data-title="Horde" data-description="Wave Survival" data-img-src="assets/cards-banners/horde-card.png" data-link="/horde/connect.html">
+            <div class="card" data-id="horde" data-title="Horde" data-description="Wave Survival" data-img-src="assets/cards-banners/horde-card.png" data-link="/horde/connect.html">
                 <div class="card-content">
                     <div class="img-wrapper">
                         <img src="" alt="Card Image" class="card-img">
+                        <div class="card-status"></div>
+                        <p class="card-players"></p>
                     </div>
                     <h3 class="card-title"></h3>
                     <p class="card-description"></p>
                     <a href="" class="server-button">Click to Join</a>
+                    <p class="cannot-connect" style="display: none;">Cannot connect</p>
                 </div>
             </div>
 
-            <div class="card" data-title="ZBox" data-description="Vanilla Sandbox" data-img-src="assets/cards-banners/zbox-card.png" data-link="/zbox/connect.html">
+            <div class="card" data-id="zbox" data-title="ZBox" data-description="Vanilla Sandbox" data-img-src="assets/cards-banners/zbox-card.png" data-link="/zbox/connect.html">
                 <div class="card-content">
                     <div class="img-wrapper">
                         <img src="" alt="Card Image" class="card-img">
+                        <div class="card-status"></div>
+                        <p class="card-players"></p>
                     </div>
                     <h3 class="card-title"></h3>
                     <p class="card-description"></p>
                     <a href="" class="server-button">Click to Join</a>
+                    <p class="cannot-connect" style="display: none;">Cannot connect</p>
                 </div>
             </div>
 
-            <div class="card" data-title="Shelter" data-description="Tower Defense" data-img-src="assets/cards-banners/shelter-card.png" data-link="/shelter/connect.html">
+            <div class="card" data-id="shelter" data-title="Shelter" data-description="Tower Defense" data-img-src="assets/cards-banners/shelter-card.png" data-link="/shelter/connect.html">
                 <div class="card-content">
                     <div class="img-wrapper">
                         <img src="" alt="Card Image" class="card-img">
+                        <div class="card-status"></div>
+                        <p class="card-players"></p>
                     </div>
                     <h3 class="card-title"></h3>
                     <p class="card-description"></p>
                     <a href="" class="server-button">Click to Join</a>
+                    <p class="cannot-connect" style="display: none;">Cannot connect</p>
+                </div>
+            </div>
+
+            <div class="card" data-id="zgrad" data-title="ZGRAD" data-description="COMING SOON" data-img-src="assets/cards-banners/zgrad-card.jpg" data-link="/horde/connect.html">
+                <div class="card-content">
+                    <div class="img-wrapper">
+                        <img src="" alt="Card Image" class="card-img">
+                        <div class="card-status"></div>
+                        <p class="card-players"></p>
+                    </div>
+                    <h3 class="card-title"></h3>
+                    <p class="card-description"></p>
+                    <a href="" class="server-button">Coming Soon</a>
+                    <p class="cannot-connect" style="display: none;">Cannot connect</p>
                 </div>
             </div>
         </div>
@@ -106,51 +132,130 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var cards = document.querySelectorAll('.card');
-            cards.forEach(function(card) {
-                var img = card.querySelector('.card-img');
-                var title = card.querySelector('.card-title');
-                var description = card.querySelector('.card-description');
-                var button = card.querySelector('.server-button');
+document.addEventListener('DOMContentLoaded', function() {
+    var cards = document.querySelectorAll('.card');
+    const servers = [
+        {
+            id: 'sandbox',
+            ip: '193.243.190.18',
+            port: 27015
+        },
+        {
+            id: 'zbox',
+            ip: '193.243.190.18',
+            port: 27064
+        },
+        {
+            id: 'shelter',
+            ip: '193.243.190.18',
+            port: 27025
+        },
+        {
+            id: 'horde',
+            ip: '193.243.190.18',
+            port: 27065
+        },
+        {
+            id: 'zgrad',
+            ip: '193.243.190.18',
+            port: 27066
+        }
+    ];
 
-                img.src = card.dataset.imgSrc;
-                title.textContent = card.dataset.title;
-                description.textContent = card.dataset.description;
-                button.href = card.dataset.link;
-            });
+    cards.forEach(function(card) {
+        var img = card.querySelector('.card-img');
+        var title = card.querySelector('.card-title');
+        var description = card.querySelector('.card-description');
+        var button = card.querySelector('.server-button');
+        var status = card.querySelector('.card-status');
+        var players = card.querySelector('.card-players');
+        var cannotConnect = card.querySelector('.cannot-connect');
 
-            var navbar = document.getElementById('navbar');
-            var downArrow = document.getElementById('downArrow');
+        img.src = card.dataset.imgSrc;
+        title.textContent = card.dataset.title;
+        description.textContent = card.dataset.description;
+        button.href = card.dataset.link;
 
-            window.addEventListener('scroll', function() {
-                if (window.pageYOffset > 0) {
-                    navbar.classList.add('blur');
-                    downArrow.classList.add('hide-arrow');
-                } else {
-                    navbar.classList.remove('blur');
-                    downArrow.classList.remove('hide-arrow');
-                }
-            });
+        const server = servers.find(s => s.id === card.dataset.id);
 
-            downArrow.addEventListener('click', function() {
-                var banner = document.querySelector('.banner');
-                var bannerBottom = banner.offsetTop + banner.offsetHeight;
+        if (server) {
+            fetch(`https://gameserveranalytics.com/api/v2/query?game=source&ip=${server.ip}&port=${server.port}&type=info`)
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return response.json();
+                })
+                .then(serverInfo => {
+                    if (
+                        (serverInfo && serverInfo.status && serverInfo.status.toLowerCase() === 'online') ||
+                        (serverInfo && (serverInfo.players !== undefined || serverInfo.map))
+                    ) {
+                        status.classList.add('online');
+                        status.classList.remove('offline');
+                        status.style.filter = 'none';
 
-                window.scrollTo({
-                    top: bannerBottom,
-                    behavior: 'smooth'
+                        const currentPlayers = serverInfo.players || serverInfo.num_players || serverInfo.playercount || 0;
+                        const maxPlayers = serverInfo.maxplayers || serverInfo.max_players || serverInfo.maxclients || "Unknown";
+
+                        players.textContent = `${currentPlayers}/${maxPlayers} players online`;
+
+                        button.classList.remove('disabled');
+                        button.style.display = 'inline-block';
+                        cannotConnect.style.display = 'none';
+                    } else {
+                        status.classList.add('offline');
+                        status.classList.remove('online');
+                        status.style.filter = 'none';
+                        players.textContent = 'Server Offline';
+                        button.classList.add('disabled');
+                        button.style.display = 'none';
+                        cannotConnect.style.display = 'block';
+                    }
+                })
+                .catch(error => {
+                    console.error(`Error fetching data for ${server.id}:`, error);
+                    status.classList.add('offline');
+                    status.classList.remove('online');
+                    status.style.filter = 'none';
+                    players.textContent = 'Server Offline';
+                    button.classList.add('disabled');
+                    button.style.display = 'none';
+                    cannotConnect.style.display = 'block';
                 });
-            });
+        }
+    });
 
-            const hamburger = document.getElementById('hamburger');
-            const navMenu = document.getElementById('nav-menu');
+    var navbar = document.getElementById('navbar');
+    var downArrow = document.getElementById('downArrow');
 
-            hamburger.addEventListener('click', () => {
-                navMenu.classList.toggle('active');
-                hamburger.classList.toggle('active');
-            });
+    window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 0) {
+            navbar.classList.add('blur');
+            downArrow.classList.add('hide-arrow');
+        } else {
+            navbar.classList.remove('blur');
+            downArrow.classList.remove('hide-arrow');
+        }
+    });
+
+    downArrow.addEventListener('click', function() {
+        var banner = document.querySelector('.banner');
+        var bannerBottom = banner.offsetTop + banner.offsetHeight;
+
+        window.scrollTo({
+            top: bannerBottom,
+            behavior: 'smooth'
         });
+    });
+
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('nav-menu');
+
+    hamburger.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        hamburger.classList.toggle('active');
+    });
+});
+
     </script>
 </body>
 </html>
