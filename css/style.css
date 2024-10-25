@@ -86,10 +86,6 @@ body, html {
     min-height: 500px; /* Adjust to accommodate all cards */
 }
 
-.gradient-section {
-    padding-bottom: 40px; /* Add padding below the gradient section */
-}
-
 ::-webkit-scrollbar {
     width: 8px;
 }
