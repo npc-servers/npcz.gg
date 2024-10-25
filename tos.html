@@ -9,24 +9,24 @@
     <link rel="stylesheet" href="css/tos.css">
 </head>
 <body>
-        <nav id="navbar">
-            <div class="logo-container">
-                <a href="/index.html"><img src="assets/logos/logo-whiteout.png" alt="Logo" class="navbar-logo"></a>
-            </div>
-            <button class="hamburger" id="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </button>
-            <div class="menu-items right-menu" id="nav-menu">
-                <a href="https://files.npcz.gg">Abyss</a>
-                <a href="https://discord.gg/npc">Discord</a>
-                <a href="https://store.npcz.gg">Store</a>
-                <a href="/sandbox/rules">Guidelines</a>
-                <a href="https://discord.gg/npc">Report</a>
-                <a href="/uptime.html">Status</a>
-            </div>
-        </nav>
+    <nav id="navbar">
+        <div class="logo-container">
+            <a href="/index.html"><img src="assets/logos/logo-whiteout.png" alt="Logo" class="navbar-logo"></a>
+        </div>
+        <button class="hamburger" id="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+        <div class="menu-items right-menu" id="nav-menu">
+            <a href="https://files.npcz.gg">Abyss</a>
+            <a href="https://discord.gg/npc">Discord</a>
+            <a href="https://store.npcz.gg">Store</a>
+            <a href="/sandbox/rules">Guidelines</a>
+            <a href="https://discord.gg/npc">Report</a>
+            <a href="/uptime.html">Status</a>
+        </div>
+    </nav>
 
     <div class="terms-container">
         <h1 class="terms-title">Terms of Service</h1>
@@ -34,7 +34,9 @@
         <div class="accordion">
             <div class="accordion-header">
                 <h2 class="accordion-title">Acceptance of Terms</h2>
-                <span class="accordion-label">Important</span>
+                <div class="accordion-label-container">
+                    <span class="accordion-label">Important</span>
+                </div>
                 <div class="accordion-icon"></div>
             </div>
             <div class="accordion-content">
@@ -45,7 +47,9 @@
         <div class="accordion">
             <div class="accordion-header">
                 <h2 class="accordion-title">User Privacy</h2>
-                <span class="accordion-label">Privacy</span>
+                <div class="accordion-label-container">
+                    <span class="accordion-label">Privacy</span>
+                </div>
                 <div class="accordion-icon"></div>
             </div>
             <div class="accordion-content">
@@ -56,7 +60,9 @@
         <div class="accordion">
             <div class="accordion-header">
                 <h2 class="accordion-title">Content Usage Rights</h2>
-                <span class="accordion-label">Legal</span>
+                <div class="accordion-label-container">
+                    <span class="accordion-label">Legal</span>
+                </div>
                 <div class="accordion-icon"></div>
             </div>
             <div class="accordion-content">
@@ -67,7 +73,9 @@
         <div class="accordion">
             <div class="accordion-header">
                 <h2 class="accordion-title">User Responsibilities</h2>
-                <span class="accordion-label">Guidelines</span>
+                <div class="accordion-label-container">
+                    <span class="accordion-label">Guidelines</span>
+                </div>
                 <div class="accordion-icon"></div>
             </div>
             <div class="accordion-content">
@@ -113,23 +121,27 @@
             menuItems.classList.toggle('active');
         });
 
-        // Accordion functionality
+        // Enhanced accordion functionality
         document.querySelectorAll('.accordion-header').forEach(header => {
             header.addEventListener('click', () => {
                 const accordion = header.parentElement;
                 const content = header.nextElementSibling;
                 
-                // Close all other accordions
-                document.querySelectorAll('.accordion').forEach(item => {
-                    if (item !== accordion) {
-                        item.classList.remove('active');
-                        item.querySelector('.accordion-content').classList.remove('active');
-                    }
-                });
-
-                // Toggle current accordion
+                // Toggle current accordion without closing others
                 accordion.classList.toggle('active');
                 content.classList.toggle('active');
+                
+                // Smooth scroll if the content would be off-screen
+                if (accordion.classList.contains('active')) {
+                    const accordionRect = accordion.getBoundingClientRect();
+                    if (accordionRect.bottom > window.innerHeight) {
+                        const scrollTarget = accordion.offsetTop - 100;
+                        window.scrollTo({
+                            top: scrollTarget,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
             });
         });
     </script>
