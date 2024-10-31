@@ -1,4 +1,4 @@
-// ignore
+// config.js
 var Config = {};
 
 /**
@@ -7,14 +7,50 @@ var Config = {};
 Config.enableMap = true;
 
 /**
- * Enable steamId text in the top right corner of the screen?
+ * Enable custom text in the top right corner of the screen?
  */
-Config.enableSteamID = false;
+Config.enableCustomText = true;
+
+/**
+ * The custom text to display in the top right corner
+ * only works if enableCustomText = true
+ */
+Config.customText = "Fully translated, no lag.";
 
 /**
  * Enable announcements?
  */
 Config.enableAnnouncements = true;
+
+/**
+ * Enable rotating titles?
+ */
+Config.enableRotatingTitles = true;
+
+/**
+ * What messages do you want to show in the title?
+ * only works if enableRotatingTitles = true
+ */
+Config.titleMessages = [
+    {
+        heading: "VISIT US",
+        subheading: "ZGRAD.US/DISCORD"
+    },
+    {
+        heading: "JOIN NOW",
+        subheading: "BEST GMOD SERVER"
+    },
+    {
+        heading: "WELCOME",
+        subheading: "TO THE COMMUNITY"
+    }
+];
+
+/**
+ * How many milliseconds between title rotations?
+ * only works if enableRotatingTitles = true
+ */
+Config.titleRotationLength = 5000;
 
 /**
  * What messages do you want to show up?
