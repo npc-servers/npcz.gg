@@ -7,20 +7,30 @@ var Config = {};
 Config.enableMap = true;
 
 /**
+ * The prefix text before the map name
+ */
+Config.mapPrefix = "You're playing on ";
+
+/**
+ * The suffix text for player count
+ */
+Config.playerCountSuffix = " slots";
+
+/**
  * Enable custom text in the top right corner of the screen?
  */
 Config.enableCustomText = true;
 
 /**
- * The custom text to display in the top right corner
+ * The custom texts to display in the top right corner
  * only works if enableCustomText = true
  */
-Config.customText = "Fully translated, no lag.";
-
-/**
- * Enable announcements?
- */
-Config.enableAnnouncements = true;
+Config.customTexts = [
+    "Fully translated, no lag.",
+    "Best Gmod Server!",
+    "Join our community!",
+    "Welcome to ZGRAD!"
+];
 
 /**
  * Enable rotating titles?
@@ -50,7 +60,7 @@ Config.titleMessages = [
  * How many milliseconds between title rotations?
  * only works if enableRotatingTitles = true
  */
-Config.titleRotationLength = 5000;
+Config.rotationLength = 5000;
 
 /**
  * What messages do you want to show up?
@@ -70,7 +80,12 @@ Config.announceMessages = [
 ];
 
 /**
- * How many miliseconds for each announcement?
+ * Enable announcements?
+ */
+Config.enableAnnouncements = true;
+
+/**
+ * How many milliseconds for each announcement?
  * only works if enableAnnouncements = true
  */
 Config.announcementLength = 3000;
