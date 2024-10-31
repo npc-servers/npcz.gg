@@ -62,7 +62,7 @@ h1 {
   width: 100%;
   height: 100%;
   position: fixed;
-  background-image: url("../images/zgrad1.jpg");
+  background-image: url("./images/zgrad1.jpg");
   transition: background 0.5s linear;
   -webkit-transition: background 1.5s linear;
   background-repeat: no-repeat;
