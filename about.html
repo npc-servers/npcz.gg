@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - NPCZ</title>
+    <link rel="stylesheet" href="css/shared.css">
+    <link rel="stylesheet" href="css/about.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navbar functionality
+            const navbar = document.getElementById('navbar');
+            const hamburger = document.querySelector('.hamburger');
+            const menuItems = document.getElementById('nav-menu');
+            
+            hamburger.addEventListener('click', function() {
+                this.classList.toggle('active');
+                menuItems.classList.toggle('active');
+            });
+
+            // Parallax effect for the about banner
+            window.addEventListener('scroll', function() {
+                const banner = document.querySelector('.about-banner-container');
+                const bannerContent = document.querySelector('.about-banner');
+                const scrolled = window.scrollY;
+                
+                // Add blur to navbar
+                if (scrolled > 50) {
+                    navbar.classList.add('blur');
+                } else {
+                    navbar.classList.remove('blur');
+                }
+
+                // Parallax effect
+                if (banner.getBoundingClientRect().top < window.innerHeight && 
+                    banner.getBoundingClientRect().bottom > 0) {
+                    const speed = 0.15;
+                    bannerContent.style.transform = `translateY(${scrolled * speed}px)`;
+                    const blurValue = Math.min(scrolled * 0.01, 2);
+                    banner.style.setProperty('--blur-amount', `${blurValue}px`);
+                }
+            });
+
+            // Handle clicks outside menu to close it
+            document.addEventListener('click', function(event) {
+                if (!event.target.closest('.hamburger') && !event.target.closest('#nav-menu')) {
+                    hamburger.classList.remove('active');
+                    menuItems.classList.remove('active');
+                }
+            });
+
+            // Collapsible sections functionality
+            document.querySelectorAll('.collapsible-header').forEach(header => {
+                header.addEventListener('click', () => {
+                    const content = header.nextElementSibling;
+                    const toggle = header.querySelector('.collapsible-toggle');
+                    
+                    header.classList.toggle('active');
+                    toggle.classList.toggle('active');
+                    content.classList.toggle('active');
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <!-- Navbar -->
+    <div id="navbar">
+        <div class="logo-container">
+            <a href="/index.html">
+                <img src="assets/logos/logo-whiteout.png" alt="Logo" class="navbar-logo">
+            </a>
+        </div>
+
+        <button class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+
+        <div id="nav-menu" class="menu-items right-menu">
+            <a href="https://files.npcz.gg">Abyss</a>
+            <a href="https://discord.gg/npc">Discord</a>
+            <a href="https://store.npcz.gg">Store</a>
+            <a href="/sandbox/rules">Guidelines</a>
+            <a href="https://discord.gg/npc">Report</a>
+            <a href="/uptime.html">Status</a>
+        </div>
+    </div>
+
+    <!-- About Banner with Parallax -->
+    <div class="about-banner-container">
+        <div class="about-banner">
+            <div class="banner-content">
+                <h1 class="about-title">About NPCZ</h1>
+                <p class="about-description">
+                    Since 2016, NPCZ has been at the forefront of zombie survival gaming experiences in Garry's Mod. 
+                    Our dedicated team works tirelessly to create unique and engaging content for our community, 
+                    pushing the boundaries of what's possible in zombie survival gameplay.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Team Members -->
+    <div class="team-container">
+        <!-- Charity -->
+        <div class="team-member">
+            <img src="https://avatars.steamstatic.com/bc4a8f2dfe758953cf153dcac8d9c2e7eced792e_full.jpg" alt="Charity" class="member-image">
+            <div class="member-info">
+                <h2 class="member-name">Charity</h2>
+                <p class="member-role">Owner</p>
+                <p class="member-bio">
+                    Creator and owner of NPCZ, dedicated to developing innovative gameplay experiences and fostering 
+                    a thriving community since 2016.
+                </p>
+                <div class="social-icons">
+                    <a href="https://steamcommunity.com/profiles/76561198108961139" target="_blank" class="social-icon steam"></a>
+                    <div class="social-icon discord">
+                        <span class="discord-tooltip">charity</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Redox -->
+        <div class="team-member">
+            <img src="https://avatars.steamstatic.com/4327d14b9c209d06f915805d079801a995bd62f0_full.jpg" alt="Redox" class="member-image">
+            <div class="member-info">
+                <h2 class="member-name">Redox</h2>
+                <p class="member-role">Owner</p>
+                <p class="member-bio">
+                    Co-owner of NPCZ, focusing on technical infrastructure and server development to ensure 
+                    the best possible gaming experience for our community.
+                </p>
+                <div class="social-icons">
+                    <a href="https://steamcommunity.com/profiles/76561198072217736" target="_blank" class="social-icon steam"></a>
+                    <div class="social-icon discord">
+                        <span class="discord-tooltip">redox</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Desu -->
+        <div class="team-member">
+            <img src="https://avatars.steamstatic.com/47da305ba3c25984999dfb6aad7d617b0bfb14d3_full.jpg" alt="Desu" class="member-image">
+            <div class="member-info">
+                <h2 class="member-name">Desu</h2>
+                <p class="member-role">Director</p>
+                <p class="member-bio">
+                    Leading NPCZ's development direction and community engagement, ensuring our servers continue 
+                    to deliver exceptional zombie survival experiences.
+                </p>
+                <div class="social-icons">
+                    <a href="https://steamcommunity.com/profiles/76561198043988268" target="_blank" class="social-icon steam"></a>
+                    <div class="social-icon discord">
+                        <span class="discord-tooltip">desu</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Collapsible Sections -->
+    <div class="collapsible-section">
+        <!-- Staff Section -->
+        <div class="collapsible-header">
+            <h2>Staff Team</h2>
+            <div class="collapsible-toggle"></div>
+        </div>
+        <div class="collapsible-content">
+            <div class="small-team-container">
+                <div class="small-team-member">
+                    <div class="small-member-content">
+                        <img src="/api/placeholder/80/80" alt="Staff Member" class="small-member-image">
+                        <div class="small-member-info">
+                            <h3 class="small-member-name">Staff Name</h3>
+                            <p class="small-member-role">Admin</p>
+                            <div class="small-social-icons">
+                                <a href="#" target="_blank" class="social-icon steam"></a>
+                                <div class="social-icon discord">
+                                    <span class="discord-tooltip">username</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more staff members here -->
+            </div>
+        </div>
+    </div>
+
+    <div class="collapsible-section">
+        <!-- Developers Section -->
+        <div class="collapsible-header">
+            <h2>Development Team</h2>
+            <div class="collapsible-toggle"></div>
+        </div>
+        <div class="collapsible-content">
+            <div class="small-team-container">
+                <div class="small-team-member">
+                    <div class="small-member-content">
+                        <img src="/api/placeholder/80/80" alt="Developer" class="small-member-image">
+                        <div class="small-member-info">
+                            <h3 class="small-member-name">Developer Name</h3>
+                            <p class="small-member-role">Developer</p>
+                            <div class="small-social-icons">
+                                <a href="#" target="_blank" class="social-icon steam"></a>
+                                <div class="social-icon discord">
+                                    <span class="discord-tooltip">username</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more developers here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer-gradient">
+        <div id="text-footer">
+            <div class="footer-column">
+                <img src="assets/logos/logo-whiteout.png" alt="Footer Logo" width="150" height="150">
+            </div>
+            <div class="footer-column">
+                <h3>About</h3>
+                NPCZ is a server network focused around zombie<br>
+                survival experiences on Garry's Mod. EST 2016
+            </div>
+            <div class="footer-column">
+                <h3>Support</h3>
+                Having Issues? Contact us at: <a href="mailto:contact@npcz.gg">contact@npcz.gg</a><br>
+                Or create a support ticket in our <a href="https://discord.com/npc">Discord</a>.
+            </div>
+        </div>
+    </div>
+</body>
+</html>
