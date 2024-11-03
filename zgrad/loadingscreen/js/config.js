@@ -26,9 +26,9 @@ Config.enableCustomText = true;
  * only works if enableCustomText = true
  */
 Config.customTexts = [
-    "Fully translated, no lag.",
-    "Best Gmod Server!",
-    "Join our community!",
+    "Fully translated from Russian to English.",
+    "A real AMERICAN server.",
+    "Actively maintained and developed.",
     "Welcome to ZGRAD!"
 ];
 
@@ -47,12 +47,12 @@ Config.titleMessages = [
         subheading: "ZGRAD.US/DISCORD"
     },
     {
-        heading: "JOIN NOW",
-        subheading: "BEST GMOD SERVER"
+        heading: "OUR PARENT NETWORK:",
+        subheading: "WWW.NPCZ.GG"
     },
     {
-        heading: "WELCOME",
-        subheading: "TO THE COMMUNITY"
+        heading: "THE BEST HOMIGRAD EXPERIENCE?",
+        subheading: "THAT'S US."
     }
 ];
 
@@ -67,16 +67,8 @@ Config.rotationLength = 5000;
  * only works if enableAnnouncements = true
  */
 Config.announceMessages = [
-    "Enjoy your stay!",
-    "Don't forget to join the discord! discord.gg/npc",
-    "Is a player breaking the rules? Report them in the discord!",
-    "Look how fast you load in!",
-    "A custom version of M9K for extra fun!",
-    "Got any suggestions? Let us know in the discord!",
-    "This is in fact a loading screen!",
-    "Simplisticy is quality on its own",
-    "Do people even read these?",
-    "I sure hope so!",
+    "Get help or report players in the zgrad-support channel on our Discord.",
+    "Be sure to join our Discord: zgrad.us/discord",
 ];
 
 /**

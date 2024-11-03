@@ -46,7 +46,7 @@ function loadAll() {
     setTimeout(function() {
         if (downloadingFileCalled) {
             announce(
-                "This is your first time joining, please wait for the files to download.",
+                "This is your first time joining, please wait for the files to download. ZGRAD loads faster than other servers!",
                 true
             );
         }
