@@ -60,6 +60,35 @@
                     content.classList.toggle('active');
                 });
             });
+
+            // Discord username copy functionality
+            document.querySelectorAll('.social-icon.discord').forEach(icon => {
+                icon.addEventListener('click', async function() {
+                    const tooltip = this.querySelector('.discord-tooltip');
+                    const discordName = tooltip.textContent;
+                    
+                    try {
+                        await navigator.clipboard.writeText(discordName);
+                        
+                        // Show "Copied!" feedback
+                        const originalText = tooltip.textContent;
+                        tooltip.textContent = 'Copied!';
+                        tooltip.classList.add('copied');
+                        tooltip.style.opacity = '1';
+                        tooltip.style.visibility = 'visible';
+                        
+                        // Reset back to username after 1.5 seconds
+                        setTimeout(() => {
+                            tooltip.textContent = originalText;
+                            tooltip.classList.remove('copied');
+                            tooltip.style.opacity = '';
+                            tooltip.style.visibility = '';
+                        }, 1500);
+                    } catch (err) {
+                        console.error('Failed to copy:', err);
+                    }
+                });
+            });
         });
     </script>
 </head>
@@ -111,13 +140,12 @@
                 <h2 class="member-name">Charity</h2>
                 <p class="member-role">Owner</p>
                 <p class="member-bio">
-                    Creator and owner of NPCZ, dedicated to developing innovative gameplay experiences and fostering 
-                    a thriving community since 2016.
+                    Owner and operations lead for NPCZ.
                 </p>
                 <div class="social-icons">
                     <a href="https://steamcommunity.com/profiles/76561198108961139" target="_blank" class="social-icon steam"></a>
                     <div class="social-icon discord">
-                        <span class="discord-tooltip">charity</span>
+                        <span class="discord-tooltip">charitea</span>
                     </div>
                 </div>
             </div>
@@ -130,13 +158,12 @@
                 <h2 class="member-name">Redox</h2>
                 <p class="member-role">Owner</p>
                 <p class="member-bio">
-                    Co-owner of NPCZ, focusing on technical infrastructure and server development to ensure 
-                    the best possible gaming experience for our community.
+                    Co-owner and technical infrastructure lead for NPCZ.
                 </p>
                 <div class="social-icons">
                     <a href="https://steamcommunity.com/profiles/76561198072217736" target="_blank" class="social-icon steam"></a>
                     <div class="social-icon discord">
-                        <span class="discord-tooltip">redox</span>
+                        <span class="discord-tooltip">redoxdev</span>
                     </div>
                 </div>
             </div>
@@ -149,13 +176,12 @@
                 <h2 class="member-name">Desu</h2>
                 <p class="member-role">Director</p>
                 <p class="member-bio">
-                    Leading NPCZ's development direction and community engagement, ensuring our servers continue 
-                    to deliver exceptional zombie survival experiences.
+                    Network and staff director for NPCZ.
                 </p>
                 <div class="social-icons">
                     <a href="https://steamcommunity.com/profiles/76561198043988268" target="_blank" class="social-icon steam"></a>
                     <div class="social-icon discord">
-                        <span class="discord-tooltip">desu</span>
+                        <span class="discord-tooltip">unusualdesu</span>
                     </div>
                 </div>
             </div>
@@ -166,59 +192,262 @@
     <div class="collapsible-section">
         <!-- Staff Section -->
         <div class="collapsible-header">
-            <h2>Staff Team</h2>
+            <h2>Our Team</h2>
             <div class="collapsible-toggle"></div>
         </div>
         <div class="collapsible-content">
             <div class="small-team-container">
                 <div class="small-team-member">
                     <div class="small-member-content">
-                        <img src="/api/placeholder/80/80" alt="Staff Member" class="small-member-image">
+                        <img src="https://avatars.steamstatic.com/4adcc1a00595ae5251ff95f8e196721e042cf65c_full.jpg" alt="Staff Member" class="small-member-image">
                         <div class="small-member-info">
-                            <h3 class="small-member-name">Staff Name</h3>
-                            <p class="small-member-role">Admin</p>
+                            <h3 class="small-member-name">Andreas</h3>
+                            <p class="small-member-role">Senior Staff & Lead Mapper</p>
                             <div class="small-social-icons">
-                                <a href="#" target="_blank" class="social-icon steam"></a>
+                                <a href="https://steamcommunity.com/profiles/76561199006938649" target="_blank" class="social-icon steam"></a>
                                 <div class="social-icon discord">
-                                    <span class="discord-tooltip">username</span>
+                                    <span class="discord-tooltip">andreasthewizard</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- Add more staff members here -->
-            </div>
-        </div>
-    </div>
-
-    <div class="collapsible-section">
-        <!-- Developers Section -->
-        <div class="collapsible-header">
-            <h2>Development Team</h2>
-            <div class="collapsible-toggle"></div>
-        </div>
-        <div class="collapsible-content">
-            <div class="small-team-container">
                 <div class="small-team-member">
                     <div class="small-member-content">
-                        <img src="/api/placeholder/80/80" alt="Developer" class="small-member-image">
+                        <img src="https://avatars.steamstatic.com/a5172ddaf8a3f99baf1636a8e4cbc4d6003b3839_full.jpg" alt="Staff Member" class="small-member-image">
                         <div class="small-member-info">
-                            <h3 class="small-member-name">Developer Name</h3>
-                            <p class="small-member-role">Developer</p>
+                            <h3 class="small-member-name">Yamachinima</h3>
+                            <p class="small-member-role">Staff</p>
                             <div class="small-social-icons">
-                                <a href="#" target="_blank" class="social-icon steam"></a>
+                                <a href="https://steamcommunity.com/id/Yamachinima" target="_blank" class="social-icon steam"></a>
                                 <div class="social-icon discord">
-                                    <span class="discord-tooltip">username</span>
+                                    <span class="discord-tooltip">yamachinima</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- Add more developers here -->
+                
+                <div class="small-team-member">
+                    <div class="small-member-content">
+                        <img src="https://avatars.steamstatic.com/3a10e5b694db1fbc5aadaf82f548e297ff2f683e_full.jpg" alt="Staff Member" class="small-member-image">
+                        <div class="small-member-info">
+                            <h3 class="small-member-name">Supply Man</h3>
+                            <p class="small-member-role">Staff & Developer</p>
+                            <div class="small-social-icons">
+                                <a href="https://steamcommunity.com/id/SupplyMan/" target="_blank" class="social-icon steam"></a>
+                                <div class="social-icon discord">
+                                    <span class="discord-tooltip">supply_man</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="small-team-member">
+                    <div class="small-member-content">
+                        <img src="https://avatars.steamstatic.com/3d8621665e8d270513966f81e80625a64e02f0ba_full.jpg" alt="Staff Member" class="small-member-image">
+                        <div class="small-member-info">
+                            <h3 class="small-member-name">Solarfrogs</h3>
+                            <p class="small-member-role">Staff & Developer</p>
+                            <div class="small-social-icons">
+                                <a href="https://steamcommunity.com/id/solarfrogs" target="_blank" class="social-icon steam"></a>
+                                <div class="social-icon discord">
+                                    <span class="discord-tooltip">solarfrogs</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="small-team-member">
+                    <div class="small-member-content">
+                        <img src="https://avatars.steamstatic.com/61e531a67cac910a8b9441f7279b677ab7a0bbb7_full.jpg" alt="Staff Member" class="small-member-image">
+                        <div class="small-member-info">
+                            <h3 class="small-member-name">Profantic</h3>
+                            <p class="small-member-role">Staff & Mapper</p>
+                            <div class="small-social-icons">
+                                <a href="https://steamcommunity.com/profiles/76561197986813597" target="_blank" class="social-icon steam"></a>
+                                <div class="social-icon discord">
+                                    <span class="discord-tooltip">profantic</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more staff members here -->
+                <div class="small-team-member">
+                    <div class="small-member-content">
+                        <img src="https://avatars.steamstatic.com/a2a9776c7e24a52297cb9de72677d5746f88d18a_full.jpg" alt="Staff Member" class="small-member-image">
+                        <div class="small-member-info">
+                            <h3 class="small-member-name">Nanners</h3>
+                            <p class="small-member-role">Staff</p>
+                            <div class="small-social-icons">
+                                <a href="https://steamcommunity.com/profiles/76561198080690280" target="_blank" class="social-icon steam"></a>
+                                <div class="social-icon discord">
+                                    <span class="discord-tooltip">nanners_</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="small-team-member">
+                    <div class="small-member-content">
+                        <img src="https://avatars.steamstatic.com/eb89dcaad32cc26b3be6e63177faffc06c494f82_full.jpg" alt="Staff Member" class="small-member-image">
+                        <div class="small-member-info">
+                            <h3 class="small-member-name">MrSmig</h3>
+                            <p class="small-member-role">Staff & Developer</p>
+                            <div class="small-social-icons">
+                                <a href="https://steamcommunity.com/profiles/76561198139934996" target="_blank" class="social-icon steam"></a>
+                                <div class="social-icon discord">
+                                    <span class="discord-tooltip">mrsmig</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="small-team-member">
+                    <div class="small-member-content">
+                        <img src="https://avatars.steamstatic.com/acf67207768cdc5be5f09aca6a9f7830bf27d6f7_full.jpg" alt="Staff Member" class="small-member-image">
+                        <div class="small-member-info">
+                            <h3 class="small-member-name">Hultipoo</h3>
+                            <p class="small-member-role">Staff</p>
+                            <div class="small-social-icons">
+                                <a href="https://steamcommunity.com/profiles/76561198110261213" target="_blank" class="social-icon steam"></a>
+                                <div class="social-icon discord">
+                                    <span class="discord-tooltip">hultipoo</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="small-team-member">
+                    <div class="small-member-content">
+                        <img src="https://avatars.steamstatic.com/19d3927ea70906af3e46056d7549ce7b2cd794fd_full.jpg" alt="Staff Member" class="small-member-image">
+                        <div class="small-member-info">
+                            <h3 class="small-member-name">Gang Scrapper</h3>
+                            <p class="small-member-role">Staff</p>
+                            <div class="small-social-icons">
+                                <a href="https://steamcommunity.com/profiles/76561198800428831" target="_blank" class="social-icon steam"></a>
+                                <div class="social-icon discord">
+                                    <span class="discord-tooltip">flonk0868</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more staff members here -->
+                <div class="small-team-member">
+                    <div class="small-member-content">
+                        <img src="https://avatars.steamstatic.com/abd621946084b1c2d33c025955d9e0dd8cfaa721_full.jpg" alt="Staff Member" class="small-member-image">
+                        <div class="small-member-info">
+                            <h3 class="small-member-name">Evening</h3>
+                            <p class="small-member-role">Staff</p>
+                            <div class="small-social-icons">
+                                <a href="https://steamcommunity.com/profiles/76561198827305464" target="_blank" class="social-icon steam"></a>
+                                <div class="social-icon discord">
+                                    <span class="discord-tooltip">goth_vvitch</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="small-team-member">
+                    <div class="small-member-content">
+                        <img src="https://avatars.steamstatic.com/477efa4ba04d3c6a2c81def13bce5ffa78c16d89_full.jpg" alt="Staff Member" class="small-member-image">
+                        <div class="small-member-info">
+                            <h3 class="small-member-name">M3R</h3>
+                            <p class="small-member-role">Staff</p>
+                            <div class="small-social-icons">
+                                <a href="https://steamcommunity.com/profiles/76561198044721197" target="_blank" class="social-icon steam"></a>
+                                <div class="social-icon discord">
+                                    <span class="discord-tooltip">.m3r.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="small-team-member">
+                    <div class="small-member-content">
+                        <img src="https://avatars.steamstatic.com/0c6b4e183c3ee07c0e8de683adde164c786f97d2_full.jpg" alt="Staff Member" class="small-member-image">
+                        <div class="small-member-info">
+                            <h3 class="small-member-name">DarcyZx</h3>
+                            <p class="small-member-role">Staff & Lead Modeler</p>
+                            <div class="small-social-icons">
+                                <a href="https://steamcommunity.com/profiles/76561198137107930" target="_blank" class="social-icon steam"></a>
+                                <div class="social-icon discord">
+                                    <span class="discord-tooltip">darcyzx</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="small-team-member">
+                    <div class="small-member-content">
+                        <img src="https://avatars.steamstatic.com/b2746151c9bb05f138a753033dd973ac1ac35774_full.jpg" alt="Staff Member" class="small-member-image">
+                        <div class="small-member-info">
+                            <h3 class="small-member-name">AmsterdamStash</h3>
+                            <p class="small-member-role">Staff</p>
+                            <div class="small-social-icons">
+                                <a href="https://steamcommunity.com/profiles/76561198866542855" target="_blank" class="social-icon steam"></a>
+                                <div class="social-icon discord">
+                                    <span class="discord-tooltip">garage3313</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more staff members here -->
+                <div class="small-team-member">
+                    <div class="small-member-content">
+                        <img src="https://avatars.steamstatic.com/2fc7be6ee0acbe1e827732af228d0a144c9ecd91_full.jpg" alt="Staff Member" class="small-member-image">
+                        <div class="small-member-info">
+                            <h3 class="small-member-name">Anonymous_Goose</h3>
+                            <p class="small-member-role">Trial Staff</p>
+                            <div class="small-social-icons">
+                                <a href="https://steamcommunity.com/profiles/76561198255225389" target="_blank" class="social-icon steam"></a>
+                                <div class="social-icon discord">
+                                    <span class="discord-tooltip">anonymous_goose0722</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="small-team-member">
+                    <div class="small-member-content">
+                        <img src="https://avatars.steamstatic.com/c80c16889f61ce24ce0aced08235cdb122aafe17_full.jpg" alt="Staff Member" class="small-member-image">
+                        <div class="small-member-info">
+                            <h3 class="small-member-name">DeltaMolfar</h3>
+                            <p class="small-member-role">Trial Staff</p>
+                            <div class="small-social-icons">
+                                <a href="https://steamcommunity.com/profiles/76561197977625850" target="_blank" class="social-icon steam"></a>
+                                <div class="social-icon discord">
+                                    <span class="discord-tooltip">deltamolfar</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="small-team-member">
+                    <div class="small-member-content">
+                        <img src="https://avatars.steamstatic.com/32b70a5ae187ecc5f65e3464e3272ba6dd8bd298_full.jpg" alt="Staff Member" class="small-member-image">
+                        <div class="small-member-info">
+                            <h3 class="small-member-name">func_brush</h3>
+                            <p class="small-member-role">Mapper</p>
+                            <div class="small-social-icons">
+                                <a href="https://steamcommunity.com/profiles/76561199556162087" target="_blank" class="social-icon steam"></a>
+                                <div class="social-icon discord">
+                                    <span class="discord-tooltip">user7282</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
     <!-- Footer -->
     <div class="footer-gradient">
         <div id="text-footer">
