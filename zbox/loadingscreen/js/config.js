@@ -9,7 +9,7 @@ Config.enableMap = true;
 /**
  * Enable steamId text in the top right corner of the screen?
  */
-Config.enableSteamID = true;
+Config.enableSteamID = false;
 
 /**
  * Enable announcements?

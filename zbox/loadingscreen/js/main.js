@@ -115,7 +115,7 @@ function loadAll() {
   setTimeout(function() {
     if (downloadingFileCalled) {
       announce(
-        "This is your first time loading please wait for the files to download",
+        "This is your first time loading, please wait for the files to download.",
         true
       );
     }
