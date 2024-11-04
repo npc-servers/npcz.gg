@@ -1,4 +1,4 @@
-body{
+body {
     height: 100vh;
     margin: 0;
     display: flex;
@@ -6,15 +6,192 @@ body{
     flex-direction: column;
     justify-content: space-evenly;
     background-color: rgba(32, 32, 32);
+    position: relative;
+    overflow: hidden;
 }
 
-.redirect-container{
+@keyframes float {
+    0% {
+        transform: translate(-50%, -50%);
+    }
+    25% {
+        transform: translate(-51%, -51%);
+    }
+    50% {
+        transform: translate(-50%, -52%);
+    }
+    75% {
+        transform: translate(-49%, -51%);
+    }
+    100% {
+        transform: translate(-50%, -50%);
+    }
+}
+
+@keyframes glint {
+    0% {
+        background-position: 200% center;
+    }
+    100% {
+        background-position: -200% center;
+    }
+}
+
+@keyframes dotJump {
+    0%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes fadeMessage {
+    0%, 15% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    25%, 75% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    85%, 100% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes backgroundTransition {
+    0%, 45% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    55%, 100% {
+        opacity: 1;
+    }
+}
+
+.background-image {
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    top: 50%;
+    left: 50%;
+    background-size: cover;
+    z-index: 1;
+    animation: float 20s ease-in-out infinite;
+}
+
+.background-image-1, .background-image-2, .background-image-3 {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    animation: backgroundTransition 15s infinite;
+}
+
+.background-image-2 {
+    animation-delay: 5s;
+}
+
+.background-image-3 {
+    animation-delay: 10s;
+}
+
+.gradient-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    background: radial-gradient(circle at center, transparent 30%, rgba(32, 32, 32, 1) 70%);
+    pointer-events: none;
+}
+
+.connecting-text {
     padding: 30px;
     border-radius: 10px;
-}
-
-.display-text{
+    position: relative;
+    z-index: 3;
     font: 1.5rem 'Roboto', sans-serif;
     text-align: center;
+    display: block;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     color: white;
+}
+
+.glint-text {
+    background: linear-gradient(
+        90deg,
+        white 0%,
+        white 45%,
+        #ff3333 50%,
+        white 55%,
+        white 100%
+    );
+    background-size: 200% auto;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: glint 3s linear infinite;
+}
+
+/* ... (previous CSS remains the same until message-container) ... */
+
+.message-container {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    padding: 2px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.message-inner {
+    height: 60px;
+    padding: 0 30px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.01),
+        rgba(0, 0, 0, 0.2)
+    );
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    min-width: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.rotating-message {
+    font-family: 'Roboto', sans-serif;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+    margin: 0;
+    display: none;
+    text-align: center;
+    width: 100%;
+}
+
+.rotating-message.active {
+    display: block;
+    animation: fadeInOut 4s ease-in-out;
+}
+
+@keyframes fadeInOut {
+    0%, 100% {
+        opacity: 0;
+    }
+    20%, 80% {
+        opacity: 1;
+    }
 }

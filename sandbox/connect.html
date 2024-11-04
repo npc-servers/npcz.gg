@@ -1,22 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <title>Connecting</title>
-    <meta name="viewport" content="width=device-width">
-    <meta name="description" content="NPC redirect page">
-    <meta content="NPCZ Sandbox Connect" property="og:title" />
-    <meta content="Connect to the NPCZ Sandbox Server." property="og:description" />
-    <meta content="https://npcz.gg/assets/logos/logo.png" property="og:image" />
-    <meta content="#FF0000" data-react-helmet="true" name="theme-color" />
-    <meta name="viewport" content="width=device-width">
-
-    <script src="/js/elements/redirect.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connecting to Sandbox</title>
     <link rel="stylesheet" href="/css/redirect.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
-
 <body>
-    <npc-redirect txt="Connecting you to the Sandbox Server..." url="steam://connect/193.243.190.18:27015"></npc-redirect>
-</body>
+    <div class="background-image">
+        <div class="background-image-1" style="background-image: url('/assets/cards-banners/index-banner.jpg')"></div>
+        <div class="background-image-2" style="background-image: url('/assets/cards-banners/banner2.jpg')"></div>
+        <div class="background-image-3" style="background-image: url('/assets/cards-banners/banner3.jpg')"></div>
+    </div>
+    
+    <div class="gradient-overlay"></div>
+    
+    <div class="connecting-text">
+        <span class="glint-text">Connecting you to the Sandbox Server</span>
+        <span class="dot">.</span>
+        <span class="dot">.</span>
+        <span class="dot">.</span>
+    </div>
 
+    <div class="message-container">
+        <div class="message-inner">
+            <p class="rotating-message active">Welcome to the Sandbox Server</p>
+            <p class="rotating-message">Preparing your environment...</p>
+            <p class="rotating-message">Almost ready for you...</p>
+        </div>
+    </div>
+
+    <script>
+        function rotateMessages() {
+            const messages = document.querySelectorAll('.rotating-message');
+            let currentIndex = 0;
+
+            setInterval(() => {
+                messages.forEach(msg => {
+                    msg.classList.remove('active');
+                    msg.style.display = 'none';
+                });
+                
+                messages[currentIndex].style.display = 'block';
+                messages[currentIndex].classList.add('active');
+                
+                currentIndex = (currentIndex + 1) % messages.length;
+            }, 4000);
+        }
+
+        document.addEventListener('DOMContentLoaded', rotateMessages);
+    </script>
+</body>
 </html>
