@@ -1,10 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@200;300;400;500;600;700;800&display=swap');
+
+/* Base Styles */
 body, html {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
-    font-family: oxanium, sans-serif;
+    font-family: 'Oxanium', sans-serif;
     background-color: rgb(26, 26, 26);
 }
+
 body {
     height: 100vh;
     margin: 0;
@@ -17,95 +21,32 @@ body {
     overflow: hidden;
 }
 
-@keyframes float {
-    0% {
-        transform: translate(-50%, -50%);
-    }
-    25% {
-        transform: translate(-51%, -51%);
-    }
-    50% {
-        transform: translate(-50%, -52%);
-    }
-    75% {
-        transform: translate(-49%, -51%);
-    }
-    100% {
-        transform: translate(-50%, -50%);
-    }
-}
-
-@keyframes glint {
-    0% {
-        background-position: 200% center;
-    }
-    100% {
-        background-position: -200% center;
-    }
-}
-
-@keyframes dotJump {
-    0%, 80%, 100% {
-        transform: translateY(0);
-    }
-    40% {
-        transform: translateY(-5px);
-    }
-}
-
-@keyframes fadeMessage {
-    0%, 15% {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    25%, 75% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    85%, 100% {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-}
-
-@keyframes backgroundTransition {
-    0%, 45% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0;
-    }
-    55%, 100% {
-        opacity: 1;
-    }
+/* Background Styles */
+.background-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
 }
 
 .background-image {
     position: absolute;
-    width: 80%;
-    height: 80%;
-    top: 50%;
-    left: 50%;
-    background-size: cover;
-    z-index: 1;
-    animation: float 20s ease-in-out infinite;
-}
-
-.background-image-1, .background-image-2, .background-image-3 {
-    position: absolute;
     width: 100%;
     height: 100%;
-    background-size: cover;
-    background-position: center;
-    animation: backgroundTransition 15s infinite;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.2);
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    animation: float 20s ease-in-out infinite;
+    z-index: 1;
 }
 
-.background-image-2 {
-    animation-delay: 5s;
-}
-
-.background-image-3 {
-    animation-delay: 10s;
+.background-image.active {
+    opacity: 1;
 }
 
 .gradient-overlay {
@@ -115,16 +56,22 @@ body {
     top: 0;
     left: 0;
     z-index: 2;
-    background: radial-gradient(circle at center, transparent 30%, rgba(32, 32, 32, 1) 70%);
+    background: linear-gradient(
+        to top,
+        rgb(0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.8) 30%,
+        transparent 100%
+    );
     pointer-events: none;
 }
 
-.connecting-text {
+/* Text Container Styles */
+.connecting-text, .simple-redirect {
     padding: 30px;
     border-radius: 10px;
     position: relative;
     z-index: 3;
-    font: 1.5rem 'Roboto', sans-serif;
+    font: 1.5rem 'Oxanium', sans-serif;
     text-align: center;
     display: block;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
@@ -147,58 +94,66 @@ body {
     animation: glint 3s linear infinite;
 }
 
-/* ... (previous CSS remains the same until message-container) ... */
-
-.message-container {
-    position: fixed;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10;
-    padding: 2px;
-    border-radius: 12px;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+/* Dot Animation Styles */
+.dot {
+    display: inline-block;
+    opacity: 0.3;
+    animation: 
+        dotJump 1.5s infinite,
+        dotActive 1.5s infinite;
+    animation-timing-function: linear;
 }
 
-.message-inner {
-    height: 60px;
-    padding: 0 30px;
-    border-radius: 10px;
+.dot:nth-child(1) {
+    animation-delay: 0s, 0s;
+}
+
+.dot:nth-child(2) {
+    animation-delay: 0.5s, 0.5s;
+}
+
+.dot:nth-child(3) {
+    animation-delay: 1s, 1s;
+}
+
+/* Simple Redirect Style */
+.simple-redirect {
     background: linear-gradient(135deg, 
-        rgba(255, 255, 255, 0.01),
-        rgba(0, 0, 0, 0.2)
+        rgba(255, 255, 255, 0.1),
+        rgba(255, 255, 255, 0.05)
     );
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    min-width: 300px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
-.rotating-message {
-    font-family: 'Roboto', sans-serif;
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 1rem;
-    margin: 0;
-    display: none;
-    text-align: center;
-    width: 100%;
+/* Animations */
+@keyframes float {
+    0% { transform: translate(-50%, -50%) scale(1.2); }
+    25% { transform: translate(-51%, -51%) scale(1.2); }
+    50% { transform: translate(-50%, -52%) scale(1.2); }
+    75% { transform: translate(-49%, -51%) scale(1.2); }
+    100% { transform: translate(-50%, -50%) scale(1.2); }
 }
 
-.rotating-message.active {
-    display: block;
-    animation: fadeInOut 4s ease-in-out;
+@keyframes glint {
+    0% { background-position: 200% center; }
+    100% { background-position: -200% center; }
 }
 
-@keyframes fadeInOut {
-    0%, 100% {
-        opacity: 0;
-    }
-    20%, 80% {
-        opacity: 1;
-    }
+@keyframes dotJump {
+    0% { transform: translateY(0); }
+    10% { transform: translateY(-5px); }
+    20% { transform: translateY(0); }
+    100% { transform: translateY(0); }
+}
+
+@keyframes dotActive {
+    0% { opacity: 0.3; }
+    5% { opacity: 1; }
+    20% { opacity: 1; }
+    25% { opacity: 0.3; }
+    100% { opacity: 0.3; }
 }

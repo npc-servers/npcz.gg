@@ -4,12 +4,6 @@
     --svg-chevron: url("/assets/icons/chevron.svg");
 }
 
-/* Firefox */
-* {
-    scrollbar-width: thin;
-    scrollbar-color: #800000 #1a1a1a;
-}
-
 /* Banner section with parallax */
 .about-banner-container {
     position: relative;
