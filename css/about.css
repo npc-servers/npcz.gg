@@ -4,37 +4,10 @@
     --svg-chevron: url("/assets/icons/chevron.svg");
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-    width: 10px;
-}
-
-::-webkit-scrollbar-track {
-    background: #1a1a1a;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #800000;
-    border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #b00000;
-}
-
 /* Firefox */
 * {
     scrollbar-width: thin;
     scrollbar-color: #800000 #1a1a1a;
-}
-
-body, html {
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-    font-family: oxanium, sans-serif;
-    background-color: rgb(26, 26, 26);
-    color: white;
 }
 
 /* Banner section with parallax */
