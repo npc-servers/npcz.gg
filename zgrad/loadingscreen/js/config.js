@@ -47,13 +47,13 @@ Config.titleMessages = [
         subheading: "ZGRAD.US/DISCORD"
     },
     {
-        heading: "OUR PARENT NETWORK:",
-        subheading: "WWW.NPCZ.GG"
-    },
-    {
         heading: "THE BEST HOMIGRAD EXPERIENCE?",
         subheading: "THAT'S US."
-    }
+    },
+    {
+        heading: "FOLLOW OUR SOCIALS",
+        subheading: "ZGRAD.US/SOCIALS"
+    },
 ];
 
 /**
@@ -67,8 +67,10 @@ Config.rotationLength = 5000;
  * only works if enableAnnouncements = true
  */
 Config.announceMessages = [
-    "Get help or report players in the zgrad-support channel on our Discord.",
+    "Get help or report players in the #support channel on our Discord.",
     "Be sure to join our Discord: zgrad.us/discord",
+    "Press F2 to open our settings menu!",
+    "We bind all necessary game functions by default!",
 ];
 
 /**
