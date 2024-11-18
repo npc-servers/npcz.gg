@@ -57,7 +57,7 @@ Config.titleMessages = [
     },
     {
         heading: "USE CODE LAUNCH",
-        subheading: "FOR 25% RANKS - STORE.NPCZ.GG/ZGRAD"
+        subheading: "FOR 25% RANKS - !DONATE"
     },
 ];
 
@@ -76,6 +76,7 @@ Config.announceMessages = [
     "Be sure to join our Discord: zgrad.us/discord",
     "Press F2 to open our settings menu!",
     "We bind all necessary game functions by default!",
+    "Found a bug or have a suggestion? Post about it on our Discord!"
 ];
 
 /**
