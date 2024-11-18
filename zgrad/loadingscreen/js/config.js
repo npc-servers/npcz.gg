@@ -29,7 +29,8 @@ Config.customTexts = [
     "Fully translated from Russian to English.",
     "A real AMERICAN server.",
     "Actively maintained and developed.",
-    "Welcome to ZGRAD!"
+    "Welcome to ZGRAD!",
+    "Visit our store: store.npcz.gg/zgrad"
 ];
 
 /**
@@ -53,6 +54,10 @@ Config.titleMessages = [
     {
         heading: "FOLLOW OUR SOCIALS",
         subheading: "ZGRAD.US/SOCIALS"
+    },
+    {
+        heading: "USE CODE LAUNCH",
+        subheading: "FOR 25% RANKS - STORE.NPCZ.GG/ZGRAD"
     },
 ];
 
