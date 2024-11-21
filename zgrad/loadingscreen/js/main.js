@@ -56,6 +56,11 @@ function loadAll() {
 /**
  * Rotation function for all elements
  */
+
+function getRandomIndex(array) {
+    return Math.floor(Math.random() * array.length);
+}
+
 function rotateElements(index) {
   if (!Config.enableRotatingTitles) {
       return;
@@ -76,7 +81,16 @@ function rotateElements(index) {
           h2Element.style.opacity = '1';
           h1Element.style.opacity = '1';
       }, 500);
-  }
+      if (Config.tipMessages && Config.tipMessages.length > 0) {
+        var tipContent = document.getElementById("tip-content");
+        tipContent.style.opacity = '0';
+
+        setTimeout(function() {
+            tipContent.textContent = Config.tipMessages[getRandomIndex(Config.tipMessages)];
+            tipContent.style.opacity = '1';
+        }, 500);
+    }
+}
 
   // Rotate announcement
   if (Config.enableAnnouncements && Config.announceMessages && Config.announceMessages.length > 0) {
@@ -99,6 +113,25 @@ function rotateElements(index) {
           steamid.style.opacity = '1';
       }, 500);
   }
+}
+
+function rotateSidePanel() {
+    if (Config.sidePanelMessages && Config.sidePanelMessages.length > 0) {
+        var header = document.querySelector('.side-header');
+        var content = document.querySelector('.side-content');
+        var randomIndex = getRandomIndex(Config.sidePanelMessages);
+        
+        header.style.opacity = '0';
+        content.style.opacity = '0';
+
+        setTimeout(function() {
+            var message = Config.sidePanelMessages[randomIndex];
+            header.textContent = message.header;
+            content.textContent = message.content;
+            header.style.opacity = '1';
+            content.style.opacity = '1';
+        }, 500);
+    }
 }
 
 /**
@@ -216,6 +249,16 @@ document.addEventListener("DOMContentLoaded", function() {
       (Config.enableAnnouncements && Config.announceMessages && Config.announceMessages.length > 0) ||
       (Config.enableCustomText && Config.customTexts && Config.customTexts.length > 0)
   );
+
+  if (Config.sidePanelMessages && Config.sidePanelMessages.length > 0) {
+    var sidePanelIndex = 0;
+    rotateSidePanel(sidePanelIndex);
+    
+    setInterval(function() {
+        sidePanelIndex++;
+        rotateSidePanel(sidePanelIndex);
+    }, Config.sidePanelRotationLength);
+}
 
   if (hasRotatingContent) {
       var rotationIndex = 0;

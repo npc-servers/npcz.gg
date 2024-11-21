@@ -90,3 +90,26 @@ Config.enableAnnouncements = true;
  * only works if enableAnnouncements = true
  */
 Config.announcementLength = 3000;
+// Add to config.js
+Config.tipMessages = [
+    "Press F2 to access the settings menu.",
+    "Press G to ragdoll or get up.",
+    "While unconcious, type !endit to kill yourself."
+];
+
+Config.sidePanelMessages = [
+    {
+        header: "HOMICIDE OVERVIEW",
+        content: "A TTT like gamemode. Traitors have to kill everyone, and innocents have to find and apprehend or kill the traitors to win. Wild West is a modifier that gives all players revolvers. "
+    },
+    {
+        header: "LATEST UPDATE",
+        content: "New weapons and maps have been added! Check our Discord for the full changelog."
+    },
+    {
+        header: "EVENTS",
+        content: "Join us every Saturday at 8PM EST for special community events!"
+    }
+];
+
+Config.sidePanelRotationLength = 15000; // 15 seconds
