@@ -100,16 +100,48 @@ Config.tipMessages = [
 Config.sidePanelMessages = [
     {
         header: "HOMICIDE OVERVIEW",
-        content: "A TTT like gamemode. Traitors have to kill everyone, and innocents have to find and apprehend or kill the traitors to win. Wild West is a modifier that gives all players revolvers. "
+        content: "Mixture of TTT and Murder. Traitors are armed with a knife, a firearm, and other gadgets, and have the objective of killing every innocent before the police arrive. The innocents have to work together and eliminate the traitors. One innocent person possesses either a firearm or a melee weapon."
     },
     {
-        header: "LATEST UPDATE",
-        content: "New weapons and maps have been added! Check our Discord for the full changelog."
+        header: "RIOT OVERVIEW",
+        content: "Cops can either kill or arrest rioters, meanwhile rioters have to eliminate the police and fight for their rights. Last team standing wins."
     },
     {
-        header: "EVENTS",
-        content: "Join us every Saturday at 8PM EST for special community events!"
-    }
+        header: "GANGWAR OVERVIEW",
+        content: "Bloods vs Crips, last gang standing wins."
+    },
+    {
+        header: "CSS OVERVIEW",
+        content: "Armed conflict between Terrorists and Counter-Terrorists in a control-point based battle. Team with the most control points captured wins. Respawns are available."
+    },
+    {
+        header: "TDM OVERVIEW",
+        content: "Red vs Blue armed conflict in a Team Deathmatch style match. Last team alive wins. No respawns."
+    },
+    {
+        header: "HL2DM OVERVIEW",
+        content: "Combine forces vs The Rebellion in a Deathmatch round with Half Life 2 Weaponry."
+    },
+    {
+        header: "FLYING SCOUTSMEN OVERVIEW",
+        content: "Red vs Blue in a low gravity Team Deathmatch where snipers and knifes are the only available weapons. Respawns are available."
+    },
+    {
+        header: "HOMIGRAD CONFLICT OVERVIEW",
+        content: "Taliban fighters vs NATO forces in a territorial dispute with control points. Team with most control points captured wins."
+    },
+    {
+        header: "HIDE & SEEK OVERVIEW",
+        content: "Hiders have to hide from Seekers until the cops arrive. Seekers have to kill all the hiders"
+    },
+    {
+        header: "DEATMATCH OVERVIEW",
+        content: "Free for all."
+    },
+    {
+        header: "WW2 OVERVIEW",
+        content: "Soviets vs The Wehrmacht in a control point based battle."
+    },
 ];
 
 Config.sidePanelRotationLength = 15000; // 15 seconds
