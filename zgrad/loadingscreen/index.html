@@ -41,6 +41,9 @@
     <script>
         const possibleBackgrounds = [
             "./images/zgrad1.jpg",
+            "./images/zgrad2.jpg",
+            "./images/zgrad3.jpg",
+            "./images/zgrad4.jpg",
         ]
         let currentBackground = 0;
 
@@ -55,7 +58,7 @@
             div.style.backgroundImage = `url('${possibleBackgrounds[currentBackground]}')`;
         }
 
-        setInterval(changeBackground, 3000);
+        setInterval(changeBackground, 10000);
     </script>
   </body>
 </html>

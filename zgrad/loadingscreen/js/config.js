@@ -56,10 +56,6 @@ Config.titleMessages = [
         heading: "FOLLOW OUR SOCIALS",
         subheading: "ZGRAD.US/SOCIALS"
     },
-    {
-        heading: "USE CODE \"LAUNCH\"",
-        subheading: "FOR 25% OFF RANKS - !DONATE"
-    },
 ];
 
 /**

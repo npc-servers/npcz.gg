@@ -23,20 +23,23 @@ main {
     }
 
     #side-panel {
-        -webkit-backdrop-filter: blur(10px);
-        backdrop-filter: blur(10px);
-        background-color: rgba(0, 0, 0, 0.5);
-        position: fixed;
-        left: 1%;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 250px;
-        min-height: 150px;
-        height: auto;
-        padding: 1%;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 4px;
-    }
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      background-color: rgba(0, 0, 0, 0.5);
+      position: fixed;
+      left: 1%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 250px;
+      min-height: 150px;
+      height: auto;
+      padding: 1%;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.7),
+                  0 0 30px rgba(0, 0, 0, 0.2),
+                  inset 0 0 15px rgba(0, 0, 0, 0.1);
+  }
 
     #tips-panel {
         -webkit-backdrop-filter: blur(10px);
@@ -51,6 +54,9 @@ main {
         padding: 10px 0;
         transition: opacity 0.5s ease-in-out;
         border-top: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.7),
+        0 0 30px rgba(0, 0, 0, 0.2),
+        inset 0 0 15px rgba(0, 0, 0, 0.1);
     }
 }
 
@@ -61,6 +67,9 @@ nav {
     overflow: auto;
     position: relative;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.7),
+    0 0 30px rgba(0, 0, 0, 0.2),
+    inset 0 0 15px rgba(0, 0, 0, 0.1);
   }
 
 #side-panel {
