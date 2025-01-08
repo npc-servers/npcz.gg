@@ -1,3 +1,18 @@
+function openInSteamOverlay(url) {
+    // Try to detect if we're in Garry's Mod VGUI
+    if (window.location.protocol === 'asset') {
+        // Force Steam overlay by using gmod.OpenURL
+        if (typeof gmod !== 'undefined' && gmod.OpenURL) {
+            gmod.OpenURL(url);
+        } else {
+            window.location.href = 'steam://openurl/' + url;
+        }
+    } else {
+        // Regular browser behavior
+        window.open(url, '_blank');
+    }
+}
+
 function copyLink(ruleId) {
     const url = window.location.href.split('#')[0] + '#' + ruleId;
     navigator.clipboard.writeText(url).then(() => {
@@ -45,6 +60,16 @@ function collapseAllExcept(targetId) {
 
 // Initialize rules functionality
 function initRules() {
+    // Handle quick links
+    document.querySelectorAll('.quick-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const href = link.getAttribute('href');
+            const url = href.replace('steam://openurl/', '');
+            openInSteamOverlay(url);
+        });
+    });
+
     // Set animation order for rule cards
     document.querySelectorAll('.rule-card').forEach((card, index) => {
         card.style.setProperty('--animation-order', index);
