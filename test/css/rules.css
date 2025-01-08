@@ -1,0 +1,486 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Squada One', Impact, 'Arial Black', sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.container {
+    min-height: 100vh;
+    width: 100%;
+    background-image: url('../HHBackground.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    position: relative;
+    padding: 80px 20px 20px 20px;
+}
+
+.container::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 0;
+}
+
+.rules-container {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1rem;
+    width: 100%;
+}
+
+.title {
+    color: white;
+    font-size: 4rem;
+    text-align: center;
+    margin: 0 0 2rem 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    word-wrap: break-word;
+    font-family: 'Squada One', Impact, 'Arial Black', sans-serif;
+    font-weight: bold;
+}
+
+/* Quick Links */
+.quick-links-container {
+    display: none;
+}
+
+/* Only show quick links on modern/64-bit browsers */
+@supports (backdrop-filter: blur(10px)) {
+    .quick-links-container {
+        display: block;
+        background: rgba(71, 1, 28, 0.4);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 8px;
+        padding: 1rem;
+        margin: 0 0 2rem 0;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .quick-links-header {
+        color: white;
+        font-family: 'Squada One', Arial, sans-serif;
+        font-size: 1.4rem;
+        text-align: center;
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .quick-links {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+    }
+
+    .quick-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        color: white;
+        text-decoration: none;
+        font-family: 'Squada One', Arial, sans-serif;
+        font-size: 1.1rem;
+        padding: 0.75rem;
+        border-radius: 6px;
+        background: rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .quick-link::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        transform: translateX(-100%);
+        transition: transform 0.6s ease;
+    }
+
+    .quick-link:hover::before {
+        transform: translateX(100%);
+    }
+
+    .quick-link:hover {
+        background: rgba(0, 0, 0, 0.5);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .quick-link i {
+        font-size: 1.2rem;
+    }
+
+    .link-text {
+        flex: 1;
+        text-align: center;
+    }
+
+    .link-arrow {
+        font-size: 0.9rem;
+        opacity: 0;
+        transform: translateX(-10px);
+        transition: all 0.3s ease;
+    }
+
+    .quick-link:hover .link-arrow {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    /* Specific colors for each link */
+    .quick-link.discord { border-left: 3px solid #7289da; }
+    .quick-link.server { border-left: 3px solid #00ff00; }
+    .quick-link.store { border-left: 3px solid #ff9900; }
+}
+
+/* Mobile responsiveness for quick links */
+@media (max-width: 768px) {
+    @supports (backdrop-filter: blur(10px)) {
+        .quick-links {
+            grid-template-columns: 1fr;
+        }
+
+        .quick-link {
+            padding: 0.8rem;
+        }
+
+        .link-arrow {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+}
+
+.rule-card {
+    background: rgba(0, 0, 0, 0.7);
+    margin: 1rem 0;
+    padding: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.rule-card:hover {
+    background: rgba(0, 0, 0, 0.8);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.rule-title {
+    color: #fff;
+    font-size: 1.5rem;
+    margin: 0;
+    font-family: 'Squada One', Arial, sans-serif;
+}
+
+.rule-description {
+    color: #ccc;
+    max-height: 0;
+    opacity: 0;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+.rule-card.expanded .rule-description,
+.rule-card:hover .rule-description {
+    max-height: 200px;
+    opacity: 1;
+    margin-top: 1rem;
+}
+
+.back-btn {
+    display: none; /* Hide by default */
+}
+
+/* Only show the back button in modern browsers that support CSS Grid */
+@supports (display: grid) {
+    .back-btn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        color: white;
+        text-decoration: none;
+        font-size: 1.2rem;
+        z-index: 2;
+        transition: transform 0.3s ease;
+        padding: 10px 20px;
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 5px;
+    }
+
+    .back-btn i {
+        font-size: 1.1rem;
+    }
+
+    .back-btn:hover {
+        transform: translateX(-5px);
+    }
+}
+
+@media (max-width: 850px) {
+    .rules-container {
+        padding: 1rem 10px;
+    }
+    .title {
+        font-size: 3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .title {
+        font-size: 2.5rem;
+    }
+} 
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #22010e;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #2c121c;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #47011c;
+}
+
+/* Modern Browser Animations */
+@supports (animation-timeline: scroll()) {
+    @keyframes slideInFromLeft {
+        from {
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes fadeInScale {
+        from {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    @keyframes slideInFromBottom {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .title {
+        animation: fadeInScale 0.8s ease-out;
+    }
+
+    .back-btn {
+        animation: slideInFromLeft 0.6s ease-out;
+    }
+
+    /* Quick Links animations */
+    .quick-links-container {
+        opacity: 0;
+        animation: fadeInScale 0.5s ease-out forwards;
+        animation-delay: 0.4s;
+    }
+
+    .quick-link {
+        opacity: 0;
+        animation: slideInFromBottom 0.5s ease-out forwards;
+    }
+
+    .quick-link:nth-child(1) { animation-delay: 0.6s; }
+    .quick-link:nth-child(2) { animation-delay: 0.7s; }
+    .quick-link:nth-child(3) { animation-delay: 0.8s; }
+
+    .rule-card {
+        opacity: 0;
+        animation: fadeInScale 0.5s ease-out forwards;
+        animation-delay: calc(var(--animation-order, 0) * 0.1s + 0.9s);
+    }
+
+    /* Update disclaimer animation delay to account for new timings */
+    .disclaimer {
+        opacity: 0;
+        animation: fadeInScale 0.5s ease-out forwards;
+        animation-delay: 2s;
+    }
+}
+
+/* Disable animations for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+.disclaimer {
+    margin-top: 3rem;
+    padding: 1.5rem;
+    background: rgba(71, 1, 28, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    text-align: center;
+}
+
+.disclaimer p {
+    color: #fff;
+    font-family: Arial, sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    margin: 0;
+    opacity: 0.9;
+}
+
+/* Update animations to include disclaimer */
+@supports (animation-timeline: scroll()) {
+    .disclaimer {
+        opacity: 0;
+        animation: fadeInScale 0.5s ease-out forwards;
+        animation-delay: 1.4s;
+    }
+}
+
+/* Modern Browser Effects */
+@supports (backdrop-filter: blur(10px)) {
+    .rule-card {
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+
+    .rule-card:hover {
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+    }
+
+    .disclaimer {
+        background: rgba(71, 1, 28, 0.5);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+
+    .back-btn {
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+    }
+}
+
+.rule-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.rule-actions {
+    display: none;
+}
+
+/* Only show rule actions on modern/64-bit browsers */
+@supports (backdrop-filter: blur(10px)) {
+    .rule-actions {
+        display: flex;
+        gap: 0.5rem;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .rule-card:hover .rule-actions,
+    .rule-card.expanded .rule-actions {
+        opacity: 1;
+    }
+}
+
+.rule-actions button {
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.rule-actions button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.1);
+}
+
+.rule-actions i {
+    font-size: 1rem;
+}
+
+.toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    z-index: 1000;
+    animation: fadeInOut 3s ease forwards;
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translate(-50%, 1rem); }
+    10% { opacity: 1; transform: translate(-50%, 0); }
+    90% { opacity: 1; transform: translate(-50%, 0); }
+    100% { opacity: 0; transform: translate(-50%, -1rem); }
+}
+
+@media (max-width: 480px) {
+    .rule-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .rule-actions {
+        opacity: 1;
+    }
+}
