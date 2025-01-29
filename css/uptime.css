@@ -165,3 +165,33 @@
     opacity: 0.5;
     cursor: not-allowed;
 }
+
+.total-players-banner {
+    background: linear-gradient(90deg, transparent, rgba(128, 0, 0, 0.3), transparent);
+    padding: 15px 0;
+    text-align: center;
+    margin-top: 60px;
+}
+
+.total-players-content {
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 25px;
+    border: 2px solid #800000;
+    border-radius: 8px;
+    background-color: rgba(43, 43, 43, 0.8);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.total-players-label {
+    color: #d3d3d3;
+    font-size: 1.2em;
+}
+
+.total-players-count {
+    color: #ffffff;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+}

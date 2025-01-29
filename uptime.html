@@ -31,6 +31,13 @@
         </div>
     </nav>
 
+    <div class="total-players-banner">
+        <div class="total-players-content">
+            <span class="total-players-label">Total Players Online:</span>
+            <span class="total-players-count">0</span>
+        </div>
+    </div>
+
     <div class="container-container">
         <!-- Server panels will be dynamically inserted here -->
     </div>
@@ -152,6 +159,11 @@
             server.lastRefreshTime = 0;
         });
 
+        function updateTotalPlayers(servers) {
+            const totalPlayers = servers.reduce((sum, server) => sum + (server.currentPlayers || 0), 0);
+            document.querySelector('.total-players-count').textContent = totalPlayers;
+        }
+
         const serverPromises = servers.map(server => {
             return fetch(`https://gameserveranalytics.com/api/v2/query?game=source&ip=${server.ip}&port=${server.port}&type=info`)
             .then(response => {
@@ -198,7 +210,7 @@
 
         Promise.all(serverPromises).then(() => {
             servers.sort((a, b) => b.currentPlayers - a.currentPlayers);
-
+            updateTotalPlayers(servers);
             const container = document.querySelector('.container-container');
 
             servers.forEach(server => {
@@ -351,8 +363,6 @@
                         return response.json();
                     })
                     .then(serverInfo => {
-                        console.log(`${server.name} Server Info (Refresh):`, serverInfo);
-
                         if (
                             (serverInfo && serverInfo.status && serverInfo.status.toLowerCase() === 'online') ||
                             (serverInfo && (serverInfo.players !== undefined || serverInfo.map))
@@ -390,7 +400,7 @@
                     .finally(() => {
                         
                         setTimeout(() => {
-                            
+                            updateTotalPlayers(servers);
                             updateServerPanelUI(server);
 
                            
