@@ -1,6 +1,6 @@
 /* Landing Page Styles */
 :root {
-    --primary-color: #ff4d00;
+    --primary-color: #e60000;
     --secondary-color: #333333;
     --text-color: #ffffff;
     --text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
@@ -10,6 +10,10 @@
     --transition-duration: 2s;
     --popup-bg: rgba(40, 40, 40, 0.85);
     --popup-border: rgba(80, 80, 80, 0.5);
+    --arrow-spacing: 8px;
+    --store-color: #ff8c00;
+    --store-hover-color: #ffa533;
+    --store-transition: 0.3s ease;
 }
 
 body {
@@ -127,6 +131,7 @@ body {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
+    max-width: 100%;
 }
 
 .btn {
@@ -137,12 +142,28 @@ body {
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 1px;
-    transition: transform 0.15s ease, background-color 0.3s ease, opacity 0.15s ease;
+    transition: transform 0.15s ease, background-color 0.3s ease, box-shadow 0.3s ease, opacity 0.15s ease;
     box-shadow: var(--button-shadow);
     position: relative;
     overflow: hidden;
+    z-index: 1;
+    margin-bottom: 0.5rem;
 }
 
+.btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    transition: opacity 0.3s ease, filter 0.3s ease;
+    opacity: 0;
+    border-radius: 4px;
+}
+
+/* Primary Button (PLAY NOW) - Standard hover effect */
 .btn-primary {
     background-color: var(--primary-color);
     border: 2px solid var(--primary-color);
@@ -151,21 +172,104 @@ body {
 .btn-primary:hover:not(.btn-clicked) {
     background-color: transparent;
     transform: translateY(-3px);
+    box-shadow: 0 0 15px 2px rgba(230, 0, 0, 0.3), 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
+/* Disable the ::after element for primary button */
+.btn-primary::after {
+    display: none;
+}
+
+/* Secondary Button (LEARN MORE) - Blurred fill effect */
 .btn-secondary {
     background-color: transparent;
     border: 2px solid var(--text-color);
+    position: relative;
 }
 
 .btn-secondary:hover:not(.btn-clicked) {
-    background-color: rgba(255, 255, 255, 0.1);
     transform: translateY(-3px);
+    box-shadow: 0 0 15px 3px rgba(255, 255, 255, 0.3), 0 4px 6px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.7);
+}
+
+.btn-secondary::after {
+    background-color: var(--text-color);
+    filter: blur(0px);
+}
+
+.btn-secondary:hover:not(.btn-clicked)::after {
+    opacity: 0.3;
+    filter: blur(12px);
 }
 
 .btn-clicked {
     transform: scale(0.95) !important;
     opacity: 0.8;
+}
+
+/* Store button with arrow - special design */
+.btn-store {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    white-space: nowrap;
+    background-color: var(--store-color);
+    border: 2px solid var(--store-color);
+    color: var(--text-color);
+    position: relative;
+    overflow: hidden;
+    border-radius: 25px;
+    box-shadow: 0 4px 15px rgba(255, 140, 0, 0.3);
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    transition: all var(--store-transition);
+}
+
+/* Override secondary button styles for store button */
+.btn-secondary.btn-store::after {
+    display: none;
+}
+
+.btn-store::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, var(--store-color), var(--store-hover-color));
+    opacity: 0;
+    transition: opacity var(--store-transition);
+    z-index: -1;
+}
+
+.btn-store:hover:not(.btn-clicked) {
+    transform: translateY(-3px);
+    background-color: transparent;
+    box-shadow: 0 6px 20px rgba(255, 140, 0, 0.4);
+    border-color: var(--store-hover-color);
+}
+
+.btn-store:hover:not(.btn-clicked)::before {
+    opacity: 1;
+}
+
+.btn-store i.fa-shopping-cart {
+    margin-right: var(--arrow-spacing);
+    font-size: 0.9em;
+}
+
+.btn-store i.fa-arrow-right {
+    margin: 0 var(--arrow-spacing);
+    transition: transform 0.3s ease;
+    font-size: 0.85em;
+    color: var(--text-color);
+}
+
+.btn-store:hover i.fa-arrow-right {
+    transform: translateX(3px);
 }
 
 /* Responsive styles */
@@ -182,6 +286,14 @@ body {
     
     .content-wrapper {
         padding: 0 2rem;
+    }
+    
+    .button-group {
+        justify-content: center;
+    }
+    
+    .btn-store {
+        margin-top: 0.5rem;
     }
 }
 
@@ -212,7 +324,12 @@ body {
     }
     
     .button-group {
-        justify-content: center;
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .btn {
+        text-align: center;
     }
     
     .content-wrapper {
@@ -228,6 +345,12 @@ body {
             rgba(0, 0, 0, 0.6) 60%, 
             rgba(0, 0, 0, 0.4) 80%, 
             rgba(0, 0, 0, 0.3) 100%);
+    }
+    
+    .btn-store {
+        font-size: 0.9rem;
+        border-radius: 20px;
+        padding: 0.75rem 1.2rem;
     }
 }
 
@@ -254,6 +377,11 @@ body {
     .btn {
         width: 100%;
         text-align: center;
+    }
+    
+    .btn-store {
+        font-size: 0.8rem;
+        padding: 0.75rem 1rem;
     }
 }
 

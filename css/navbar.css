@@ -2,8 +2,8 @@
 :root {
     --navbar-bg: rgba(20, 20, 20, 0.7);
     --navbar-text: #ffffff;
-    --navbar-hover: #ff4d00;
-    --navbar-active: #ff4d00;
+    --navbar-hover: #e60000;
+    --navbar-active: #e60000;
     --navbar-border: rgba(255, 255, 255, 0.1);
     --navbar-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     --navbar-font: 'Prompt', Arial, sans-serif;
