@@ -18,14 +18,8 @@ function createNavbar() {
     const linksContainer = document.createElement('div');
     linksContainer.className = 'navbar-links';
     
-    // Navigation links data
-    const navLinks = [
-        { href: 'index.html', text: 'Home' },
-        { href: 'about.html', text: 'About' },
-        { href: 'gameplay.html', text: 'Gameplay' },
-        { href: 'news.html', text: 'News' },
-        { href: 'community.html', text: 'Community' }
-    ];
+    // Get navigation links from config
+    const navLinks = NPCZ.config.navLinks;
     
     // Create navigation links
     navLinks.forEach(link => {

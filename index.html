@@ -4,14 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NPC Zombies</title>
+    
+    <!-- Resource hints for better performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="assets/images/bg1.jpg" as="image">
+    
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/fonts.css">
-    <link rel="stylesheet" href="css/landing.css">
-    <link rel="stylesheet" href="css/zmod-badge.css">
-    <link rel="stylesheet" href="css/navbar.css">
+    
+    <!-- Consolidated CSS -->
+    <link rel="stylesheet" href="css/main.css">
+    
+    <!-- Meta tags for better SEO -->
+    <meta name="description" content="Join the ultimate survival experience where NPCs and players battle in a zombie-infested world.">
+    <meta name="keywords" content="zombie game, survival, multiplayer, NPC zombies">
 </head>
 <body>
     <div class="landing-container">
@@ -23,13 +30,16 @@
                 </div>
                 <p class="sub-text">Join the ultimate survival experience where NPCs and players battle in a zombie-infested world.</p>
                 <div class="button-group">
-                    <a href="#" class="btn btn-primary">PLAY NOW</a>
+                    <a href="https://play.npcz.gg" class="btn btn-primary">PLAY NOW</a>
                     <a href="#" class="btn btn-secondary">LEARN MORE</a>
                 </div>
             </div>
         </div>
     </div>
     
+    <!-- JavaScript files in dependency order -->
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
     <script src="js/landing.js"></script>
     <script src="js/navbar.js"></script>
     <script src="js/badge.js"></script>

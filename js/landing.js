@@ -1,28 +1,19 @@
 // Landing page JavaScript
 document.addEventListener('DOMContentLoaded', () => {
-    // Background image rotation
-    const backgroundImages = [
-        'assets/images/bg1.jpg',
-        'assets/images/bg2.jpg',
-        'assets/images/bg3.jpg',
-        'assets/images/bg4.jpg'
-    ];
+    // Get background images from config
+    const backgroundImages = NPCZ.config.backgroundImages.landing;
+    const rotationInterval = NPCZ.config.backgroundImages.rotationInterval;
+    const fadeInDuration = NPCZ.config.animations.fadeIn;
     
+    // Initialize variables
     let currentBgIndex = 0;
     let isTransitioning = false;
     const landingContainer = document.querySelector('.landing-container');
     
     // Set initial background
     if (landingContainer) {
-        // Create a preloader for images to prevent flickering
-        const preloadImages = () => {
-            backgroundImages.forEach(src => {
-                const img = new Image();
-                img.src = src;
-            });
-        };
-        
-        preloadImages();
+        // Preload images using utility function
+        NPCZ.utils.preloadImages(backgroundImages);
         
         // Set initial background
         landingContainer.style.backgroundImage = `url('${backgroundImages[currentBgIndex]}')`;
@@ -45,7 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const nextBg = document.createElement('div');
             nextBg.className = 'landing-background';
             nextBg.style.backgroundImage = `url('${backgroundImages[nextIndex]}')`;
-            nextBg.style.opacity = '0';
             
             // Add the new background behind the content
             landingContainer.appendChild(nextBg);
@@ -77,7 +67,12 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         
         // Change background every 8 seconds
-        setInterval(changeBackground, 8000);
+        const bgInterval = setInterval(changeBackground, rotationInterval);
+        
+        // Clean up interval on page unload
+        window.addEventListener('beforeunload', () => {
+            clearInterval(bgInterval);
+        });
     }
     
     // Fade in animation for content
@@ -85,111 +80,69 @@ document.addEventListener('DOMContentLoaded', () => {
     if (textContainer) {
         setTimeout(() => {
             textContainer.style.opacity = '1';
-        }, 300);
+        }, fadeInDuration);
     }
 
-    // Add event listeners to buttons
-    const buttons = document.querySelectorAll('.btn');
-    buttons.forEach(button => {
-        // Mouse down event for immediate feedback
-        button.addEventListener('mousedown', (e) => {
-            // Prevent default action
-            e.preventDefault();
+    // Add event listeners to buttons with debouncing to prevent multiple rapid clicks
+    const handleButtonClick = (e) => {
+        // Prevent default action
+        e.preventDefault();
+        
+        // Add button click animation
+        const button = e.currentTarget;
+        button.classList.add('btn-clicked');
+        
+        // Remove animation after button press effect completes
+        setTimeout(() => {
+            button.classList.remove('btn-clicked');
             
-            // Add button click animation
-            button.classList.add('btn-clicked');
-        });
-        
-        // Mouse up event to remove the animation
-        button.addEventListener('mouseup', () => {
-            setTimeout(() => {
-                button.classList.remove('btn-clicked');
-            }, 150); // Shorter duration for better responsiveness
-        });
-        
-        // Mouse leave event to handle if user moves cursor away while pressing
-        button.addEventListener('mouseleave', () => {
-            if (button.classList.contains('btn-clicked')) {
-                button.classList.remove('btn-clicked');
+            // Handle button action based on its class or attributes
+            const isPlayButton = button.classList.contains('btn-primary');
+            
+            if (isPlayButton) {
+                // Open game in new tab or same window as needed
+                window.open(NPCZ.config.gameUrl, '_blank');
+            } else {
+                // For other buttons, show a popup message
+                showPopupMessage('Coming Soon!');
             }
-        });
-        
-        // Touch events for mobile
-        button.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            button.classList.add('btn-clicked');
-        }, { passive: false });
-        
-        button.addEventListener('touchend', () => {
-            setTimeout(() => {
-                button.classList.remove('btn-clicked');
-            }, 150);
-        });
-        
-        // Click event for navigation/action
-        button.addEventListener('click', (e) => {
-            e.preventDefault();
-            console.log(`Button clicked: ${button.textContent.trim()}`);
-            // Here you would typically add navigation logic
-        });
+        }, NPCZ.config.animations.buttonClick);
+    };
+    
+    // Apply debounced click handler to all buttons
+    const debouncedButtonClick = NPCZ.utils.debounce(handleButtonClick, NPCZ.config.animations.buttonClick);
+    document.querySelectorAll('.btn').forEach(button => {
+        button.addEventListener('click', debouncedButtonClick);
     });
     
-    // Special handling for the Play Now button
-    const playButton = document.querySelector('.btn-primary');
-    if (playButton) {
-        let clickCount = 0;
-        let popupTimeout;
+    // Function to show popup message
+    function showPopupMessage(message) {
+        // Check if popup already exists and remove it
+        const existingPopup = document.querySelector('.popup-message');
+        if (existingPopup) {
+            existingPopup.remove();
+        }
         
-        // Click event for Play Now button
-        playButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            
-            clickCount++;
-            console.log(`Play button clicked: ${clickCount} times`);
-            
-            // Show popup after 3 clicks
-            if (clickCount >= 3) {
-                // Remove any existing popup
-                const existingPopup = document.querySelector('.popup-message');
-                if (existingPopup) {
-                    existingPopup.remove();
-                }
-                
-                // Create popup element
-                const popup = document.createElement('div');
-                popup.className = 'popup-message';
-                popup.textContent = 'Please wait...';
-                
-                // Add to document body instead of button for better positioning
-                document.body.appendChild(popup);
-                
-                // Position popup above the button
-                const buttonRect = playButton.getBoundingClientRect();
-                popup.style.position = 'fixed';
-                popup.style.top = `${buttonRect.top - popup.offsetHeight - 10}px`;
-                popup.style.left = `${buttonRect.left + (buttonRect.width / 2) - (popup.offsetWidth / 2)}px`;
-                
-                // Add active class to show popup with animation
-                setTimeout(() => {
-                    popup.classList.add('active');
-                }, 10);
-                
-                // Set timeout to remove popup
-                clearTimeout(popupTimeout);
-                popupTimeout = setTimeout(() => {
-                    popup.classList.remove('active');
-                    
-                    // Remove popup after animation completes
-                    setTimeout(() => {
-                        popup.remove();
-                    }, 300);
-                }, 2000);
-                
-                // Reset click count after showing popup
-                if (clickCount >= 5) {
-                    clickCount = 0;
-                }
-            }
-        });
+        // Create popup element
+        const popup = document.createElement('div');
+        popup.className = 'popup-message';
+        popup.textContent = message;
+        
+        // Append to body
+        document.body.appendChild(popup);
+        
+        // Force reflow before adding active class for animation
+        void popup.offsetWidth;
+        
+        // Show popup
+        popup.classList.add('active');
+        
+        // Remove popup after animation
+        setTimeout(() => {
+            popup.classList.remove('active');
+            setTimeout(() => {
+                popup.remove();
+            }, 500);
+        }, NPCZ.config.animations.popupDuration);
     }
 }); 
