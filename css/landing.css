@@ -22,13 +22,14 @@ body {
     color: var(--text-color);
     overflow-x: hidden;
     font-family: var(--body-font);
+    background-color: #000000;
 }
 
 .landing-container {
     position: relative;
     width: 100%;
     min-height: 100vh;
-    background-color: #000;
+    background-color: #000000;
     overflow: hidden;
     padding-top: var(--navbar-height, 70px);
     background-size: cover;

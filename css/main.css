@@ -19,4 +19,10 @@
 body {
     font-family: var(--body-font);
     line-height: 1.5;
+    background-color: #000000;
+}
+
+/* Ensure html element also has black background */
+html {
+    background-color: #000000;
 } 
