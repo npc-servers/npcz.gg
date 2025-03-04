@@ -4,6 +4,7 @@
 @import 'landing.css';
 @import 'zmod-badge.css';
 @import 'navbar.css';
+@import 'server-status.css';
 
 /* Global Variables */
 :root {

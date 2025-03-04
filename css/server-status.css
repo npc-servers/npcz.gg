@@ -1,0 +1,70 @@
+/* Server Status Badge Styles */
+.server-status-badge{
+display:flex !important;
+align-items:center;
+padding:6px 12px !important;
+background-color:rgba(0,0,0,0.4) !important;
+border-radius:20px !important;
+border:1px solid rgba(255,255,255,0.1) !important;
+transition:all 0.3s ease;
+margin-left:10px;
+cursor:default !important;
+}
+.server-status-badge:hover{
+background-color:rgba(0,0,0,0.5) !important;
+}
+.server-status-badge::after{
+display:none !important;
+}
+.status-indicator{
+display:block;
+width:10px;
+height:10px;
+min-width:10px;
+min-height:10px;
+border-radius:50%;
+margin-right:8px;
+font-size:0;
+line-height:0;
+}
+.status-indicator.online{
+background-color:#2ecc71;
+box-shadow:0 0 8px rgba(46,204,113,0.6);
+}
+.status-indicator.offline{
+background-color:#e74c3c;
+box-shadow:0 0 8px rgba(231,76,60,0.6);
+}
+.status-indicator.unknown{
+background-color:#f39c12;
+box-shadow:0 0 8px rgba(243,156,18,0.6);
+}
+.player-count{
+font-size:14px;
+font-weight:400;
+color:var(--text-color);
+white-space:nowrap;
+}
+/* Animation for status updates */
+@keyframes pulse{
+0%{opacity:1;}
+50%{opacity:0.5;}
+100%{opacity:1;}
+}
+.server-status-badge.updating .status-indicator{
+animation:pulse 1.5s infinite;
+}
+
+/* Responsive styles */
+@media (max-width:768px){
+.server-status-badge{
+margin:10px auto 0;
+}
+}
+
+@media (max-width:480px){
+.server-status-badge{
+width:100%;
+justify-content:center;
+}
+} 
