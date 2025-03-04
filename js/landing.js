@@ -97,12 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Fade in animation for content
     const textContainer = document.querySelector('.text-container');
-    if (textContainer) {
-        setTimeout(() => {
-            textContainer.style.opacity = '1';
-        }, fadeInDuration);
-    }
-
+    
     // Add event listeners to buttons with debouncing to prevent multiple rapid clicks
     const handleButtonClick = (e) => {
         // Prevent default action

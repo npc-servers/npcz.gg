@@ -83,8 +83,7 @@ body {
 .text-container {
     max-width: 800px;
     margin-left: 3%;
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
+    opacity: 1;
 }
 
 .logo-container {
