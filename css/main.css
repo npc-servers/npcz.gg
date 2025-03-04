@@ -5,6 +5,7 @@
 @import 'zmod-badge.css';
 @import 'navbar.css';
 @import 'server-status.css';
+@import 'discord-popup.css';
 
 /* Global Variables */
 :root {
