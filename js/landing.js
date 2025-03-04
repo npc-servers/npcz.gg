@@ -10,6 +10,26 @@ document.addEventListener('DOMContentLoaded', () => {
     let isTransitioning = false;
     const landingContainer = document.querySelector('.landing-container');
     
+    // Handle PLAY NOW button for mobile/tablet devices
+    const playButton = document.querySelector('.btn-primary');
+    if (playButton) {
+        if (NPCZ.utils.isMobileOrTablet()) {
+            // Change button text and disable it on mobile/tablet
+            playButton.textContent = 'ONLY AVAILABLE ON PC';
+            playButton.classList.add('disabled');
+            
+            // Remove existing click event listeners
+            const newPlayButton = playButton.cloneNode(true);
+            playButton.parentNode.replaceChild(newPlayButton, playButton);
+            
+            // Add new click handler to show message
+            newPlayButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                showPopupMessage('This game is only available on PC devices.');
+            });
+        }
+    }
+    
     // Set initial background
     if (landingContainer) {
         // Preload images using utility function
@@ -88,8 +108,13 @@ document.addEventListener('DOMContentLoaded', () => {
         // Prevent default action
         e.preventDefault();
         
-        // Add button click animation
+        // Skip if button is disabled
         const button = e.currentTarget;
+        if (button.classList.contains('disabled')) {
+            return;
+        }
+        
+        // Add button click animation
         button.classList.add('btn-clicked');
         
         // Remove animation after button press effect completes
@@ -145,4 +170,42 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 500);
         }, NPCZ.config.animations.popupDuration);
     }
+    
+    // Handle window resize for responsive button state
+    const updateButtonState = NPCZ.utils.debounce(() => {
+        const playButton = document.querySelector('.btn-primary');
+        if (!playButton) return;
+        
+        if (NPCZ.utils.isMobileOrTablet()) {
+            if (!playButton.classList.contains('disabled')) {
+                playButton.textContent = 'ONLY AVAILABLE ON PC';
+                playButton.classList.add('disabled');
+                
+                // Remove existing click event listeners
+                const newPlayButton = playButton.cloneNode(true);
+                playButton.parentNode.replaceChild(newPlayButton, playButton);
+                
+                // Add new click handler to show message
+                newPlayButton.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showPopupMessage('This game is only available on PC devices.');
+                });
+            }
+        } else {
+            if (playButton.classList.contains('disabled')) {
+                playButton.textContent = 'PLAY NOW';
+                playButton.classList.remove('disabled');
+                
+                // Remove existing click event listeners
+                const newPlayButton = playButton.cloneNode(true);
+                playButton.parentNode.replaceChild(newPlayButton, playButton);
+                
+                // Reapply the debounced click handler
+                newPlayButton.addEventListener('click', debouncedButtonClick);
+            }
+        }
+    }, 250);
+    
+    // Listen for window resize events
+    window.addEventListener('resize', updateButtonState);
 }); 

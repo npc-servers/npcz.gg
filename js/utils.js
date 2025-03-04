@@ -63,11 +63,20 @@ document.addEventListener('DOMContentLoaded', () => {
     initSmoothScrolling();
 });
 
+// Detect if device is mobile or tablet
+function isMobileOrTablet() {
+    const userAgent = navigator.userAgent.toLowerCase();
+    const isMobile = /iphone|ipad|ipod|android|blackberry|windows phone|opera mini|silk/i.test(userAgent);
+    const isTablet = /(ipad|tablet|playbook|silk)|(android(?!.*mobile))/i.test(userAgent);
+    return isMobile || isTablet || window.innerWidth < 992;
+}
+
 // Export utilities
 window.NPCZ = window.NPCZ || {};
 window.NPCZ.utils = {
     debounce,
     initSmoothScrolling,
     preloadImages,
-    initEssentialEvents
+    initEssentialEvents,
+    isMobileOrTablet
 }; 

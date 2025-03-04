@@ -327,6 +327,21 @@ body {
     font-size: 0.9em;
 }
 
+/* Disabled button for mobile/tablet */
+.btn-primary.disabled {
+    background-color: #888888;
+    border-color: #888888;
+    cursor: not-allowed;
+    opacity: 0.7;
+    box-shadow: none;
+}
+
+.btn-primary.disabled:hover {
+    background-color: #888888;
+    transform: none;
+    box-shadow: none;
+}
+
 /* Responsive styles */
 @media (max-width: 1200px) {
     .desktop-logo {
