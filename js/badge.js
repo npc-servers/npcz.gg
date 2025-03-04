@@ -13,7 +13,7 @@ function createZmodBadge() {
     badge.className = 'zmod-badge';
     badge.target = '_blank';
     badge.rel = 'noopener noreferrer';
-    badge.textContent = 'NPCZ is a part of ZMOD';
+    badge.textContent = 'Powered by ZMOD';
     
     // Append badge to the body
     document.body.appendChild(badge);
