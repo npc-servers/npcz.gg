@@ -20,7 +20,7 @@ window.NPCZ.config = {
     // Navigation links
     navLinks: [
         { href: 'index.html', text: 'Home' },
-        { href: 'about.html', text: 'About' },
+        { href: 'resources.html', text: 'Resources' },
         { href: 'gameplay.html', text: 'Gameplay' },
         { href: 'news.html', text: 'News' },
         { href: 'community.html', text: 'Community' }
