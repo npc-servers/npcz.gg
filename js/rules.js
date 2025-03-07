@@ -3,14 +3,6 @@ function toggleCategory(header) {
     const content = header.nextElementSibling;
     const isActive = header.classList.contains('active');
     
-    // Close all other categories
-    document.querySelectorAll('.category-header.active').forEach(activeHeader => {
-        if (activeHeader !== header) {
-            activeHeader.classList.remove('active');
-            activeHeader.nextElementSibling.classList.remove('active');
-        }
-    });
-    
     // Toggle current category
     header.classList.toggle('active');
     content.classList.toggle('active');
