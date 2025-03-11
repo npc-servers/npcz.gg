@@ -42,5 +42,14 @@ window.NPCZ.config = {
         fadeIn: 300, // milliseconds
         buttonClick: 300, // milliseconds
         popupDuration: 3000 // milliseconds
+    },
+    
+    // Component settings
+    components: {
+        backButton: {
+            excludePaths: ['/', '/index.html'], // Paths where back button should not appear
+            defaultTarget: '/index.html', // Default target when no history is available
+            transitionDuration: 300 // milliseconds
+        }
     }
 }; 
