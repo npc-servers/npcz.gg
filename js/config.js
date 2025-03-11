@@ -6,24 +6,22 @@
 window.NPCZ = window.NPCZ || {};
 window.NPCZ.config = {
     // Site information
-    siteName: 'NPC Zombies',
+    siteName: 'NPCZ',
     siteUrl: 'https://npcz.gg',
-    gameUrl: 'https://play.npcz.gg',
+    gameUrl: 'steam://connect/193.243.190.18:27015',
     
     // Social media links
     social: {
-        discord: 'https://discord.gg/npcz',
-        twitter: 'https://twitter.com/npcz_game',
-        instagram: 'https://instagram.com/npcz_game'
+        discord: 'https://discord.gg/npc',
     },
     
     // Navigation links
     navLinks: [
         { href: 'index.html', text: 'Home' },
         { href: 'resources.html', text: 'Resources' },
-        { href: 'gameplay.html', text: 'Gameplay' },
-        { href: 'news.html', text: 'News' },
-        { href: 'community.html', text: 'Community' }
+        { href: 'https://discord.gg/npc', text: 'Support' },
+        { href: 'https://store.npcz.gg', text: 'Store' },
+        { href: 'https://discord.gg/npc', text: 'Discord' }
     ],
     
     // Background image settings
