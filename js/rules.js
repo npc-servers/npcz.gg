@@ -75,7 +75,16 @@ function handleHash() {
             var category = ruleElement.closest('.rule-category');
             if (category) {
                 var header = category.querySelector('.category-header');
-                toggleCategory(header);
+                // Only toggle if the category is not already active
+                if (!header.classList.contains('active')) {
+                    toggleCategory(header);
+                }
+                // Remove highlight from any previously highlighted rules
+                document.querySelectorAll('.rule-card').forEach(card => {
+                    card.classList.remove('highlight');
+                });
+                // Add highlight to the target rule
+                ruleElement.classList.add('highlight');
                 // Smooth scroll with delay to ensure animation completes
                 setTimeout(function() {
                     ruleElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
