@@ -55,37 +55,55 @@ async function updateServersTab() {
     // Update header
     document.querySelector('.servers-header').textContent = serversConfig.headerTitle;
     
-    // Update the server boxes
-    const boxes = document.querySelectorAll('.server-box');
+    // Clear and populate the servers grid
+    const serversGrid = document.querySelector('.servers-grid');
+    serversGrid.innerHTML = ''; // Clear existing content
     
-    for (let index = 0; index < serversConfig.servers.length; index++) {
-        if (index < boxes.length) {
-            const server = serversConfig.servers[index];
-            const box = boxes[index];
+    // Create and add server boxes
+    for (const server of serversConfig.servers) {
+        // Create server box element
+        const serverBox = document.createElement('div');
+        serverBox.className = 'server-box';
+        serverBox.id = `server-${server.id}`;
+        
+        // Create and populate title element
+        const titleElement = document.createElement('h4');
+        titleElement.className = 'server-box-title';
+        titleElement.textContent = server.title;
+        
+        // Create and populate players element
+        const playersElement = document.createElement('div');
+        playersElement.className = 'server-box-players';
+        playersElement.textContent = 'Players: Loading...';
+        
+        // Create and populate content element
+        const contentElement = document.createElement('div');
+        contentElement.className = 'server-box-content';
+        contentElement.textContent = server.content;
+        
+        // Append all elements to the server box
+        serverBox.appendChild(titleElement);
+        serverBox.appendChild(playersElement);
+        serverBox.appendChild(contentElement);
+        
+        // Add the server box to the grid
+        serversGrid.appendChild(serverBox);
+        
+        // Fetch server status
+        try {
+            const status = await serversConfig.updateServerStatus(server);
             
-            // Update title and content
-            box.querySelector('.server-box-title').textContent = server.title;
-            box.querySelector('.server-box-content').textContent = server.content;
-            
-            // Update player count with loading indicator
-            box.querySelector('.server-box-players').textContent = 'Players: Loading...';
-            
-            // Fetch server status
-            try {
-                const status = await serversConfig.updateServerStatus(server);
-                
-                if (status.online) {
-                    box.querySelector('.server-box-players').textContent = `Players: ${status.players}/${status.maxPlayers}`;
-                    box.classList.remove('server-offline');
-                } else {
-                    box.querySelector('.server-box-players').textContent = 'Server Offline';
-                    box.classList.add('server-offline');
-                }
-            } catch (error) {
-                console.error(`Error updating status for ${server.id}:`, error);
-                box.querySelector('.server-box-players').textContent = 'Status Unavailable';
-                box.classList.add('server-error');
+            if (status.online) {
+                playersElement.textContent = `Players: ${status.players}/${status.maxPlayers}`;
+                serverBox.classList.remove('server-offline');
+            } else {
+                playersElement.textContent = 'Server Offline';
+                serverBox.classList.add('server-offline');
             }
+        } catch (error) {
+            console.error(`Error updating status for ${server.id}:`, error);
+            playersElement.textContent = 'Status Unavailable';
+            serverBox.classList.add('server-error');
         }
     }
 }
