@@ -13,10 +13,12 @@ main {
 
 nav {
   background-color: rgba(0, 0, 0, 0.5);
-  padding: 1%;
+  padding: 0.5% 1%;
+  height: 30px;
+  line-height: 30px;
   overflow: auto;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   border-bottom: 1px solid var(--card-border, rgba(255, 255, 255, 0.1));
 }
 h2 {
@@ -34,11 +36,16 @@ h1 {
 }
 #steamid {
   float: right;
+  line-height: 30px;
+}
+#map {
+  line-height: 30px;
 }
 #announcement {
   position: absolute;
   width: 98%;
   text-align: center;
+  line-height: 30px;
 }
 #history {
   position: absolute;

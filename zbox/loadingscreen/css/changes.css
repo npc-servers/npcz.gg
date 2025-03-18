@@ -8,7 +8,7 @@
   --card-border: rgba(255, 255, 255, 0.1);
   --step-number-bg: rgba(230, 0, 0, 0.9);
   --step-hover-border: #ff6600;
-  --blur-amount: 8px;
+  --blur-amount: 4px;
 }
 
 /* Common styles for both tabs */
