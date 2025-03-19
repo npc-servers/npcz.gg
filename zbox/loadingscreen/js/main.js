@@ -108,18 +108,17 @@ function SetStatusChanged(status) {
  * External Functions
  */
 function loadAll() {
-  fadeIn(document.querySelector("nav"));
-  fadeIn(document.querySelector("main"));
-
-  // first time loading if DownloadingFile isn't called after some time
-  setTimeout(function() {
-    if (downloadingFileCalled) {
-      announce(
-        "This is your first time loading, please wait for the files to download.",
-        true
-      );
-    }
-  }, 10000);
+  // Only fade in if not already visible
+  var navElement = document.querySelector("nav");
+  var mainElement = document.querySelector("main");
+  
+  if (navElement && navElement.style.opacity != 1) {
+    fadeIn(navElement);
+  }
+  
+  if (mainElement && mainElement.style.opacity != 1) {
+    fadeIn(mainElement);
+  }
 }
 function setLoad(percentage) {
   document.querySelector(".overhaul").style.left = percentage + "%";
@@ -138,13 +137,18 @@ function announce(message, ispermanent) {
 }
 
 function fadeIn(element) {
-  element.style.opacity = 1;
+  if (!element) return;
+  
+  // Set display first to ensure the element is in the DOM
   element.style.display = "block";
+  // Then set opacity for the fade effect
+  element.style.opacity = 1;
   
   // Ensure the powered-by element is properly visible when nav is shown
   if (element.tagName === 'NAV') {
     const poweredBy = element.querySelector('.powered-by');
     if (poweredBy) {
+      poweredBy.style.display = "flex";
       poweredBy.style.opacity = 1;
     }
   }
@@ -154,6 +158,11 @@ function fadeIn(element) {
  * Initial function
  */
 document.addEventListener("DOMContentLoaded", function() {
+  // Make nav visible immediately
+  var navElement = document.querySelector("nav");
+  fadeIn(navElement);
+  fadeIn(document.querySelector("main"));
+
   // print announcement messages every few seconds
   if (
     Config.announceMessages &&
@@ -162,12 +171,16 @@ document.addEventListener("DOMContentLoaded", function() {
   ) {
     if (Config.announceMessages.length > 0) {
       var i = 0;
+      
+      // Show first message immediately
+      announce(Config.announceMessages[i]);
+      
       setInterval(function() {
-        announce(Config.announceMessages[i]);
         i++;
         if (i > Config.announceMessages.length - 1) {
           i = 0;
         }
+        announce(Config.announceMessages[i]);
       }, Config.announcementLength);
     }
   }

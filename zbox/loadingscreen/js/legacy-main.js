@@ -144,16 +144,6 @@ function loadAll() {
     mainElement.style.opacity = "1"; 
     mainElement.style.filter = "alpha(opacity=100)";
   }
-
-  // first time loading if DownloadingFile isn't called after some time
-  setTimeout(function() {
-    if (downloadingFileCalled) {
-      announce(
-        "This is your first time loading, please wait for the files to download.",
-        true
-      );
-    }
-  }, 10000);
 }
 function setLoad(percentage) {
   var overhaul = document.getElementsByClassName("overhaul")[0];

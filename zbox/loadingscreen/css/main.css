@@ -21,7 +21,6 @@ nav {
   -webkit-backdrop-filter: blur(4px);
   border-bottom: 1px solid var(--card-border, rgba(255, 255, 255, 0.1));
   position: relative;
-  display: none;
   opacity: 0;
   transition: opacity 0.5s ease;
 }
