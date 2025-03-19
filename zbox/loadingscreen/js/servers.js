@@ -106,6 +106,32 @@ async function updateServersTab() {
             serverBox.classList.add('server-error');
         }
     }
+    
+    // Add the message about viewing more servers
+    // First, remove any existing message box to prevent duplication
+    const existingMsg = document.querySelector('.more-servers-message');
+    if (existingMsg) {
+        existingMsg.remove();
+    }
+    
+    const moreServersMsg = document.createElement('div');
+    moreServersMsg.className = 'more-servers-message';
+    
+    // Create link element with styling
+    const linkText = document.createElement('span');
+    linkText.textContent = 'You can view the rest of our servers on our website: ';
+    
+    const link = document.createElement('a');
+    link.href = 'https://zgrad.gg/servers';
+    link.textContent = 'zgrad.gg/servers';
+    link.className = 'server-link';
+    link.target = '_blank'; // Open in new tab
+    
+    // Append elements to message container
+    moreServersMsg.appendChild(linkText);
+    moreServersMsg.appendChild(link);
+    
+    document.querySelector('.servers-container').appendChild(moreServersMsg);
 }
 
 // Initialize the Servers tab

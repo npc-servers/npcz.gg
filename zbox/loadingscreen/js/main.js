@@ -140,6 +140,14 @@ function announce(message, ispermanent) {
 function fadeIn(element) {
   element.style.opacity = 1;
   element.style.display = "block";
+  
+  // Ensure the powered-by element is properly visible when nav is shown
+  if (element.tagName === 'NAV') {
+    const poweredBy = element.querySelector('.powered-by');
+    if (poweredBy) {
+      poweredBy.style.opacity = 1;
+    }
+  }
 }
 
 /**

@@ -81,6 +81,32 @@ function updateChangesTab() {
     
     // Add the grid to the container
     changesContainer.appendChild(changesGrid);
+    
+    // Add the message about viewing changelog on Discord
+    // First, remove any existing message to prevent duplication
+    const existingMsg = document.querySelector('.changes-discord-message');
+    if (existingMsg) {
+        existingMsg.remove();
+    }
+    
+    const discordMsg = document.createElement('div');
+    discordMsg.className = 'changes-discord-message';
+    
+    // Create link element with styling
+    const linkText = document.createElement('span');
+    linkText.textContent = 'You can view the changelog on our discord: ';
+    
+    const link = document.createElement('a');
+    link.href = 'https://discord.gg/npc';
+    link.textContent = 'discord.gg/npc';
+    link.className = 'discord-link';
+    link.target = '_blank'; // Open in new tab
+    
+    // Append elements to message container
+    discordMsg.appendChild(linkText);
+    discordMsg.appendChild(link);
+    
+    changesContainer.appendChild(discordMsg);
 }
 
 // Initialize the Changes tab
