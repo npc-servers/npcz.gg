@@ -34,9 +34,12 @@ nav {
   height: 30px;
   display: flex;
   align-items: center;
+  justify-content: center;
   font-size: 0.75em;
   font-weight: 500;
   letter-spacing: 0.5px;
+  bottom: 0;
+  margin: auto 0;
 }
 
 .powered-text {
