@@ -94,7 +94,10 @@ function updateChangesTab() {
     
     // Create link element with styling
     const linkText = document.createElement('span');
-    linkText.textContent = 'You can view the changelog on our discord: ';
+    
+    // Check viewport width to determine the message text and layout
+    const isSmallScreen = window.innerWidth <= 1366;
+    linkText.textContent = isSmallScreen ? 'Changelog: ' : 'You can view the changelog on our discord: ';
     
     const link = document.createElement('a');
     link.href = 'https://discord.gg/npc';
@@ -104,6 +107,12 @@ function updateChangesTab() {
     
     // Append elements to message container
     discordMsg.appendChild(linkText);
+    
+    // On small screens, we use column layout with each element on its own line
+    if (isSmallScreen) {
+        discordMsg.classList.add('column-layout');
+    }
+    
     discordMsg.appendChild(link);
     
     changesContainer.appendChild(discordMsg);

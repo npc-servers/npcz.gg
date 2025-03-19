@@ -18,12 +18,12 @@
   transform: translateY(-50%);
   width: 300px;
   max-width: 30vw;
-  height: 550px;
+  height: auto;
   max-height: 70vh;
   z-index: 10;
   background-color: rgba(25, 25, 25, 0.8);
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-  padding: 20px;
+  padding: 15px;
   color: var(--text-color);
   border: 1px solid var(--card-border);
   transition: all 0.3s ease;
@@ -32,6 +32,7 @@
   flex-direction: column;
   backdrop-filter: blur(var(--blur-amount));
   -webkit-backdrop-filter: blur(var(--blur-amount));
+  overflow: hidden;
 }
 
 .tab-container {
@@ -53,8 +54,8 @@
 .changes-container {
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  padding: 10px 0 20px 0;
+  gap: 10px;
+  padding: 8px 0 15px 0;
   flex: 1;
   overflow-y: hidden;
 }
@@ -63,8 +64,8 @@
   font-family: var(--title-font);
   text-align: left;
   margin: 0;
-  padding-bottom: 8px;
-  font-size: 1.4em;
+  padding-bottom: 6px;
+  font-size: 1.3em;
   color: var(--text-color);
   font-weight: 700;
   text-transform: uppercase;
@@ -73,7 +74,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .changes-header::before {
@@ -91,7 +92,7 @@
   background: var(--card-bg);
   border: 1px solid var(--card-border);
   border-radius: 8px;
-  padding: 15px;
+  padding: 12px;
   position: relative;
   backdrop-filter: blur(calc(var(--blur-amount) * 0.5));
   -webkit-backdrop-filter: blur(calc(var(--blur-amount) * 0.5));
@@ -134,25 +135,27 @@
 }
 
 .changes-content {
-  font-size: 0.9em;
-  line-height: 1.4;
+  font-size: 0.85em;
+  line-height: 1.3;
   color: rgba(255, 255, 255, 0.9);
 }
 
 .changes-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 10px;
+  gap: 8px;
 }
 
 .changes-box {
   background: var(--card-bg);
   border: 1px solid var(--card-border);
   border-radius: 8px;
-  padding: 12px;
+  padding: 10px;
   position: relative;
   backdrop-filter: blur(calc(var(--blur-amount) * 0.5));
   -webkit-backdrop-filter: blur(calc(var(--blur-amount) * 0.5));
+  display: flex;
+  flex-direction: column;
 }
 
 .changes-box:hover {
@@ -161,7 +164,7 @@
 
 .changes-box-title {
   font-family: var(--title-font);
-  margin: 0 0 5px 0;
+  margin: 0 0 3px 0;
   font-size: 1em;
   color: var(--text-color);
   font-weight: 500;
@@ -199,13 +202,13 @@
 .changes-box-date {
   font-size: 0.75em;
   color: rgba(255, 255, 255, 0.7);
-  margin-bottom: 8px;
+  margin-bottom: 4px;
   font-style: italic;
 }
 
 .changes-box-content {
-  font-size: 0.85em;
-  line-height: 1.3;
+  font-size: 0.8em;
+  line-height: 1.25;
   color: rgba(255, 255, 255, 0.9);
 }
 
@@ -219,8 +222,8 @@
 .servers-container {
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  padding: 10px 0 20px 0;
+  gap: 10px;
+  padding: 8px 0 15px 0;
   flex: 1;
   overflow-y: hidden;
 }
@@ -229,8 +232,8 @@
   font-family: var(--title-font);
   text-align: left;
   margin: 0;
-  padding-bottom: 8px;
-  font-size: 1.4em;
+  padding-bottom: 6px;
+  font-size: 1.3em;
   color: var(--text-color);
   font-weight: 700;
   text-transform: uppercase;
@@ -239,7 +242,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .servers-header::before {
@@ -256,17 +259,19 @@
 .servers-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 10px;
+  gap: 8px;
 }
 
 .server-box {
   background: var(--card-bg);
   border: 1px solid var(--card-border);
   border-radius: 8px;
-  padding: 12px;
+  padding: 10px;
   position: relative;
   backdrop-filter: blur(calc(var(--blur-amount) * 0.5));
   -webkit-backdrop-filter: blur(calc(var(--blur-amount) * 0.5));
+  display: flex;
+  flex-direction: column;
 }
 
 .server-box:hover {
@@ -275,7 +280,7 @@
 
 .server-box-title {
   font-family: var(--title-font);
-  margin: 0 0 5px 0;
+  margin: 0 0 3px 0;
   font-size: 1em;
   color: var(--text-color);
   font-weight: 500;
@@ -311,15 +316,15 @@
 }
 
 .server-box-players {
-  font-size: 0.75em;
+  font-size: 0.7em;
   color: rgba(255, 255, 255, 0.7);
-  margin-bottom: 8px;
+  margin-bottom: 4px;
   font-style: italic;
 }
 
 .server-box-content {
-  font-size: 0.85em;
-  line-height: 1.3;
+  font-size: 0.8em;
+  line-height: 1.25;
   color: rgba(255, 255, 255, 0.9);
 }
 
@@ -343,9 +348,9 @@
 
 /* More servers message styling */
 .more-servers-message {
-  margin-top: 10px;
-  padding: 8px 12px;
-  font-size: 0.9em;
+  margin-top: 8px;
+  padding: 6px 10px;
+  font-size: 0.8em;
   text-align: center;
   color: var(--text-color, #ffffff);
   background-color: rgba(0, 0, 0, 0.25);
@@ -355,6 +360,7 @@
   -webkit-backdrop-filter: blur(4px);
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
   opacity: 0.9;
+  word-break: break-word;
 }
 
 /* Server link styling */
@@ -364,13 +370,16 @@
   font-weight: 600;
   position: relative;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.8);
+  white-space: nowrap;
+  display: inline-block;
+  font-size: 0.9em;
 }
 
 /* Discord message styling */
 .changes-discord-message {
-  margin-top: 10px;
-  padding: 8px 12px;
-  font-size: 0.9em;
+  margin-top: 8px;
+  padding: 6px 10px;
+  font-size: 0.8em;
   text-align: center;
   color: var(--text-color, #ffffff);
   background-color: rgba(0, 0, 0, 0.25);
@@ -380,6 +389,7 @@
   -webkit-backdrop-filter: blur(4px);
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
   opacity: 0.9;
+  word-break: break-word;
 }
 
 /* Discord link styling */
@@ -389,98 +399,99 @@
   font-weight: 600;
   position: relative;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.8);
+  white-space: nowrap;
+  display: inline-block;
+  font-size: 0.9em;
 }
 
-/* Responsive design */
-@media (max-width: 768px) {
+/* Add specific media query for laptops */
+@media (min-width: 1024px) and (max-width: 1366px) {
   .changes-tab, .servers-tab {
-    width: 250px;
-    max-width: 40vw;
-    max-height: 75vh;
-    padding: 15px;
-    height: 500px;
+    width: 260px;
+    max-width: 22vw;
+    padding: 12px;
   }
   
   .tab-container, .changes-container, .servers-container {
-    padding: 8px 0 15px 0;
-    gap: 12px;
+    padding: 6px 0 10px 0;
+    gap: 8px;
   }
   
-  .changes-header {
-    padding-bottom: 6px;
+  .changes-header, .servers-header {
+    padding-bottom: 5px;
     font-size: 1.2em;
   }
   
-  .changes-header::before {
-    width: 20px;
-    height: 20px;
-  }
-  
-  .changes-main, .changes-box {
-    padding: 10px;
-  }
-  
-  .changes-title {
-    font-size: 1.1em;
-  }
-  
-  .changes-content, .changes-box-content {
-    font-size: 0.8em;
-  }
-  
-  .servers-header {
-    padding-bottom: 6px;
-    font-size: 1.2em;
-  }
-  
-  .servers-header::before {
+  .changes-header::before, .servers-header::before {
     width: 20px;
     height: 20px;
   }
   
   .server-box {
-    padding: 10px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
   }
   
   .server-box-title {
-    font-size: 1.1em;
+    margin: 0 0 2px 0;
   }
   
-  .server-box-content {
-    font-size: 0.8em;
+  .server-box-players {
+    margin-bottom: 3px;
   }
   
-  .more-servers-message {
-    font-size: 0.8em;
-    padding: 6px 10px;
+  .server-box-content, .changes-box-content {
+    font-size: 0.75em;
+    line-height: 1.2;
   }
   
-  .server-link {
-    font-size: 1em;
+  .more-servers-message, .changes-discord-message {
+    font-size: 0.75em;
+    padding: 5px 8px;
+    margin-top: 6px;
   }
   
-  .changes-discord-message {
-    font-size: 0.8em;
-    padding: 6px 10px;
+  .server-link, .discord-link {
+    font-size: 0.85em;
+    margin-top: 1px;
   }
   
-  .discord-link {
-    font-size: 1em;
+  /* Add more specific styling for the column layout */
+  .column-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+  
+  .changes-box {
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .changes-box-title {
+    margin: 0 0 2px 0;
+  }
+  
+  .changes-box-date {
+    margin-bottom: 3px;
   }
 }
 
-@media (max-width: 480px) {
+/* Responsive design for tablets */
+@media (max-width: 768px) {
   .changes-tab, .servers-tab {
-    width: 200px;
-    max-width: 50vw;
-    max-height: 80vh;
-    padding: 10px;
-    height: 450px;
+    width: 230px;
+    max-width: 35vw;
+    padding: 12px;
+    height: auto;
   }
   
   .tab-container, .changes-container, .servers-container {
     padding: 6px 0 12px 0;
-    gap: 10px;
+    gap: 8px;
   }
   
   .changes-header {
@@ -493,28 +504,17 @@
     height: 18px;
   }
   
+  .changes-main, .changes-box {
+    padding: 8px;
+  }
+  
   .changes-title {
     font-size: 1em;
-    padding-left: 24px;
-  }
-  
-  .changes-title::before {
-    width: 18px;
-    height: 18px;
-  }
-  
-  .changes-box-title {
-    font-size: 0.9em;
-    padding-left: 20px;
-  }
-  
-  .changes-box-title::before {
-    width: 14px;
-    height: 14px;
   }
   
   .changes-content, .changes-box-content {
     font-size: 0.75em;
+    line-height: 1.2;
   }
   
   .servers-header {
@@ -527,35 +527,154 @@
     height: 18px;
   }
   
-  .server-box-title {
-    font-size: 0.9em;
-    padding-left: 20px;
+  .server-box {
+    padding: 8px;
   }
   
-  .server-box-title::before {
-    width: 14px;
-    height: 14px;
+  .server-box-title {
+    font-size: 1em;
+  }
+  
+  .server-box-players {
+    font-size: 0.65em;
+    margin-bottom: 5px;
   }
   
   .server-box-content {
     font-size: 0.7em;
+    line-height: 1.2;
   }
   
   .more-servers-message {
     font-size: 0.7em;
     padding: 5px 8px;
+    margin-top: 6px;
   }
   
   .server-link {
-    font-size: 1em;
+    font-size: 0.85em;
   }
   
   .changes-discord-message {
     font-size: 0.7em;
     padding: 5px 8px;
+    margin-top: 6px;
   }
   
   .discord-link {
+    font-size: 0.85em;
+  }
+}
+
+@media (max-width: 480px) {
+  .changes-tab, .servers-tab {
+    width: 180px;
+    max-width: 45vw;
+    max-height: 75vh;
+    padding: 8px;
+    height: auto;
+  }
+  
+  .tab-container, .changes-container, .servers-container {
+    padding: 5px 0 10px 0;
+    gap: 6px;
+  }
+  
+  .changes-header {
+    padding-bottom: 4px;
     font-size: 1em;
   }
+  
+  .changes-header::before {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .changes-title {
+    font-size: 0.9em;
+    padding-left: 20px;
+  }
+  
+  .changes-title::before {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .changes-box-title {
+    font-size: 0.85em;
+    padding-left: 18px;
+  }
+  
+  .changes-box-title::before {
+    width: 12px;
+    height: 12px;
+  }
+  
+  .changes-content, .changes-box-content {
+    font-size: 0.7em;
+    line-height: 1.15;
+  }
+  
+  .servers-header {
+    padding-bottom: 4px;
+    font-size: 1em;
+  }
+  
+  .servers-header::before {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .server-box-title {
+    font-size: 0.85em;
+    padding-left: 18px;
+  }
+  
+  .server-box-title::before {
+    width: 12px;
+    height: 12px;
+  }
+  
+  .server-box-players {
+    font-size: 0.6em;
+    margin-bottom: 4px;
+  }
+  
+  .server-box-content {
+    font-size: 0.65em;
+    line-height: 1.15;
+  }
+  
+  .more-servers-message {
+    font-size: 0.65em;
+    padding: 4px 6px;
+    margin-top: 5px;
+  }
+  
+  .server-link {
+    font-size: 0.8em;
+  }
+  
+  .changes-discord-message {
+    font-size: 0.65em;
+    padding: 4px 6px;
+    margin-top: 5px;
+  }
+  
+  .discord-link {
+    font-size: 0.8em;
+  }
+}
+
+/* Column layout for smaller screens */
+.column-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.column-layout .server-link,
+.column-layout .discord-link {
+  margin-top: 2px;
 } 

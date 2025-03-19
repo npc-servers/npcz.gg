@@ -119,7 +119,10 @@ async function updateServersTab() {
     
     // Create link element with styling
     const linkText = document.createElement('span');
-    linkText.textContent = 'You can view the rest of our servers on our website: ';
+    
+    // Check viewport width to determine the message text and layout
+    const isSmallScreen = window.innerWidth <= 1366;
+    linkText.textContent = isSmallScreen ? 'More: ' : 'You can view the rest of our servers on our website: ';
     
     const link = document.createElement('a');
     link.href = 'https://zgrad.gg/servers';
@@ -129,6 +132,12 @@ async function updateServersTab() {
     
     // Append elements to message container
     moreServersMsg.appendChild(linkText);
+    
+    // On small screens, we use column layout with each element on its own line
+    if (isSmallScreen) {
+        moreServersMsg.classList.add('column-layout');
+    }
+    
     moreServersMsg.appendChild(link);
     
     document.querySelector('.servers-container').appendChild(moreServersMsg);

@@ -216,3 +216,32 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }, 1000);
 });
+
+// Add a window resize event listener to update responsive content
+window.addEventListener('resize', function() {
+    // Check if tabs have been initialized
+    if (document.querySelector('.changes-discord-message') || 
+        document.querySelector('.more-servers-message')) {
+        
+        // Store current screen size category
+        const currentIsSmallScreen = window.innerWidth <= 1366;
+        
+        // Timeout to avoid too many updates during resize
+        clearTimeout(window.resizeTimeout);
+        window.resizeTimeout = setTimeout(function() {
+            const newIsSmallScreen = window.innerWidth <= 1366;
+            
+            // If screen size category has changed, update the UI
+            if (currentIsSmallScreen !== newIsSmallScreen) {
+                // Update the changes and servers tabs if they exist
+                if (typeof updateChangesTab === 'function') {
+                    updateChangesTab();
+                }
+                
+                if (typeof updateServersTab === 'function') {
+                    updateServersTab();
+                }
+            }
+        }, 250);
+    }
+});
