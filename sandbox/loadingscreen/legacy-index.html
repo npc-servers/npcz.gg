@@ -83,27 +83,6 @@
     <script src="./js/legacy-changes.js"></script>
     <script src="./js/legacy-servers.js"></script>
     <script src="./js/legacy-tips.js"></script>
-    <script>
-        var possibleBackgrounds = [
-            "images/pov.jpg",
-            "images/paradise.jpg",
-            "images/warehouse.jpg",
-            "images/hallway.jpg"
-        ];
-        var currentBackground = 0;
-
-        function changeBackground() {
-            var div = document.querySelector('.background');
-
-            currentBackground = ++currentBackground;
-            if (currentBackground >= possibleBackgrounds.length) {
-                currentBackground = 0;
-            }
-
-            div.style.backgroundImage = "url('" + possibleBackgrounds[currentBackground] + "')";
-        }
-
-        setInterval(changeBackground, 15000);
-    </script>
+    <script src="./js/background.js"></script>
   </body>
 </html> 
