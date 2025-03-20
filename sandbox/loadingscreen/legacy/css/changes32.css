@@ -57,7 +57,7 @@
   top: 0;
   width: 24px;
   height: 24px;
-  background-image: url('../../../assets/zbox_logo.png');
+  background-image: url('/assets/zbox_logo.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;

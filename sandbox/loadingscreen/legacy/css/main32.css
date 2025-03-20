@@ -61,7 +61,7 @@ body {
   /* Fallback for older browsers that can't handle the image */
   background-color: #e60000;
   /* Try to load the image if possible */
-  background-image: url('../../../assets/zmod_logo.png');
+  background-image: url('/assets/zmod_logo.png');
   background-position: center;
   background-repeat: no-repeat;
   display: inline-block;

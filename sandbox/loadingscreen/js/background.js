@@ -1,8 +1,8 @@
 var possibleBackgrounds = [
-    "images/pov.jpg",
-    "images/paradise.jpg",
-    "images/warehouse.jpg",
-    "images/hallway.jpg"
+    "/sandbox/loadingscreen/images/pov.jpg",
+    "/sandbox/loadingscreen/images/paradise.jpg",
+    "/sandbox/loadingscreen/images/warehouse.jpg",
+    "/sandbox/loadingscreen/images/hallway.jpg"
 ];
 var currentBackground = 0;
 
