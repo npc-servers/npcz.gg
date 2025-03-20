@@ -1,30 +1,5 @@
-// Configuration for the Other Servers tab
-const serversConfig = {
-    headerTitle: "Other Servers",
-    servers: [
-        {
-            id: "npc-zombies",
-            title: "NPC Zombies Vs. Players",
-            ip: "193.243.190.18",
-            port: "27015",
-            content: "Fast-paced action with instant respawn and all weapons unlocked."
-        },
-        {
-            id: "horde-wave",
-            title: "Horde Wave Survival",
-            ip: "193.243.190.18",
-            port: "27065",
-            content: "Team up with other players to survive waves of enemies."
-        },
-        {
-            id: "zgrad",
-            title: "ZGRAD US1",
-            ip: "193.243.190.18",
-            port: "27066",
-            content: "Build and design your own maps with unlimited resources."
-        }
-    ],
-    
+// Server status update functionality
+const serverUtils = {
     async updateServerStatus(server) {
         try {
             const response = await fetch(`https://gameserveranalytics.com/api/v2/query?game=source&ip=${server.ip}&port=${server.port}&type=info`);
@@ -53,14 +28,14 @@ const serversConfig = {
 // Function to update the Servers tab content
 async function updateServersTab() {
     // Update header
-    document.querySelector('.servers-header').textContent = serversConfig.headerTitle;
+    document.querySelector('.servers-header').textContent = SharedConfig.servers.headerTitle;
     
     // Clear and populate the servers grid
     const serversGrid = document.querySelector('.servers-grid');
     serversGrid.innerHTML = ''; // Clear existing content
     
     // Create and add server boxes
-    for (const server of serversConfig.servers) {
+    for (const server of SharedConfig.servers.list) {
         // Create server box element
         const serverBox = document.createElement('div');
         serverBox.className = 'server-box';
@@ -91,7 +66,7 @@ async function updateServersTab() {
         
         // Fetch server status
         try {
-            const status = await serversConfig.updateServerStatus(server);
+            const status = await serverUtils.updateServerStatus(server);
             
             if (status.online) {
                 playersElement.textContent = `Players: ${status.players}/${status.maxPlayers}`;
@@ -125,7 +100,7 @@ async function updateServersTab() {
     linkText.textContent = isSmallScreen ? 'More: ' : 'You can view the rest of our servers on our website: ';
     
     const link = document.createElement('a');
-    link.href = 'https://zgrad.gg/servers';
+    link.href = SharedConfig.links.website;
     link.textContent = 'zgrad.gg/servers';
     link.className = 'server-link';
     link.target = '_blank'; // Open in new tab

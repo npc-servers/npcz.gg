@@ -1,31 +1,9 @@
-// Configuration for the Changes tab
-var changesConfig = {
-    headerTitle: "Server Updates",
-    mainUpdate: {
-        title: "Excessive Teamkilling",
-        date: "March 16, 2025",
-        content: "We've implmeneted a system that will punish players for excessive teamkilling."
-    },
-    updates: [
-        {
-            title: "New Weapons",
-            date: "June 10, 2023",
-            content: "Added 5 new weapons to the arsenal including the Plasma Rifle and Quantum Blaster."
-        },
-        {
-            title: "Map Updates",
-            date: "June 5, 2023",
-            content: "Redesigned the central plaza and added new secret areas to explore."
-        }
-    ]
-};
-
 // Function to update the Changes tab content
 function updateChangesTab() {
     // Update header
     var changesHeader = document.getElementsByClassName('changes-header')[0];
     if (changesHeader) {
-        changesHeader.innerHTML = changesConfig.headerTitle;
+        changesHeader.innerHTML = SharedConfig.changes.headerTitle;
     }
     
     // Get container element
@@ -39,15 +17,15 @@ function updateChangesTab() {
         
         var mainTitle = document.createElement('h3');
         mainTitle.className = 'changes-title';
-        mainTitle.innerHTML = changesConfig.mainUpdate.title;
+        mainTitle.innerHTML = SharedConfig.changes.mainUpdate.title;
         
         var mainDate = document.createElement('div');
         mainDate.className = 'changes-date';
-        mainDate.innerHTML = changesConfig.mainUpdate.date;
+        mainDate.innerHTML = SharedConfig.changes.mainUpdate.date;
         
         var mainContent = document.createElement('div');
         mainContent.className = 'changes-content';
-        mainContent.innerHTML = changesConfig.mainUpdate.content;
+        mainContent.innerHTML = SharedConfig.changes.mainUpdate.content;
         
         // Append main update elements
         mainSection.appendChild(mainTitle);
@@ -60,8 +38,8 @@ function updateChangesTab() {
         changesGrid.className = 'changes-grid';
         
         // Create and populate update boxes
-        for (var i = 0; i < changesConfig.updates.length; i++) {
-            var update = changesConfig.updates[i];
+        for (var i = 0; i < SharedConfig.changes.updates.length; i++) {
+            var update = SharedConfig.changes.updates[i];
             var box = document.createElement('div');
             box.className = 'changes-box';
             
@@ -102,7 +80,7 @@ function updateChangesTab() {
         linkText.innerHTML = 'You can view the changelog on our discord: ';
         
         var link = document.createElement('a');
-        link.href = 'https://discord.gg/npc';
+        link.href = SharedConfig.links.discord;
         link.innerHTML = 'discord.gg/npc';
         link.className = 'discord-link';
         link.target = '_blank'; // Open in new tab

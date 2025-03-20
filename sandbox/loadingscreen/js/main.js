@@ -26,14 +26,14 @@ function GameDetails(
   document.getElementById("title").innerHTML = servername;
   fadeIn(document.getElementById("title"));
 
-  if (Config.enableMap) {
+  if (SharedConfig.ui.enableMap) {
     document.getElementById("map").appendChild(document.createTextNode(mapname));
     fadeIn(document.getElementById("map"));
   } else {
     document.getElementById("map").style.display = "none";
   }
 
-  if (Config.enableSteamID) {
+  if (SharedConfig.ui.enableSteamID) {
     document.getElementById("steamid").innerHTML = steamid;
   }
   fadeIn(document.getElementById("steamid"));
@@ -125,7 +125,7 @@ function setLoad(percentage) {
 }
 var permanent = false;
 function announce(message, ispermanent) {
-  if (Config.enableAnnouncements && !permanent) {
+  if (SharedConfig.ui.enableAnnouncements && !permanent) {
     var announcement = document.getElementById("announcement");
     announcement.style.display = "none";
     announcement.innerHTML = message;
@@ -154,6 +154,15 @@ function fadeIn(element) {
   }
 }
 
+// Function to shuffle an array using Fisher-Yates algorithm
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
 /**
  * Initial function
  */
@@ -165,23 +174,28 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // print announcement messages every few seconds
   if (
-    Config.announceMessages &&
-    Config.enableAnnouncements &&
-    Config.announcementLength
+    SharedConfig.ui.announceMessages &&
+    SharedConfig.ui.enableAnnouncements &&
+    SharedConfig.ui.announcementLength
   ) {
-    if (Config.announceMessages.length > 0) {
-      var i = 0;
+    if (SharedConfig.ui.announceMessages.length > 0) {
+      // Create a shuffled copy of the announcements array
+      let shuffledAnnouncements = [...SharedConfig.ui.announceMessages];
+      shuffleArray(shuffledAnnouncements);
+      let i = 0;
       
       // Show first message immediately
-      announce(Config.announceMessages[i]);
+      announce(shuffledAnnouncements[i]);
       
       setInterval(function() {
         i++;
-        if (i > Config.announceMessages.length - 1) {
+        // Reshuffle when we've shown all announcements
+        if (i >= shuffledAnnouncements.length) {
           i = 0;
+          shuffleArray(shuffledAnnouncements);
         }
-        announce(Config.announceMessages[i]);
-      }, Config.announcementLength);
+        announce(shuffledAnnouncements[i]);
+      }, SharedConfig.ui.announcementLength);
     }
   }
 

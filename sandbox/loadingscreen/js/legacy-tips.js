@@ -1,50 +1,4 @@
-// Configuration for the tips system
-var tipsConfig = {
-    // Array of tip messages to display
-    tips: [
-        "Press F1 to access the server rules and information.",
-        "Join our Discord server to stay updated with the latest server news.",
-        "You can customize your character in the Appearance menu.",
-        "Work together with other players to survive longer.",
-        "Headshots deal increased damage to most enemies.",
-        "You can trade items with other players using the trading system.",
-        "Remember to drink water and eat food to maintain your health.",
-        "Night time is more dangerous - be prepared!",
-        "Some areas contain rare loot but are heavily guarded.",
-        "Use the map markers to navigate and coordinate with your team."
-    ],
-    
-    // Time in milliseconds between tip changes
-    tipChangeInterval: 8000
-};
-
-// Function to update the tip text
-function updateTip() {
-    var tipContent = document.getElementsByClassName('tip-content')[0];
-    if (tipContent) {
-        // Get a random tip from the array
-        var randomIndex = Math.floor(Math.random() * tipsConfig.tips.length);
-        var tip = tipsConfig.tips[randomIndex];
-        
-        // Keep the old tip visible while preparing the new one
-        var oldOpacity = tipContent.style.opacity;
-        
-        // Set new tip text immediately without delay
-        tipContent.innerHTML = tip;
-        
-        // Briefly set opacity to 0.6 to create a subtle "refresh" effect without blank space
-        tipContent.style.opacity = '0.6';
-        tipContent.style.filter = 'alpha(opacity=60)';
-        
-        // Fade in new tip
-        setTimeout(function() {
-            tipContent.style.opacity = '0.9';
-            tipContent.style.filter = 'alpha(opacity=90)';
-        }, 100);
-    }
-}
-
-// Initialize the tip system
+// Initialize tips functionality when DOM is loaded
 if (window.addEventListener) {
     window.addEventListener('load', initTips);
 } else if (window.attachEvent) {
@@ -52,14 +6,59 @@ if (window.addEventListener) {
 }
 
 function initTips() {
-    if (window.tipsInitialized) {
+    var tipContainer = document.getElementsByClassName('tip-container')[0];
+    var tipContent = document.getElementsByClassName('tip-content')[0];
+    
+    if (!tipContainer || !tipContent || !SharedConfig.ui.enableTips) {
         return;
     }
-    window.tipsInitialized = true;
     
-    // Set initial tip
-    updateTip();
+    // Create a shuffled array of tip indices
+    var tipIndices = [];
+    for (var i = 0; i < SharedConfig.ui.tipMessages.length; i++) {
+        tipIndices.push(i);
+    }
+    var currentTipIndex = 0;
     
-    // Set interval to change tips
-    setInterval(updateTip, tipsConfig.tipChangeInterval);
+    // Fisher-Yates shuffle algorithm
+    function shuffleArray(array) {
+        var j, temp;
+        for (var i = array.length - 1; i > 0; i--) {
+            j = Math.floor(Math.random() * (i + 1));
+            temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+        }
+    }
+    
+    // Initial shuffle
+    shuffleArray(tipIndices);
+    
+    // Function to update the tip message - no animations, just immediate change
+    function updateTip() {
+        if (SharedConfig.ui.tipMessages.length === 0) {
+            tipContent.innerHTML = "No tips available";
+            return;
+        }
+        
+        // Get the tip using the shuffled index
+        tipContent.innerHTML = SharedConfig.ui.tipMessages[tipIndices[currentTipIndex]];
+        
+        // Increment index and reshuffle if we've shown all tips
+        currentTipIndex++;
+        if (currentTipIndex >= tipIndices.length) {
+            currentTipIndex = 0;
+            shuffleArray(tipIndices); // Reshuffle for next round
+        }
+    }
+    
+    // Set first tip immediately
+    if (SharedConfig.ui.tipMessages.length > 0) {
+        updateTip();
+    }
+    
+    // Start rotation if multiple tips exist
+    if (SharedConfig.ui.tipMessages.length > 1) {
+        setInterval(updateTip, SharedConfig.ui.tipRotationTime);
+    }
 } 
