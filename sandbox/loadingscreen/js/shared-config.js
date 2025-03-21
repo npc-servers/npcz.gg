@@ -10,7 +10,8 @@ const SharedConfig = {
             "Is a player breaking the rules? Report them in the discord!",
             "Hopefully you enjoy this new loading screen!",
             "You can buy a rank on our website! store.npcz.gg",
-            "We have other servers! Check the right side panel for more info!"
+            "We have other servers! Check the right side panel for more info!",
+            "When you buy a rank on one server, you get it on all of them!"
         ],
         announcementLength: 7000,
         
@@ -24,6 +25,8 @@ const SharedConfig = {
             "You can make a squad by typing !squad in chat.",
             "You can message a player by typing !p [name] [message] in chat.",
             "Message online staff by typing @ [message] in chat.",
+            "Get exclusive benefits on all of our servers by buying a rank! store.npcz.gg",
+            
         ]
     },
     
