@@ -125,8 +125,8 @@ async function updateServersTab() {
     linkText.textContent = isSmallScreen ? 'More: ' : 'You can view the rest of our servers on our website: ';
     
     const link = document.createElement('a');
-    link.href = 'https://zgrad.gg/servers';
-    link.textContent = 'zgrad.gg/servers';
+    link.href = 'https://zmod.gg/servers';
+    link.textContent = 'zmod.gg/servers';
     link.className = 'server-link';
     link.target = '_blank'; // Open in new tab
     

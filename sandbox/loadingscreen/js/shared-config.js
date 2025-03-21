@@ -6,16 +6,11 @@ const SharedConfig = {
         enableSteamID: false,
         enableAnnouncements: true,
         announceMessages: [
-            "Enjoy your stay!",
             "Don't forget to join the discord! discord.gg/npc",
             "Is a player breaking the rules? Report them in the discord!",
-            "Look how fast you load in!",
-            "A custom version of M9K for extra fun!",
-            "Got any suggestions? Let us know in the discord!",
-            "This is in fact a loading screen!",
-            "Simplisticy is quality on its own",
-            "Do people even read these?",
-            "I sure hope so!"
+            "Hopefully you enjoy this new loading screen!",
+            "You can buy a rank on our website! store.npcz.gg",
+            "We have other servers! Check the right side panel for more info!"
         ],
         announcementLength: 7000,
         
@@ -23,16 +18,12 @@ const SharedConfig = {
         enableTips: true,
         tipRotationTime: 5000,
         tipMessages: [
-            "Press F1 to access the server menu",
-            "Join our Discord server for community events",
-            "Report bugs in our Discord",
-            "Type !help in chat for commands",
-            "Press TAB to see the scoreboard",
-            "Check the server rules",
-            "Customize your character in settings",
-            "New content added monthly",
-            "Join events for special rewards",
-            "Be respectful to other players"
+            "You can switch modes by typing !PVE or !PVP in chat.",
+            "Press E on a player with Outfitter to view their playermodel.",
+            "You can use /p to talk in Squad chat.",
+            "You can make a squad by typing !squad in chat.",
+            "You can message a player by typing !p [name] [message] in chat.",
+            "Message online staff by typing @ [message] in chat.",
         ]
     },
     
@@ -66,20 +57,20 @@ const SharedConfig = {
     changes: {
         headerTitle: "Server Updates",
         mainUpdate: {
-            title: "Excessive Teamkilling",
-            date: "March 16, 2025",
-            content: "We've implmeneted a system that will punish players for excessive teamkilling."
+            title: "New Glide Vehicles",
+            date: "March 20, 2025",
+            content: "Added JB 700, Infernus, Insurgent Pickup."
         },
         updates: [
             {
-                title: "New Weapons",
-                date: "June 10, 2023",
-                content: "Added 5 new weapons to the arsenal including the Plasma Rifle and Quantum Blaster."
+                title: "PVP Balancing",
+                date: "March 21, 2025",
+                content: "Disabled crouching spamming mid-air."
             },
             {
-                title: "Map Updates",
-                date: "June 5, 2023",
-                content: "Redesigned the central plaza and added new secret areas to explore."
+                title: "New Map",
+                date: "March 16, 2025",
+                content: "Added gm_windswept. Fear the wind."
             }
         ]
     },
@@ -87,27 +78,52 @@ const SharedConfig = {
     // Servers Configuration
     servers: {
         headerTitle: "Other Servers",
+        combinePlayerCounts: true, // New flag to enable combining player counts for servers with the same ID
         list: [
             {
-                id: "npc-zombies",
-                title: "NPC Zombies Vs. Players",
-                ip: "193.243.190.18",
-                port: "27015",
-                content: "Fast-paced action with instant respawn and all weapons unlocked."
-            },
-            {
-                id: "horde-wave",
-                title: "Horde Wave Survival",
-                ip: "193.243.190.18",
-                port: "27065",
-                content: "Team up with other players to survive waves of enemies."
-            },
-            {
                 id: "zgrad",
-                title: "ZGRAD US1",
-                ip: "193.243.190.18",
-                port: "27066",
-                content: "Build and design your own maps with unlimited resources."
+                title: "ZGRAD",
+                content: "Like TTT, but with extra steps. View and join the servers @ zgrad.gg/servers.",
+                instances: [
+                    {
+                        ip: "193.243.190.18",
+                        port: "27066"
+                    },
+                    {
+                        ip: "193.243.190.18",
+                        port: "27051"
+                    },
+                    {
+                        ip: "193.243.190.18",
+                        port: "27052"
+                    },
+                    {
+                        ip: "193.243.190.18",
+                        port: "27053"
+                    },
+                ]
+            },
+            {
+                id: "horde",
+                title: "NPCZ | Horde",
+                content: "Team up with other players to survive waves of zombies.",
+                instances: [
+                    {
+                        ip: "193.243.190.18",
+                        port: "27065"
+                    }
+                ]
+            },
+            {
+                id: "zbox",
+                title: "ZBox",
+                content: "A vanilla sandbox server.",
+                instances: [
+                    {
+                        ip: "193.243.190.18",
+                        port: "27064"
+                    }
+                ]
             }
         ]
     },
@@ -115,7 +131,7 @@ const SharedConfig = {
     // Links Configuration
     links: {
         discord: "https://discord.gg/npc",
-        website: "https://zgrad.gg/servers"
+        website: "https://zmod.gg/servers"
     }
 };
 

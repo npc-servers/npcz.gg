@@ -1,8 +1,8 @@
 // Server status update functionality
 const serverUtils = {
-    async updateServerStatus(server) {
+    async fetchServerStatus(ip, port) {
         try {
-            const response = await fetch(`https://gameserveranalytics.com/api/v2/query?game=source&ip=${server.ip}&port=${server.port}&type=info`);
+            const response = await fetch(`https://gameserveranalytics.com/api/v2/query?game=source&ip=${ip}&port=${port}&type=info`);
             const serverInfo = await response.json();
             
             const status = {
@@ -19,7 +19,50 @@ const serverUtils = {
 
             return status;
         } catch (error) {
-            console.error(`Error fetching data for ${server.id}:`, error);
+            console.error(`Error fetching data for ${ip}:${port}:`, error);
+            return { online: false, players: 0, maxPlayers: 0 };
+        }
+    },
+    
+    async updateServerStatus(server) {
+        try {
+            // Handle servers with multiple instances
+            if (server.instances && server.instances.length > 0) {
+                const statusPromises = server.instances.map(instance => 
+                    this.fetchServerStatus(instance.ip, instance.port)
+                );
+                
+                const statusResults = await Promise.all(statusPromises);
+                
+                // Calculate combined values
+                const combinedStatus = {
+                    online: statusResults.some(status => status.online),
+                    players: 0,
+                    maxPlayers: 0
+                };
+                
+                // Sum up all player counts
+                statusResults.forEach(status => {
+                    if (status.online) {
+                        combinedStatus.players += parseInt(status.players) || 0;
+                        // For max players, only add numeric values
+                        const maxPlayers = parseInt(status.maxPlayers);
+                        if (!isNaN(maxPlayers)) {
+                            combinedStatus.maxPlayers += maxPlayers;
+                        }
+                    }
+                });
+                
+                return combinedStatus;
+            } 
+            // For backwards compatibility with old format
+            else if (server.ip && server.port) {
+                return await this.fetchServerStatus(server.ip, server.port);
+            }
+            
+            return { online: false, players: 0, maxPlayers: 0 };
+        } catch (error) {
+            console.error(`Error updating status for ${server.id}:`, error);
             return { online: false, players: 0, maxPlayers: 0 };
         }
     }
@@ -101,7 +144,7 @@ async function updateServersTab() {
     
     const link = document.createElement('a');
     link.href = SharedConfig.links.website;
-    link.textContent = 'zgrad.gg/servers';
+    link.textContent = 'zmod.gg/servers';
     link.className = 'server-link';
     link.target = '_blank'; // Open in new tab
     

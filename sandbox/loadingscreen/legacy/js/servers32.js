@@ -1,9 +1,9 @@
 // Server status update functionality
 var serverUtils = {
-    updateServerStatus: function(server, callback) {
+    fetchServerStatus: function(ip, port, callback) {
         // For legacy browsers, we'll use a simpler status method
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'http://gameserveranalytics.com/api/v2/query?game=source&ip=' + server.ip + '&port=' + server.port + '&type=info', true);
+        xhr.open('GET', 'http://gameserveranalytics.com/api/v2/query?game=source&ip=' + ip + '&port=' + port + '&type=info', true);
         
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4) {
@@ -38,6 +38,50 @@ var serverUtils = {
         try {
             xhr.send();
         } catch (e) {
+            callback({ online: false, players: 0, maxPlayers: 0 });
+        }
+    },
+    
+    updateServerStatus: function(server, callback) {
+        var self = this;
+        
+        // Handle servers with multiple instances
+        if (server.instances && server.instances.length > 0) {
+            var pendingRequests = server.instances.length;
+            var combinedStatus = {
+                online: false,
+                players: 0,
+                maxPlayers: 0
+            };
+            
+            // For each instance in the server
+            for (var i = 0; i < server.instances.length; i++) {
+                (function(instance) {
+                    self.fetchServerStatus(instance.ip, instance.port, function(status) {
+                        if (status.online) {
+                            combinedStatus.online = true;
+                            combinedStatus.players += parseInt(status.players) || 0;
+                            
+                            // For max players, only add numeric values
+                            var maxPlayers = parseInt(status.maxPlayers);
+                            if (!isNaN(maxPlayers)) {
+                                combinedStatus.maxPlayers += maxPlayers;
+                            }
+                        }
+                        
+                        pendingRequests--;
+                        if (pendingRequests === 0) {
+                            // All requests completed, return combined status
+                            callback(combinedStatus);
+                        }
+                    });
+                })(server.instances[i]);
+            }
+        } 
+        // For backwards compatibility with old format
+        else if (server.ip && server.port) {
+            this.fetchServerStatus(server.ip, server.port, callback);
+        } else {
             callback({ online: false, players: 0, maxPlayers: 0 });
         }
     }
@@ -121,7 +165,7 @@ function updateServersTab() {
     
     var link = document.createElement('a');
     link.href = SharedConfig.links.website;
-    link.innerHTML = 'zgrad.gg/servers';
+    link.innerHTML = 'zmod.gg/servers';
     link.className = 'server-link';
     link.target = '_blank'; // Open in new tab
     
