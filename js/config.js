@@ -19,7 +19,8 @@ window.NPCZ.config = {
     navLinks: [
         { href: 'index.html', text: 'Home' },
         { href: 'resources.html', text: 'Resources' },
-        { href: 'https://discord.gg/npc', text: 'Support' },
+        { href: 'support.html', text: 'Support' },
+        { href: 'rules.html', text: 'Rules' },
         { href: 'https://store.npcz.gg', text: 'Store' },
         { href: 'https://discord.gg/npc', text: 'Discord' }
     ],
