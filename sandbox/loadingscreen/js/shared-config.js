@@ -35,6 +35,32 @@ const SharedConfig = {
             "Be respectful to other players"
         ]
     },
+    
+    // Assets Configuration
+    assets: {
+        // Define all icons and logos here for easy management
+        icons: {
+            // Server section icons
+            serverUpdates: '/assets/add_icon.png',
+            otherServers: '/assets/npcz_logo.png',
+            
+            // Logo images
+            zmodLogo: '/assets/zmod_logo.png',
+            npczLogo: '/assets/npcz_logo.png',
+            serverIcon: '/assets/server_icon.png',
+            
+            // UI elements
+            errorIcon: '/sandbox/loadingscreen/images/icons/error.png'
+        },
+        
+        // Background images (if needed to centralize)
+        backgrounds: [
+            "/sandbox/loadingscreen/images/pov.jpg",
+            "/sandbox/loadingscreen/images/paradise.jpg",
+            "/sandbox/loadingscreen/images/warehouse.jpg",
+            "/sandbox/loadingscreen/images/hallway.jpg"
+        ]
+    },
 
     // Server Updates Configuration
     changes: {

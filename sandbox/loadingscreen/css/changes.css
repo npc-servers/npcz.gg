@@ -9,6 +9,11 @@
   --step-number-bg: rgba(230, 0, 0, 0.9);
   --step-hover-border: #ff6600;
   --blur-amount: 4px;
+  
+  /* Icon paths - these will be set via JavaScript using SharedConfig */
+  --server-updates-icon: url('../../../assets/add_icon.png');
+  --other-servers-icon: url('../../../assets/npcz_logo.png');
+  --error-icon: url('../images/icons/error.png');
 }
 
 /* Common styles for both tabs */
@@ -82,7 +87,7 @@
   display: block;
   width: 24px;
   height: 24px;
-  background-image: url('../../../assets/zbox_logo.png');
+  background-image: var(--server-updates-icon);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -250,7 +255,7 @@
   display: block;
   width: 24px;
   height: 24px;
-  background-image: url('../../../assets/zbox_logo.png');
+  background-image: var(--other-servers-icon);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -343,7 +348,7 @@
 }
 
 .server-box.server-error .server-box-title::before {
-  background-image: url('../images/icons/error.png');
+  background-image: var(--error-icon);
 }
 
 /* More servers message styling */

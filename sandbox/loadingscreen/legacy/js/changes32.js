@@ -3,7 +3,7 @@ function updateChangesTab() {
     // Update header
     var changesHeader = document.getElementsByClassName('changes-header')[0];
     if (changesHeader) {
-        changesHeader.innerHTML = SharedConfig.changes.headerTitle;
+        changesHeader.textContent = SharedConfig.changes.headerTitle;
     }
     
     // Get container element

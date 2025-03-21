@@ -1,3 +1,10 @@
+/* CSS Variables for modern browsers */
+:root {
+  /* Icon paths - these will be set via JavaScript for modern browsers */
+  --server-updates-icon: url('/assets/add_icon.png');
+  --other-servers-icon: url('/assets/npcz_logo.png');
+}
+
 /* Tabs styling */
 .changes-tab, .servers-tab {
   position: fixed;
@@ -57,10 +64,17 @@
   top: 0;
   width: 24px;
   height: 24px;
-  background-image: url('/assets/zbox_logo.png');
+  background-image: url('/assets/npcz_logo.png'); /* Fallback for IE */
+  background-image: var(--other-servers-icon, url('/assets/npcz_logo.png')); /* Use variable with fallback */
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
+}
+
+/* Separate the icon for changes header */
+.changes-header:before {
+  background-image: url('/assets/add_icon.png'); /* Fallback for IE */
+  background-image: var(--server-updates-icon, url('/assets/add_icon.png')); /* Use variable with fallback */
 }
 
 /* Changes content */
