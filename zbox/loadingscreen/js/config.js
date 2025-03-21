@@ -37,4 +37,4 @@ Config.announceMessages = [
  * How many milliseconds for each announcement?
  * only works if enableAnnouncements = true
  */
-Config.announcementLength = 3000;
+Config.announcementLength = 7000;
