@@ -1,5 +1,5 @@
 // Toggle category dropdown
-function toggleCategory(header) {
+function toggleCategory(header, skipScroll = false) {
     const content = header.nextElementSibling;
     const isActive = header.classList.contains('active');
     
@@ -7,10 +7,10 @@ function toggleCategory(header) {
     header.classList.toggle('active');
     content.classList.toggle('active');
     
-    // Scroll into view if opening
-    if (!isActive) {
+    // Scroll into view if opening and not skipping scroll
+    if (!isActive && !skipScroll) {
         setTimeout(() => {
-            header.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            header.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 100);
     }
 }
@@ -77,7 +77,7 @@ function handleHash() {
                 var header = category.querySelector('.category-header');
                 // Only toggle if the category is not already active
                 if (!header.classList.contains('active')) {
-                    toggleCategory(header);
+                    toggleCategory(header, false); // Allow scrolling for hash navigation
                 }
                 // Remove highlight from any previously highlighted rules
                 document.querySelectorAll('.rule-card').forEach(card => {
@@ -96,10 +96,12 @@ function handleHash() {
 
 // Initialize
 window.onload = function() {
-    // Open first category by default
+    // Open first category by default without scrolling
     var firstHeader = document.querySelector('.category-header');
     if (firstHeader) {
-        toggleCategory(firstHeader);
+        // Directly toggle classes without scrolling
+        firstHeader.classList.add('active');
+        firstHeader.nextElementSibling.classList.add('active');
     }
     
     // Handle hash links
@@ -123,6 +125,13 @@ function initRules() {
     // Set animation order for rule cards
     document.querySelectorAll('.rule-card').forEach((card, index) => {
         card.style.setProperty('--animation-order', index);
+    });
+
+    // Add manual click handler for category headers (not using onclick attribute)
+    document.querySelectorAll('.category-header').forEach(header => {
+        header.addEventListener('click', () => {
+            toggleCategory(header, false); // Allow scrolling for manual clicks
+        });
     });
 
     // Handle rule card clicks

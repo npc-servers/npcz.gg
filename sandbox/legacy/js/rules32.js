@@ -60,7 +60,7 @@ var rulesData = {
 };
 
 // Toggle category dropdown
-function toggleCategory(header) {
+function toggleCategory(header, skipScroll) {
     var content = header.nextSibling;
     while(content && content.nodeType != 1) {
         content = content.nextSibling;
@@ -76,10 +76,12 @@ function toggleCategory(header) {
         header.className += ' active';
         content.className += ' active';
         
-        // Scroll into view if opening
-        setTimeout(function() {
-            header.scrollIntoView();
-        }, 100);
+        // Scroll into view if opening and not skipping scroll
+        if (!skipScroll) {
+            setTimeout(function() {
+                header.scrollIntoView();
+            }, 100);
+        }
     }
 }
 
@@ -194,10 +196,28 @@ window.onload = function() {
         }
     }
     
-    // Open first category by default
+    // Open first category by default without scrolling
     var firstHeader = document.getElementsByClassName('category-header')[0];
     if (firstHeader) {
-        toggleCategory(firstHeader);
+        // Directly apply active classes without scrolling
+        firstHeader.className += ' active';
+        var firstContent = firstHeader.nextSibling;
+        while(firstContent && firstContent.nodeType != 1) {
+            firstContent = firstContent.nextSibling;
+        }
+        if (firstContent) {
+            firstContent.className += ' active';
+        }
+    }
+    
+    // Add click handlers for category headers
+    var categoryHeaders = document.getElementsByClassName('category-header');
+    for (var i = 0; i < categoryHeaders.length; i++) {
+        (function(header) {
+            header.onclick = function() {
+                toggleCategory(header, false); // Allow scrolling for manual clicks
+            };
+        })(categoryHeaders[i]);
     }
     
     // Handle hash links
@@ -217,7 +237,10 @@ function handleHash() {
             }
             if (category) {
                 var header = category.getElementsByClassName('category-header')[0];
-                toggleCategory(header);
+                // Only toggle if the category is not already active
+                if (header.className.indexOf('active') === -1) {
+                    toggleCategory(header, false); // Allow scrolling for hash navigation
+                }
                 // Smooth scroll with delay to ensure animation completes
                 setTimeout(function() {
                     ruleElement.scrollIntoView();
