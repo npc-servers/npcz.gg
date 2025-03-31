@@ -39,8 +39,6 @@ const SharedConfig = {
             otherServers: '/assets/npcz_logo.png',
             
             // Logo images
-            zmodLogo: '/assets/zmod_logo.png',
-            npczLogo: '/assets/npcz_logo.png',
             serverIcon: '/assets/server_icon.png',
             
             // UI elements
