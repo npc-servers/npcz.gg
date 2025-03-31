@@ -7,8 +7,9 @@
     <link rel="stylesheet" href="./css/main.css">
     <link rel="stylesheet" href="./css/changes.css">
     <link rel="stylesheet" href="./css/tips.css">
+    <link rel="stylesheet" href="./css/background-rotation.css">
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@500&display=swap" rel="stylesheet">
-    <script src="/js/compatibility/zbox-browser-router.js"></script>
+    <script src="/js/compatibility/zbox-load-redirect.js"></script>
   </head>
   <body>
     <div class="background"></div>
@@ -59,30 +60,13 @@
       <p class="tip-content">Loading tip...</p>
     </div>
 
-    <script src="./js/config.js"></script>
+    <script src="./js/shared-config.js"></script>
+    <script src="./js/assets.js"></script>
     <script src="./js/main.js"></script>
     <script src="./js/changes.js"></script>
     <script src="./js/servers.js"></script>
     <script src="./js/tips.js"></script>
-    <script>
-        const possibleBackgrounds = [
-            "images/zbox1.jpg",
-            "images/zbox2.jpg"
-        ]
-        let currentBackground = 0;
-
-        function changeBackground() {
-            const div = document.querySelector('.background');
-
-            currentBackground = ++currentBackground;
-            if (currentBackground >= possibleBackgrounds.length) {
-                currentBackground = 0;
-            }
-
-            div.style.backgroundImage = `url('${possibleBackgrounds[currentBackground]}')`;
-        }
-
-        setInterval(changeBackground, 3000);
-    </script>
+    <script src="./js/background.js"></script>
+    <script src="./js/background-rotation.js"></script>
   </body>
 </html>

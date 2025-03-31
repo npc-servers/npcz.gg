@@ -44,7 +44,7 @@ function GameDetails(
   }
 
   var steamidElement = document.getElementById("steamid");
-  if (steamidElement && Config.enableSteamID) {
+  if (steamidElement && SharedConfig.ui.enableSteamID) {
     steamidElement.innerHTML = steamid;
     fadeIn(steamidElement);
   }
@@ -153,7 +153,7 @@ function setLoad(percentage) {
 }
 var permanent = false;
 function announce(message, ispermanent) {
-  if (Config && Config.enableAnnouncements && !permanent) {
+  if (SharedConfig && SharedConfig.ui.enableAnnouncements && !permanent) {
     var announcement = document.getElementById("announcement");
     if (announcement) {
       announcement.style.display = "block";
@@ -192,6 +192,18 @@ function fadeIn(element) {
   }
 }
 
+// Function to shuffle an array using Fisher-Yates algorithm
+function shuffleArray(array) {
+    var j, temp;
+    for (var i = array.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+    return array;
+}
+
 /**
  * Initial function
  */
@@ -215,21 +227,29 @@ window.onload = function() {
 
   // print announcement messages every few seconds
   if (
-    typeof Config !== 'undefined' &&
-    Config.announceMessages &&
-    Config.enableAnnouncements &&
-    Config.announcementLength
+    SharedConfig &&
+    SharedConfig.ui.announceMessages &&
+    SharedConfig.ui.enableAnnouncements &&
+    SharedConfig.ui.announcementLength
   ) {
-    if (Config.announceMessages.length > 0) {
+    if (SharedConfig.ui.announceMessages.length > 0) {
+      // Create a shuffled copy of the announcements array
+      var shuffledAnnouncements = SharedConfig.ui.announceMessages.slice();
+      shuffleArray(shuffledAnnouncements);
       var i = 0;
-      announce(Config.announceMessages[i]);  // Show first message immediately
+      
+      // Show first message immediately
+      announce(shuffledAnnouncements[i]);
+      
       setInterval(function() {
-        announce(Config.announceMessages[i]);
         i++;
-        if (i > Config.announceMessages.length - 1) {
+        // Reshuffle when we've shown all announcements
+        if (i >= shuffledAnnouncements.length) {
           i = 0;
+          shuffleArray(shuffledAnnouncements);
         }
-      }, Config.announcementLength);
+        announce(shuffledAnnouncements[i]);
+      }, SharedConfig.ui.announcementLength);
     }
   }
 

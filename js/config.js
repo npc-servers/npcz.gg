@@ -20,7 +20,7 @@ window.NPCZ.config = {
         { href: 'index.html', text: 'Home' },
         { href: 'resources.html', text: 'Resources' },
         { href: 'support.html', text: 'Support' },
-        { href: 'rules.html', text: 'Rules' },
+        { href: '/sandbox/rules.html', text: 'Rules' },
         { href: 'https://store.npcz.gg', text: 'Store' },
         { href: 'https://discord.gg/npc', text: 'Discord' }
     ],

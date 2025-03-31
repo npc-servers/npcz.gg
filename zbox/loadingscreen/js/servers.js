@@ -1,33 +1,8 @@
-// Configuration for the Other Servers tab
-const serversConfig = {
-    headerTitle: "Other Servers",
-    servers: [
-        {
-            id: "npc-zombies",
-            title: "NPC Zombies Vs. Players",
-            ip: "193.243.190.18",
-            port: "27015",
-            content: "Fast-paced action with instant respawn and all weapons unlocked."
-        },
-        {
-            id: "horde-wave",
-            title: "Horde Wave Survival",
-            ip: "193.243.190.18",
-            port: "27065",
-            content: "Team up with other players to survive waves of enemies."
-        },
-        {
-            id: "zgrad",
-            title: "ZGRAD US1",
-            ip: "193.243.190.18",
-            port: "27066",
-            content: "Build and design your own maps with unlimited resources."
-        }
-    ],
-    
-    async updateServerStatus(server) {
+// Server status update functionality
+const serverUtils = {
+    async fetchServerStatus(ip, port) {
         try {
-            const response = await fetch(`https://gameserveranalytics.com/api/v2/query?game=source&ip=${server.ip}&port=${server.port}&type=info`);
+            const response = await fetch(`https://gameserveranalytics.com/api/v2/query?game=source&ip=${ip}&port=${port}&type=info`);
             const serverInfo = await response.json();
             
             const status = {
@@ -44,7 +19,50 @@ const serversConfig = {
 
             return status;
         } catch (error) {
-            console.error(`Error fetching data for ${server.id}:`, error);
+            console.error(`Error fetching data for ${ip}:${port}:`, error);
+            return { online: false, players: 0, maxPlayers: 0 };
+        }
+    },
+    
+    async updateServerStatus(server) {
+        try {
+            // Handle servers with multiple instances
+            if (server.instances && server.instances.length > 0) {
+                const statusPromises = server.instances.map(instance => 
+                    this.fetchServerStatus(instance.ip, instance.port)
+                );
+                
+                const statusResults = await Promise.all(statusPromises);
+                
+                // Calculate combined values
+                const combinedStatus = {
+                    online: statusResults.some(status => status.online),
+                    players: 0,
+                    maxPlayers: 0
+                };
+                
+                // Sum up all player counts
+                statusResults.forEach(status => {
+                    if (status.online) {
+                        combinedStatus.players += parseInt(status.players) || 0;
+                        // For max players, only add numeric values
+                        const maxPlayers = parseInt(status.maxPlayers);
+                        if (!isNaN(maxPlayers)) {
+                            combinedStatus.maxPlayers += maxPlayers;
+                        }
+                    }
+                });
+                
+                return combinedStatus;
+            } 
+            // For backwards compatibility with old format
+            else if (server.ip && server.port) {
+                return await this.fetchServerStatus(server.ip, server.port);
+            }
+            
+            return { online: false, players: 0, maxPlayers: 0 };
+        } catch (error) {
+            console.error(`Error updating status for ${server.id}:`, error);
             return { online: false, players: 0, maxPlayers: 0 };
         }
     }
@@ -53,14 +71,14 @@ const serversConfig = {
 // Function to update the Servers tab content
 async function updateServersTab() {
     // Update header
-    document.querySelector('.servers-header').textContent = serversConfig.headerTitle;
+    document.querySelector('.servers-header').textContent = SharedConfig.servers.headerTitle;
     
     // Clear and populate the servers grid
     const serversGrid = document.querySelector('.servers-grid');
     serversGrid.innerHTML = ''; // Clear existing content
     
     // Create and add server boxes
-    for (const server of serversConfig.servers) {
+    for (const server of SharedConfig.servers.list) {
         // Create server box element
         const serverBox = document.createElement('div');
         serverBox.className = 'server-box';
@@ -91,7 +109,7 @@ async function updateServersTab() {
         
         // Fetch server status
         try {
-            const status = await serversConfig.updateServerStatus(server);
+            const status = await serverUtils.updateServerStatus(server);
             
             if (status.online) {
                 playersElement.textContent = `Players: ${status.players}/${status.maxPlayers}`;
@@ -125,7 +143,7 @@ async function updateServersTab() {
     linkText.textContent = isSmallScreen ? 'More: ' : 'You can view the rest of our servers on our website: ';
     
     const link = document.createElement('a');
-    link.href = 'https://zmod.gg/servers';
+    link.href = SharedConfig.links.website;
     link.textContent = 'zmod.gg/servers';
     link.className = 'server-link';
     link.target = '_blank'; // Open in new tab
