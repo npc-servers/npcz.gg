@@ -1,14 +1,10 @@
-var possibleBackgrounds = [
-    "/zbox/loadingscreen/images/pov.jpg",
-    "/zbox/loadingscreen/images/paradise.jpg",
-    "/zbox/loadingscreen/images/warehouse.jpg",
-    "/zbox/loadingscreen/images/hallway.jpg"
-];
+// Initialize as empty array, will be populated from SharedConfig
+var possibleBackgrounds = [];
 var currentBackground = 0;
 
 function changeBackground() {
     var div = document.querySelector('.background');
-    if (!div) return;
+    if (!div || possibleBackgrounds.length === 0) return;
 
     // Legacy browser compatible way to set background
     div.style.backgroundImage = "url('" + possibleBackgrounds[currentBackground] + "')";
@@ -21,6 +17,13 @@ function changeBackground() {
 
 // Function to initialize background immediately
 function initBackground() {
+    // Get backgrounds from SharedConfig if available
+    if (typeof SharedConfig !== 'undefined' && 
+        SharedConfig.assets && 
+        SharedConfig.assets.backgrounds) {
+        possibleBackgrounds = SharedConfig.assets.backgrounds;
+    }
+    
     // Set first background immediately
     changeBackground();
     // Start the interval for subsequent changes
