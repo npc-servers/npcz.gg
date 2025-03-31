@@ -47,10 +47,8 @@ const SharedConfig = {
         
         // Background images (if needed to centralize)
         backgrounds: [
-            "/zbox/loadingscreen/images/pov.jpg",
-            "/zbox/loadingscreen/images/paradise.jpg",
-            "/zbox/loadingscreen/images/warehouse.jpg",
-            "/zbox/loadingscreen/images/hallway.jpg"
+            "/zbox/loadingscreen/images/explosion.jpg",
+            "/zbox/loadingscreen/images/snake.jpg"
         ]
     },
 
