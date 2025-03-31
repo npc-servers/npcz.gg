@@ -125,10 +125,7 @@ window.onload = function() {
     var categories = document.getElementsByClassName('category-content');
     var categoryData = {
         0: rulesData['common-sense'],
-        1: rulesData['prop-abuse'],
-        2: rulesData['pve-pvp'],
-        3: rulesData['basing'],
-        4: rulesData['wiremod']
+        1: rulesData['gameplay']
     };
     
     for (var i = 0; i < categories.length; i++) {
