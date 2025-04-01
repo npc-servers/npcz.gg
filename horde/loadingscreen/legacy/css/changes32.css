@@ -2,7 +2,7 @@
 :root {
   /* Icon paths - these will be set via JavaScript for modern browsers */
   --server-updates-icon: url('/assets/add_icon.png');
-  --other-servers-icon: url('/assets/npcz_logo.png');
+  --other-servers-icon: url('/assets/horde_logo.png');
 }
 
 /* Tabs styling */
@@ -64,8 +64,8 @@
   top: 0;
   width: 24px;
   height: 24px;
-  background-image: url('/assets/npcz_logo.png'); /* Fallback for IE */
-  background-image: var(--other-servers-icon, url('/assets/npcz_logo.png')); /* Use variable with fallback */
+  background-image: url('/assets/horde_logo.png'); /* Fallback for IE */
+  background-image: var(--other-servers-icon, url('/assets/horde_logo.png')); /* Use variable with fallback */
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;

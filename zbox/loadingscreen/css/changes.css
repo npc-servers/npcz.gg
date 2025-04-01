@@ -12,7 +12,7 @@
   
   /* Icon paths - these will be set via JavaScript using SharedConfig */
   --server-updates-icon: url('../../../assets/add_icon.png');
-  --other-servers-icon: url('../../../assets/npcz_logo.png');
+  --other-servers-icon: url('../../../assets/zbox_logo.png');
   --error-icon: url('../images/icons/error.png');
 }
 

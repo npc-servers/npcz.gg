@@ -33,7 +33,7 @@ const SharedConfig = {
         icons: {
             // Server section icons
             serverUpdates: '/assets/add_icon.png',
-            otherServers: '/assets/zbox_logo.png',
+            otherServers: '/assets/horde_logo.png',
             
             // Logo images
             serverIcon: '/assets/server_icon.png',
