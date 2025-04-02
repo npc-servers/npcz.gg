@@ -3,6 +3,11 @@ for (var category in rulesConfig) {
     rulesData[category] = rulesConfig[category].rules;
 }
 
+// Check if device is mobile
+function isMobile() {
+    return window.innerWidth <= 768;
+}
+
 // Toggle category dropdown
 function toggleCategory(header, skipScroll) {
     var content = header.nextSibling;
@@ -17,13 +22,23 @@ function toggleCategory(header, skipScroll) {
         header.className = header.className.replace(' active', '');
         content.className = content.className.replace(' active', '');
     } else {
+        // On mobile, close all other categories first for better UX
+        if (isMobile()) {
+            var allHeaders = document.getElementsByClassName('category-header');
+            for (var i = 0; i < allHeaders.length; i++) {
+                if (allHeaders[i] !== header && allHeaders[i].className.indexOf('active') !== -1) {
+                    toggleCategory(allHeaders[i], true);
+                }
+            }
+        }
+        
         header.className += ' active';
         content.className += ' active';
         
         // Scroll into view if opening and not skipping scroll
         if (!skipScroll) {
             setTimeout(function() {
-                header.scrollIntoView();
+                header.scrollIntoView({behavior: 'smooth'});
             }, 100);
         }
     }
@@ -119,26 +134,73 @@ function createRuleCard(rule) {
     return card;
 }
 
-// Initialize
-window.onload = function() {
-    // Populate rule categories
-    var categories = document.getElementsByClassName('category-content');
-    var categoryData = {
-        0: rulesData['common-sense'],
-        1: rulesData['gameplay']
+// Create category element
+function createCategoryElement(categoryKey, categoryData) {
+    var category = document.createElement('div');
+    category.className = 'rule-category';
+    
+    // Create header
+    var header = document.createElement('div');
+    header.className = 'category-header';
+    
+    var title = document.createElement('h2');
+    title.textContent = categoryData.title;
+    
+    var icon = document.createElement('i');
+    icon.className = 'icon-chevron-down';
+    
+    header.appendChild(title);
+    header.appendChild(icon);
+    
+    // Create content container
+    var content = document.createElement('div');
+    content.className = 'category-content';
+    
+    // Add rules to content
+    var rules = categoryData.rules;
+    if (rules) {
+        for (var i = 0; i < rules.length; i++) {
+            content.appendChild(createRuleCard(rules[i]));
+        }
+    }
+    
+    // Add click handler
+    header.onclick = function() {
+        toggleCategory(header, false);
     };
     
-    for (var i = 0; i < categories.length; i++) {
-        var rules = categoryData[i];
-        if (rules) {
-            for (var j = 0; j < rules.length; j++) {
-                categories[i].appendChild(createRuleCard(rules[j]));
-            }
+    // Assemble category
+    category.appendChild(header);
+    category.appendChild(content);
+    
+    return category;
+}
+
+// Initialize
+window.onload = function() {
+    // Get the container for rule categories
+    var container = document.getElementById('rule-categories-container');
+    
+    // Clear any placeholder content
+    container.innerHTML = '';
+    
+    // Get categories from rulesConfig
+    var categoryKeys = Object.keys(rulesConfig);
+    var firstHeader = null;
+    
+    // Create and append category elements
+    for (var i = 0; i < categoryKeys.length; i++) {
+        var categoryKey = categoryKeys[i];
+        var categoryElement = createCategoryElement(categoryKey, rulesConfig[categoryKey]);
+        container.appendChild(categoryElement);
+        
+        // Store first header for default opening
+        if (i === 0) {
+            firstHeader = categoryElement.getElementsByClassName('category-header')[0];
         }
     }
     
     // Open first category by default without scrolling
-    var firstHeader = document.getElementsByClassName('category-header')[0];
     if (firstHeader) {
         // Directly apply active classes without scrolling
         firstHeader.className += ' active';
@@ -149,16 +211,6 @@ window.onload = function() {
         if (firstContent) {
             firstContent.className += ' active';
         }
-    }
-    
-    // Add click handlers for category headers
-    var categoryHeaders = document.getElementsByClassName('category-header');
-    for (var i = 0; i < categoryHeaders.length; i++) {
-        (function(header) {
-            header.onclick = function() {
-                toggleCategory(header, false); // Allow scrolling for manual clicks
-            };
-        })(categoryHeaders[i]);
     }
     
     // Handle hash links
@@ -173,18 +225,19 @@ function handleHash() {
         var ruleElement = document.getElementById(ruleId);
         if (ruleElement) {
             var category = ruleElement;
+            // Find the parent rule-category
             while(category && !category.className.match(/\brule-category\b/)) {
                 category = category.parentNode;
             }
             if (category) {
                 var header = category.getElementsByClassName('category-header')[0];
                 // Only toggle if the category is not already active
-                if (header.className.indexOf('active') === -1) {
-                    toggleCategory(header, false); // Allow scrolling for hash navigation
+                if (header && header.className.indexOf('active') === -1) {
+                    toggleCategory(header, true); // Use true to skip scrolling, as we'll scroll to the rule
                 }
                 // Smooth scroll with delay to ensure animation completes
                 setTimeout(function() {
-                    ruleElement.scrollIntoView();
+                    ruleElement.scrollIntoView({behavior: 'smooth'});
                 }, 300);
             }
         }
