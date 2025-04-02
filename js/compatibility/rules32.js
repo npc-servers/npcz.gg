@@ -152,7 +152,7 @@ function createRuleCard(rule, index) {
 }
 
 // Create category element
-function createCategoryElement(categoryKey, categoryData) {
+function createCategoryElement(categoryKey, categoryData, index) {
     var category = document.createElement('div');
     category.className = 'rule-category';
     
@@ -160,12 +160,22 @@ function createCategoryElement(categoryKey, categoryData) {
     var header = document.createElement('div');
     header.className = 'category-header';
     
+    // Add category number
+    var categoryNumber = document.createElement('div');
+    categoryNumber.className = 'category-number';
+    
+    // Add span inside for better positioning in legacy browsers
+    var numberSpan = document.createElement('span');
+    numberSpan.textContent = index + 1;
+    categoryNumber.appendChild(numberSpan);
+    
     var title = document.createElement('h2');
     title.textContent = categoryData.title;
     
     var icon = document.createElement('i');
     icon.className = 'icon-chevron-down';
     
+    header.appendChild(categoryNumber);
     header.appendChild(title);
     header.appendChild(icon);
     
@@ -208,7 +218,7 @@ window.onload = function() {
     // Create and append category elements
     for (var i = 0; i < categoryKeys.length; i++) {
         var categoryKey = categoryKeys[i];
-        var categoryElement = createCategoryElement(categoryKey, rulesConfig[categoryKey]);
+        var categoryElement = createCategoryElement(categoryKey, rulesConfig[categoryKey], i);
         container.appendChild(categoryElement);
         
         // Store first header for default opening

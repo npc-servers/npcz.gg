@@ -60,12 +60,21 @@ function createRuleCard(rule, index) {
     return card;
 }
 
-function createRuleCategory(categoryKey, categoryData) {
+function createRuleCategory(categoryKey, categoryData, index) {
     const category = document.createElement('div');
     category.className = 'rule-category';
     
     const header = document.createElement('div');
     header.className = 'category-header';
+    
+    // Add category number
+    const categoryNumber = document.createElement('div');
+    categoryNumber.className = 'category-number';
+    
+    // Add span inside for better positioning in all browsers
+    const numberSpan = document.createElement('span');
+    numberSpan.textContent = index + 1;
+    categoryNumber.appendChild(numberSpan);
     
     const title = document.createElement('h2');
     title.textContent = categoryData.title;
@@ -73,6 +82,7 @@ function createRuleCategory(categoryKey, categoryData) {
     const icon = document.createElement('i');
     icon.className = 'fas fa-chevron-down';
     
+    header.appendChild(categoryNumber);
     header.appendChild(title);
     header.appendChild(icon);
     
@@ -119,8 +129,8 @@ function buildRulesUI() {
     container.appendChild(quickLinks);
     
     // Create rule categories
-    Object.keys(rulesData).forEach(categoryKey => {
-        container.appendChild(createRuleCategory(categoryKey, rulesData[categoryKey]));
+    Object.keys(rulesData).forEach((categoryKey, index) => {
+        container.appendChild(createRuleCategory(categoryKey, rulesData[categoryKey], index));
     });
     
     // Add disclaimer

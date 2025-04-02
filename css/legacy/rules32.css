@@ -79,10 +79,59 @@ body {
 
 .category-header {
     padding: 15px 20px;
+    padding-left: 50px;
     cursor: pointer;
     position: relative;
     -webkit-border-radius: 8px 8px 0 0;
     border-radius: 8px 8px 0 0;
+    -webkit-transition: background 0.2s ease;
+    transition: background 0.2s ease;
+}
+
+.category-header:hover {
+    background: rgba(45, 45, 45, 0.95);
+}
+
+.category-number {
+    background: rgba(35, 35, 35, 0.9);
+    color: #ffffff;
+    width: 40px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    -webkit-border-top-left-radius: 8px;
+    border-top-left-radius: 8px;
+    -webkit-border-bottom-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    font-family: 'Arial Black', sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+    -webkit-transition: background 0.2s ease;
+    transition: background 0.2s ease;
+}
+
+/* Remove border radius when category is active */
+.category-header.active .category-number {
+    -webkit-border-bottom-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+/* Center the number text using a table-cell approach for older browsers */
+.category-number:before {
+    content: none;
+}
+
+/* Create a span inside the category-number in JavaScript to hold the actual number */
+.category-number span {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    margin-top: -10px;
+    text-align: center;
 }
 
 .category-header h2 {
@@ -90,6 +139,8 @@ body {
     font-size: 20px;
     margin: 0;
     padding-right: 30px;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .category-header i {
@@ -102,6 +153,18 @@ body {
 .category-header.active i {
     -webkit-transform: rotate(180deg);
     transform: rotate(180deg);
+}
+
+/* Also style the number when its header is hovered or active */
+.category-header.active .category-number,
+.category-header:hover .category-number {
+    background: rgba(45, 45, 45, 0.95);
+}
+
+/* Keep the header highlighted when active or hovered */
+.category-header.active,
+.category-header:hover {
+    background: rgba(45, 45, 45, 0.95);
 }
 
 .category-content {
@@ -297,8 +360,17 @@ body {
         font-size: 14px;
     }
     
-    .category-header h2 {
-        font-size: 18px;
+    .category-header {
+        padding-left: 45px;
+    }
+    
+    .category-number {
+        width: 35px;
+        font-size: 14px;
+    }
+    
+    .category-number span {
+        margin-top: -8px;
     }
     
     .rule-content-wrapper {
