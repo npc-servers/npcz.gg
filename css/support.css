@@ -51,6 +51,64 @@ body {
     font-weight: 400;
 }
 
+/* Discord Report Button */
+.report-discord-btn-container {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    max-width: 500px;
+}
+
+.report-discord-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #5865F2;
+    color: white;
+    text-decoration: none;
+    font-family: var(--body-font);
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    width: auto;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(88, 101, 242, 0.4);
+}
+
+.report-discord-btn i {
+    margin-right: 0.5rem;
+    font-size: 1rem;
+}
+
+.report-discord-btn:hover {
+    background-color: #4752C4;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 10px rgba(88, 101, 242, 0.6);
+}
+
+@media (max-width: 768px) {
+    .report-discord-btn {
+        font-size: 0.75rem;
+        padding: 0.5rem 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .report-discord-btn {
+        font-size: 0.7rem;
+        padding: 0.4rem 0.8rem;
+    }
+    
+    .report-discord-btn i {
+        margin-right: 0.3rem;
+        font-size: 0.9rem;
+    }
+}
+
 .steps-container {
     display: grid;
     gap: 2rem;
@@ -178,6 +236,11 @@ body {
     opacity: 1;
 }
 
+/* Override gradient line for the Steam button specifically */
+.btn-steam-clipping::before {
+    display: none;
+}
+
 .step-description a i {
     margin-right: 0.4rem;
     font-size: 0.9em;
@@ -192,6 +255,15 @@ body {
     position: relative;
     z-index: 1;
     margin-left: auto;
+}
+
+/* Special case for step 6 - full width text */
+.step-card:nth-child(6) .step-content {
+    grid-template-columns: 1fr;
+}
+
+.step-card:nth-child(6) .step-description {
+    width: 100%;
 }
 
 .step-media img[src$="steamidcopy.gif"] {
@@ -273,13 +345,14 @@ body {
     text-decoration: none;
     transition: all 0.3s ease;
     border: 2px solid #1b2838;
+    outline: none;
     font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 
 .btn-steam-clipping:hover {
-    background-color: transparent;
+    background-color: #2a3f5a;
     border-color: #66c0f4;
     transform: translateY(-3px);
     box-shadow: 0 4px 12px rgba(102, 192, 244, 0.3);
