@@ -142,30 +142,36 @@ body {
     margin-bottom: 0.25rem;
 }
 
-.rule-header {
+.rule-content-wrapper {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.5rem;
+    align-items: flex-start;
     position: relative;
+    width: 100%;
+}
+
+.text-container {
+    flex-grow: 1;
+    padding-top: 2px;
+    display: inline;
 }
 
 .rule-number {
     background: var(--rule-number-bg);
     color: var(--text-color);
-    min-width: 30px;
-    height: 30px;
+    min-width: 28px;
+    height: 28px;
     border-radius: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: var(--title-font);
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 0.9rem;
     flex-shrink: 0;
     position: relative;
     border: 1px solid var(--rule-number-border);
     margin-right: 10px;
+    margin-top: 1px;
 }
 
 .rule-number::before {
@@ -188,17 +194,26 @@ body {
     flex-grow: 1;
 }
 
-.rule-actions {
-    display: flex;
-    gap: 0.5rem;
-    opacity: 0;
-    transform: translateX(10px);
-    transition: all 0.2s ease-out;
+.rule-description {
+    font-family: var(--body-font);
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.5;
+    font-size: 1rem;
+    margin-right: 0.25rem;
 }
 
-.rule-card:hover .rule-actions {
+.rule-actions {
+    display: inline-flex;
+    gap: 0.3rem;
+    opacity: 0;
+    transition: all 0.2s ease-out;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.rule-card:hover .rule-actions,
+.rule-card.expanded .rule-actions {
     opacity: 1;
-    transform: translateX(0);
 }
 
 .rule-actions button {
@@ -206,11 +221,21 @@ body {
     border: none;
     color: var(--text-color);
     cursor: pointer;
-    padding: 0.5rem;
+    padding: 0.2rem 0.3rem;
+    margin: 0 0.1rem;
     opacity: 0.7;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     border-radius: 4px;
+    vertical-align: middle;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+}
+
+.rule-actions button i {
+    font-size: 0.9rem;
 }
 
 .rule-actions button:hover {
@@ -302,13 +327,6 @@ body {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
-.rule-description {
-    font-family: var(--body-font);
-    color: rgba(255, 255, 255, 0.8);
-    line-height: 1.4;
-    font-size: 0.95rem;
-}
-
 .disclaimer {
     margin-top: 2rem;
     margin-bottom: 1rem;
@@ -376,18 +394,22 @@ body {
     }
     
     .rule-number {
-        width: 25px;
-        height: 25px;
-        font-size: 0.85rem;
+        min-width: 24px;
+        height: 24px;
+        font-size: 0.8rem;
         margin-right: 8px;
-    }
-    
-    .rule-title {
-        font-size: 1.1rem;
     }
     
     .rule-description {
         font-size: 0.9rem;
+    }
+    
+    .rule-actions {
+        gap: 0.3rem;
+    }
+    
+    .rule-actions button {
+        padding: 0.3rem;
     }
     
     .disclaimer {
@@ -402,18 +424,24 @@ body {
     }
     
     .rule-number {
-        width: 22px;
+        min-width: 22px;
         height: 22px;
-        font-size: 0.8rem;
+        font-size: 0.75rem;
         margin-right: 6px;
     }
     
-    .rule-title {
-        font-size: 1rem;
+    .rule-content-wrapper {
+        flex-wrap: wrap;
     }
     
     .rule-description {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
+    }
+    
+    .rule-actions {
+        display: inline-flex;
+        margin-top: 0;
+        margin-left: 0.25rem;
     }
     
     .disclaimer p {
@@ -753,5 +781,16 @@ body {
     transform: translateY(-3px);
     border-color: var(--card-hover-border);
     box-shadow: 0 5px 15px rgba(255, 102, 0, 0.2);
+}
+
+.rule-card.expanded {
+    transform: translateY(-3px);
+    border-color: var(--card-hover-border);
+    box-shadow: 0 5px 15px rgba(255, 102, 0, 0.2);
+    z-index: 2;
+}
+
+.rule-card.expanded .rule-actions {
+    opacity: 1;
 }
 

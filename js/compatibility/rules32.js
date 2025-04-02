@@ -57,7 +57,7 @@ function copyText(button) {
     while(ruleCard && !ruleCard.className.match(/\brule-card\b/)) {
         ruleCard = ruleCard.parentNode;
     }
-    var description = ruleCard.getElementsByClassName('rule-description')[0].textContent;
+    var description = ruleCard.getElementsByClassName('rule-description')[0].textContent.trim();
     copyToClipboard(description);
     showToast('Rule text copied to clipboard!');
 }
@@ -98,51 +98,55 @@ function createRuleCard(rule, index) {
     card.id = rule.id;
     card.className = 'rule-card';
     
-    var header = document.createElement('div');
-    header.className = 'rule-header';
+    // Create content wrapper for inline layout
+    var contentWrapper = document.createElement('div');
+    contentWrapper.className = 'rule-content-wrapper';
     
-    var numberContainer = document.createElement('div');
-    numberContainer.className = 'rule-number';
-    numberContainer.textContent = index + 1;
+    // Add rule number
+    var ruleNumber = document.createElement('div');
+    ruleNumber.className = 'rule-number';
+    ruleNumber.textContent = index + 1;
     
-    var title = document.createElement('h2');
-    title.className = 'rule-title';
-    title.textContent = rule.title;
+    // Create text container
+    var textContainer = document.createElement('div');
+    textContainer.className = 'text-container';
     
-    var actions = document.createElement('div');
+    // Create and add description
+    var description = document.createElement('span');
+    description.className = 'rule-description';
+    description.textContent = rule.description;
+    
+    // Create actions for copy functionality
+    var actions = document.createElement('span');
     actions.className = 'rule-actions';
-    actions.style.position = 'absolute';
-    actions.style.right = '0';
-    actions.style.top = '0';
     
     var linkBtn = document.createElement('button');
     linkBtn.title = 'Copy link to rule';
-    linkBtn.onclick = function() { copyLink(rule.id); };
     linkBtn.innerHTML = '<i class="icon-link"></i>';
+    linkBtn.onclick = function(e) { 
+        e.stopPropagation();
+        copyLink(rule.id); 
+    };
     
     var copyBtn = document.createElement('button');
     copyBtn.title = 'Copy rule text';
-    copyBtn.onclick = function() { copyText(this); };
     copyBtn.innerHTML = '<i class="icon-copy"></i>';
+    copyBtn.onclick = function(e) { 
+        e.stopPropagation();
+        copyText(this); 
+    };
     
     actions.appendChild(linkBtn);
     actions.appendChild(copyBtn);
     
-    header.appendChild(numberContainer);
-    header.appendChild(title);
-    header.appendChild(actions);
+    // Append elements in proper order
+    textContainer.appendChild(description);
+    textContainer.appendChild(actions);
     
-    // Clear float
-    var clearDiv = document.createElement('div');
-    clearDiv.style.clear = 'both';
-    header.appendChild(clearDiv);
+    contentWrapper.appendChild(ruleNumber);
+    contentWrapper.appendChild(textContainer);
     
-    var description = document.createElement('div');
-    description.className = 'rule-description';
-    description.textContent = rule.description;
-    
-    card.appendChild(header);
-    card.appendChild(description);
+    card.appendChild(contentWrapper);
     
     return card;
 }

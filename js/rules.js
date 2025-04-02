@@ -7,45 +7,55 @@ function createRuleCard(rule, index) {
     card.id = rule.id;
     card.className = 'rule-card';
     
-    const header = document.createElement('div');
-    header.className = 'rule-header';
+    // Create wrapper for content with number and description
+    const contentWrapper = document.createElement('div');
+    contentWrapper.className = 'rule-content-wrapper';
     
-    const numberContainer = document.createElement('div');
-    numberContainer.className = 'rule-number';
-    numberContainer.textContent = index + 1;
+    // Add rule number
+    const ruleNumber = document.createElement('div');
+    ruleNumber.className = 'rule-number';
+    ruleNumber.textContent = index + 1;
     
-    const title = document.createElement('h2');
-    title.className = 'rule-title';
-    title.textContent = rule.title;
+    // Create text container
+    const textContainer = document.createElement('div');
+    textContainer.className = 'text-container';
     
-    const actions = document.createElement('div');
+    // Create and add description with the text only
+    const description = document.createElement('span');
+    description.className = 'rule-description';
+    description.textContent = rule.description;
+    
+    // Create actions for copy functionality
+    const actions = document.createElement('span');
     actions.className = 'rule-actions';
     
     const linkBtn = document.createElement('button');
-    linkBtn.className = 'copy-link';
     linkBtn.title = 'Copy link to rule';
     linkBtn.innerHTML = '<i class="fas fa-link"></i>';
-    linkBtn.addEventListener('click', () => copyLink(rule.id));
+    linkBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        copyLink(rule.id);
+    });
     
     const copyBtn = document.createElement('button');
-    copyBtn.className = 'copy-text';
     copyBtn.title = 'Copy rule text';
     copyBtn.innerHTML = '<i class="fas fa-copy"></i>';
-    copyBtn.addEventListener('click', (e) => copyText(e.currentTarget));
+    copyBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        copyText(copyBtn);
+    });
     
     actions.appendChild(linkBtn);
     actions.appendChild(copyBtn);
     
-    header.appendChild(numberContainer);
-    header.appendChild(title);
-    header.appendChild(actions);
+    // Append elements in proper order
+    textContainer.appendChild(description);
+    textContainer.appendChild(actions);
     
-    const description = document.createElement('div');
-    description.className = 'rule-description';
-    description.textContent = rule.description;
+    contentWrapper.appendChild(ruleNumber);
+    contentWrapper.appendChild(textContainer);
     
-    card.appendChild(header);
-    card.appendChild(description);
+    card.appendChild(contentWrapper);
     
     return card;
 }
@@ -153,7 +163,7 @@ function toggleCategory(header, skipScroll = false) {
 function copyLink(ruleId) {
     const url = window.location.href.split('#')[0] + '#' + ruleId;
     navigator.clipboard.writeText(url).then(() => {
-        const button = document.querySelector(`#${ruleId} .copy-link`);
+        const button = document.querySelector(`#${ruleId} .rule-actions button:first-child`);
         addClickAnimation(button);
         showNotification('Link copied to clipboard!');
     });
@@ -162,7 +172,7 @@ function copyLink(ruleId) {
 // Copy rule text
 function copyText(button) {
     const ruleCard = button.closest('.rule-card');
-    const description = ruleCard.querySelector('.rule-description').textContent;
+    const description = ruleCard.querySelector('.rule-description').textContent.trim();
     navigator.clipboard.writeText(description).then(() => {
         addClickAnimation(button);
         showNotification('Rule text copied to clipboard!');
