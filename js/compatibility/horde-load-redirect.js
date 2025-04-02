@@ -6,7 +6,7 @@ function detectBrowserAndRoute() {
     
     // Check if it's Chrome and version is below 18
     if (chromeMatch && parseInt(chromeMatch[1]) < 18) {
-        window.location.href = '/horde/loadingscreen/legacy/index32.html';
+        window.location.href = '/horde/loadingscreen/legacy/index.html';
     }
     
     // For all other browsers and modern Chrome, stay on current page
