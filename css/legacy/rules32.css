@@ -133,12 +133,14 @@ body {
     display: block;
     position: relative;
     width: 100%;
-    overflow: hidden;
+    overflow: visible;
+    min-height: 25px;
 }
 
 .text-container {
     display: block;
     margin-left: 35px;
+    min-height: 25px;
 }
 
 .rule-number {
@@ -159,6 +161,7 @@ body {
     left: 0;
     top: 0;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    box-sizing: border-box;
 }
 
 .rule-number::before {
@@ -296,6 +299,14 @@ body {
     
     .category-header h2 {
         font-size: 18px;
+    }
+    
+    .rule-content-wrapper {
+        min-height: 20px;
+    }
+    
+    .text-container {
+        min-height: 20px;
     }
     
     .rule-number {
