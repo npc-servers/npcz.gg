@@ -2,13 +2,17 @@
 const rulesData = rulesConfig;
 
 // Helper functions for UI interactions
-function createRuleCard(rule) {
+function createRuleCard(rule, index) {
     const card = document.createElement('div');
     card.id = rule.id;
     card.className = 'rule-card';
     
     const header = document.createElement('div');
     header.className = 'rule-header';
+    
+    const numberContainer = document.createElement('div');
+    numberContainer.className = 'rule-number';
+    numberContainer.textContent = index + 1;
     
     const title = document.createElement('h2');
     title.className = 'rule-title';
@@ -32,6 +36,7 @@ function createRuleCard(rule) {
     actions.appendChild(linkBtn);
     actions.appendChild(copyBtn);
     
+    header.appendChild(numberContainer);
     header.appendChild(title);
     header.appendChild(actions);
     
@@ -65,8 +70,8 @@ function createRuleCategory(categoryKey, categoryData) {
     content.className = 'category-content';
     
     // Create and append rule cards
-    categoryData.rules.forEach(rule => {
-        content.appendChild(createRuleCard(rule));
+    categoryData.rules.forEach((rule, index) => {
+        content.appendChild(createRuleCard(rule, index));
     });
     
     category.appendChild(header);

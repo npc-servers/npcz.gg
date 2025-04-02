@@ -93,7 +93,7 @@ function showToast(message) {
 }
 
 // Create rule card element
-function createRuleCard(rule) {
+function createRuleCard(rule, index) {
     var card = document.createElement('div');
     card.id = rule.id;
     card.className = 'rule-card';
@@ -101,12 +101,19 @@ function createRuleCard(rule) {
     var header = document.createElement('div');
     header.className = 'rule-header';
     
+    var numberContainer = document.createElement('div');
+    numberContainer.className = 'rule-number';
+    numberContainer.textContent = index + 1;
+    
     var title = document.createElement('h2');
     title.className = 'rule-title';
     title.textContent = rule.title;
     
     var actions = document.createElement('div');
     actions.className = 'rule-actions';
+    actions.style.position = 'absolute';
+    actions.style.right = '0';
+    actions.style.top = '0';
     
     var linkBtn = document.createElement('button');
     linkBtn.title = 'Copy link to rule';
@@ -121,8 +128,14 @@ function createRuleCard(rule) {
     actions.appendChild(linkBtn);
     actions.appendChild(copyBtn);
     
+    header.appendChild(numberContainer);
     header.appendChild(title);
     header.appendChild(actions);
+    
+    // Clear float
+    var clearDiv = document.createElement('div');
+    clearDiv.style.clear = 'both';
+    header.appendChild(clearDiv);
     
     var description = document.createElement('div');
     description.className = 'rule-description';
@@ -160,7 +173,7 @@ function createCategoryElement(categoryKey, categoryData) {
     var rules = categoryData.rules;
     if (rules) {
         for (var i = 0; i < rules.length; i++) {
-            content.appendChild(createRuleCard(rules[i]));
+            content.appendChild(createRuleCard(rules[i], i));
         }
     }
     

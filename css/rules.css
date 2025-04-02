@@ -13,6 +13,8 @@
     --category-bg: rgba(35, 35, 35, 0.9);
     --category-border: rgba(255, 255, 255, 0.15);
     --category-hover: rgba(45, 45, 45, 0.9);
+    --rule-number-bg: rgba(35, 35, 35, 0.9);
+    --rule-number-border: rgba(255, 255, 255, 0.1);
 }
 
 body {
@@ -145,6 +147,37 @@ body {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 0.5rem;
+    position: relative;
+}
+
+.rule-number {
+    background: var(--rule-number-bg);
+    color: var(--text-color);
+    min-width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--title-font);
+    font-weight: 600;
+    font-size: 1rem;
+    flex-shrink: 0;
+    position: relative;
+    border: 1px solid var(--rule-number-border);
+    margin-right: 10px;
+}
+
+.rule-number::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 3px;
+    background-color: var(--card-hover-border);
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
 }
 
 .rule-title {
@@ -152,6 +185,7 @@ body {
     font-size: 1.25rem;
     margin: 0;
     color: var(--text-color);
+    flex-grow: 1;
 }
 
 .rule-actions {
@@ -341,6 +375,13 @@ body {
         padding: 0.5rem;
     }
     
+    .rule-number {
+        width: 25px;
+        height: 25px;
+        font-size: 0.85rem;
+        margin-right: 8px;
+    }
+    
     .rule-title {
         font-size: 1.1rem;
     }
@@ -360,8 +401,15 @@ body {
         font-size: 2rem;
     }
     
+    .rule-number {
+        width: 22px;
+        height: 22px;
+        font-size: 0.8rem;
+        margin-right: 6px;
+    }
+    
     .rule-title {
-        font-size: 1.25rem;
+        font-size: 1rem;
     }
     
     .rule-description {
