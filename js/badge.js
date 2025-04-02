@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function createZmodBadge() {
     // Create badge element
     const badge = document.createElement('a');
-    badge.href = 'https://zmod.com';
+    badge.href = 'https://zmod.gg';
     badge.className = 'zmod-badge';
     badge.target = '_blank';
     badge.rel = 'noopener noreferrer';
