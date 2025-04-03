@@ -13,7 +13,25 @@ function createZmodBadge() {
     badge.className = 'zmod-badge';
     badge.target = '_blank';
     badge.rel = 'noopener noreferrer';
-    badge.textContent = 'Powered by ZMOD';
+    
+    // Create logo container
+    const logoContainer = document.createElement('div');
+    logoContainer.className = 'zmod-badge-logo';
+    
+    // Create logo image
+    const logoImg = document.createElement('img');
+    logoImg.src = '/assets/zmod_logo.svg';
+    logoImg.alt = 'ZMOD Logo';
+    logoImg.className = 'zmod-logo-img';
+    
+    // Create text element
+    const textSpan = document.createElement('span');
+    textSpan.textContent = 'Powered by ZMOD';
+    
+    // Assemble the badge
+    logoContainer.appendChild(logoImg);
+    badge.appendChild(logoContainer);
+    badge.appendChild(textSpan);
     
     // Append badge to the body
     document.body.appendChild(badge);

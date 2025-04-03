@@ -7,6 +7,9 @@
     --badge-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     --badge-border: rgba(255, 255, 255, 0.1);
     --badge-blur: 10px;
+    --badge-logo-size: 36px;
+    --badge-logo-padding: 4px;
+    --badge-logo-color: #e60000;
 }
 
 .zmod-badge {
@@ -14,7 +17,7 @@
     bottom: 20px;
     right: 20px;
     color: var(--badge-text-color);
-    padding: 8px 15px;
+    padding: 8px 15px 8px 8px;
     border-radius: 4px;
     font-family: var(--badge-font);
     font-size: 0.85rem;
@@ -30,6 +33,27 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.zmod-badge-logo {
+    width: var(--badge-logo-size);
+    height: var(--badge-logo-size);
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: var(--badge-bg);
+    padding: var(--badge-logo-padding);
+    overflow: hidden;
+    position: relative;
+}
+
+.zmod-logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: invert(13%) sepia(97%) saturate(5126%) hue-rotate(357deg) brightness(94%) contrast(118%);
 }
 
 .zmod-badge::before {
@@ -57,7 +81,13 @@
     .zmod-badge {
         bottom: 15px;
         right: 15px;
-        padding: 6px 12px;
+        padding: 6px 12px 6px 6px;
         font-size: 0.75rem;
+    }
+    
+    .zmod-badge-logo {
+        --badge-logo-size: 28px;
+        --badge-logo-padding: 4px;
+        margin-right: 8px;
     }
 } 
