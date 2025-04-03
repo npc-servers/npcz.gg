@@ -1,0 +1,120 @@
+/* Background Rotation Styles */
+.background {
+  display: none; /* Hide original background */
+}
+
+.background-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -3;
+  overflow: hidden;
+}
+
+.background-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 3s ease-in-out;
+  z-index: -2;
+  transform-origin: center center;
+  will-change: transform, filter, opacity;
+}
+
+.background-slide.active {
+  opacity: 1;
+  /* Initial state, the rest is handled by animation keyframes */
+  filter: grayscale(0) brightness(1) contrast(1);
+}
+
+.background-slide.fade-out {
+  opacity: 0;
+  filter: grayscale(1) brightness(0.5) contrast(1.3);
+  transition: opacity 3s ease-in-out;
+}
+
+/* Animation duration needs to be slightly longer than the rotation interval */
+.background-slide.zoom-in {
+  animation: zoomRotateGrayscale 18s linear forwards;
+}
+
+/* Combined zoom, rotate and progressive grayscale/darkening animation */
+@keyframes zoomRotateGrayscale {
+  0% {
+    transform: scale(1) rotate(0deg);
+    filter: grayscale(0) brightness(1) contrast(1);
+  }
+  40% {
+    filter: grayscale(0.3) brightness(0.9) contrast(1.1);
+  }
+  60% {
+    filter: grayscale(0.5) brightness(0.85) contrast(1.15);
+  }
+  80% {
+    filter: grayscale(0.7) brightness(0.8) contrast(1.2);
+  }
+  90% {
+    filter: grayscale(0.9) brightness(0.7) contrast(1.25);
+  }
+  100% {
+    transform: scale(1.08) rotate(1.8deg);
+    filter: grayscale(1) brightness(0.6) contrast(1.3);
+  }
+}
+
+@media (min-width: 1200px) {
+  @keyframes zoomRotateGrayscale {
+    0% {
+      transform: scale(1) rotate(0deg);
+      filter: grayscale(0) brightness(1) contrast(1);
+    }
+    40% {
+      filter: grayscale(0.3) brightness(0.9) contrast(1.1);
+    }
+    60% {
+      filter: grayscale(0.5) brightness(0.85) contrast(1.15);
+    }
+    80% {
+      filter: grayscale(0.8) brightness(0.75) contrast(1.2);
+    }
+    90% {
+      filter: grayscale(0.9) brightness(0.65) contrast(1.3);
+    }
+    100% {
+      transform: scale(1.12) rotate(2.2deg);
+      filter: grayscale(1) brightness(0.55) contrast(1.35);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  @keyframes zoomRotateGrayscale {
+    0% {
+      transform: scale(1) rotate(0deg);
+      filter: grayscale(0) brightness(1) contrast(1);
+    }
+    40% {
+      filter: grayscale(0.3) brightness(0.95) contrast(1.05);
+    }
+    60% {
+      filter: grayscale(0.5) brightness(0.9) contrast(1.1);
+    }
+    80% {
+      filter: grayscale(0.6) brightness(0.85) contrast(1.15);
+    }
+    90% {
+      filter: grayscale(0.8) brightness(0.75) contrast(1.2);
+    }
+    100% {
+      transform: scale(1.05) rotate(1.2deg);
+      filter: grayscale(0.9) brightness(0.65) contrast(1.25);
+    }
+  }
+} 

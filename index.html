@@ -3,258 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/cards.css">
-    <link rel="stylesheet" href="/css/shared.css">
+    <title>NPCZ - Garry's Mod</title>
+    
+    <!-- Resource hints for better performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="assets/images/bg1.jpg" as="image">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500&family=Montserrat:wght@700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Consolidated CSS -->
+    <link rel="stylesheet" href="css/main.css">
+    
+    <!-- Meta tags for better SEO -->
+    <meta name="description" content="Join the ultimate survival sandbox where players survive against zombies and each other.">
+    <meta name="keywords" content="garry's mod, gmod, source, g-mod, source engine, half-life, hl2, zombie game, survival, multiplayer, zombies, npc zombies vs. players, npcz, npcz.gg">
+    
+    <!-- Discord/OpenGraph Embed Meta Tags -->
+    <meta property="og:title" content="NPCZ - Garry's Mod">
+    <meta property="og:description" content="Join the ultimate survival sandbox where players survive against zombies and each other.">
+    <meta property="og:image" content="https://npcz.gg/assets/images/npcz_logo.png">
+    <meta property="og:url" content="https://npcz.gg">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#e60000">
+    <meta name="twitter:card" content="summary_large_image">
 </head>
-
 <body>
-    <nav id="navbar">
-        <div class="logo-container">
-            <a href="/"><img src="assets/logos/logo-whiteout.png" alt="Logo" class="navbar-logo"></a>
-        </div>
-        <button class="hamburger" id="hamburger">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-        </button>
-        <div class="menu-items right-menu" id="nav-menu">
-            <a href="https://files.npcz.gg">Abyss</a>
-            <a href="https://discord.gg/npc">Discord</a>
-            <a href="https://store.npcz.gg">Store</a>
-            <a href="/sandbox/rules">Guidelines</a>
-            <a href="https://discord.gg/npc">Report</a>
-            <a href="/uptime">Status</a>
-        </div>
-    </nav>
-
-    <div class="banner">
-        <img src="/assets/logos/large-logo.png" alt="Large Logo" class="large-logo">
-        <div class="down-arrow" id="downArrow">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 1);">
-                <path d="M16.939 7.939L12 12.879l-4.939-4.94-2.122 2.122L12 17.121l7.061-7.06z"></path>
-            </svg>
-        </div>
-    </div>
-
-    <div class="gradient-section">
-        <div class="card-container">
-            <!-- Cards updated to reflect uptime.html server details -->
-            <div class="card" data-id="sandbox" data-title="Sandbox" data-description="Build & Kill" data-img-src="assets/cards-banners/sandbox-card.jpg" data-link="/sandbox/connect">
-                <div class="card-content">
-                    <div class="img-wrapper">
-                        <img src="" alt="Card Image" class="card-img">
-                        <div class="card-status"></div>
-                        <p class="card-players"></p>
-                    </div>
-                    <h3 class="card-title"></h3>
-                    <p class="card-description"></p>
-                    <a href="" class="server-button">Click to Join</a>
-                    <p class="cannot-connect" style="display: none;">Cannot connect</p>
+    <div class="landing-container">
+        <div class="content-wrapper">
+            <div class="text-container">
+                <div class="logo-container">
+                    <img src="assets/images/npcz_logo.png" alt="NPC ZOMBIES VS. PLAYERS" class="main-logo desktop-logo">
+                    <img src="assets/images/npcz_logo_mobile.png" alt="NPC ZOMBIES VS. PLAYERS" class="main-logo mobile-logo">
                 </div>
-            </div>
-
-            <div class="card" data-id="horde" data-title="Horde" data-description="Wave Survival" data-img-src="assets/cards-banners/horde-card.png" data-link="/horde/connect">
-                <div class="card-content">
-                    <div class="img-wrapper">
-                        <img src="" alt="Card Image" class="card-img">
-                        <div class="card-status"></div>
-                        <p class="card-players"></p>
-                    </div>
-                    <h3 class="card-title"></h3>
-                    <p class="card-description"></p>
-                    <a href="" class="server-button">Click to Join</a>
-                    <p class="cannot-connect" style="display: none;">Cannot connect</p>
-                </div>
-            </div>
-
-            <div class="card" data-id="zbox" data-title="ZBOX" data-description="Vanilla Sandbox" data-img-src="assets/cards-banners/zbox-card.jpg" data-link="/zbox/connect">
-                <div class="card-content">
-                    <div class="img-wrapper">
-                        <img src="" alt="Card Image" class="card-img">
-                        <div class="card-status"></div>
-                        <p class="card-players"></p>
-                    </div>
-                    <h3 class="card-title"></h3>
-                    <p class="card-description"></p>
-                    <a href="" class="server-button">Click to Join</a>
-                    <p class="cannot-connect" style="display: none;">Cannot connect</p>
-                </div>
-            </div>
-
-            <div class="card" data-id="shelter" data-title="Shelter" data-description="Tower Defense" data-img-src="assets/cards-banners/shelter-card.jpg" data-link="/shelter/connect">
-                <div class="card-content">
-                    <div class="img-wrapper">
-                        <img src="" alt="Card Image" class="card-img">
-                        <div class="card-status"></div>
-                        <p class="card-players"></p>
-                    </div>
-                    <h3 class="card-title"></h3>
-                    <p class="card-description"></p>
-                    <a href="" class="server-button">Click to Join</a>
-                    <p class="cannot-connect" style="display: none;">Cannot connect</p>
-                </div>
-            </div>
-
-            <div class="card" data-id="zgrad" data-title="ZGRAD US1" data-description="HOMIGRAD" data-img-src="assets/cards-banners/zgrad-card.jpg" data-link="/zgrad/connect">
-                <div class="card-content">
-                    <div class="img-wrapper">
-                        <img src="" alt="Card Image" class="card-img">
-                        <div class="card-status"></div>
-                        <p class="card-players"></p>
-                    </div>
-                    <h3 class="card-title"></h3>
-                    <p class="card-description"></p>
-                    <a href="" class="server-button">Click to Join</a>
-                    <p class="cannot-connect" style="display: none;">Cannot connect</p>
+                <p class="sub-text">The number one Garry's Mod sandbox server. Fight against NPC Zombies, other players, build and raid bases, and so much more.</p>
+                <div class="button-group">
+                    <a href="/sandbox/connect.html" class="btn btn-primary">PLAY NOW</a>
+                    <a href="https://store.npcz.gg" class="btn btn-secondary btn-store">
+                        <i class="fas fa-shopping-cart"></i> STORE
+                    </a>
+                    <a href="https://discord.gg/npc" class="btn btn-secondary btn-discord">
+                        <i class="fab fa-discord"></i> DISCORD
+                    </a>
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="footer-gradient">
-        <div id="text-footer">
-            <div class="footer-column">
-                <img src="assets/logos/logo-whiteout.png" width="150" height="150" alt="Footer Logo">
-            </div>
-            <div class="footer-column">
-                <h3>About</h3>
-                <p>NPCZ is a server network focused around zombie<br>survival experiences on Garry's Mod. EST 2016</p>
-            </div>
-            <div class="footer-column">
-                <h3>Support</h3>
-                <p>Having Issues? Contact us at: <a href="mailto:contact@npcz.gg">contact@npcz.gg</a></p>
-                <p>Or create a support ticket in our <a href="https://discord.com/npc">Discord</a>.</p>
-            </div>
-        </div>
-    </div>
-
-    <script>
-document.addEventListener('DOMContentLoaded', function() {
-    var cards = document.querySelectorAll('.card');
-    const servers = [
-        {
-            id: 'sandbox',
-            ip: '193.243.190.18',
-            port: 27015
-        },
-        {
-            id: 'zbox',
-            ip: '193.243.190.18',
-            port: 27064
-        },
-        {
-            id: 'shelter',
-            ip: '193.243.190.18',
-            port: 27025
-        },
-        {
-            id: 'horde',
-            ip: '193.243.190.18',
-            port: 27065
-        },
-        {
-            id: 'zgrad',
-            ip: '193.243.190.18',
-            port: 27066
-        }
-    ];
-
-    cards.forEach(function(card) {
-        var img = card.querySelector('.card-img');
-        var title = card.querySelector('.card-title');
-        var description = card.querySelector('.card-description');
-        var button = card.querySelector('.server-button');
-        var status = card.querySelector('.card-status');
-        var players = card.querySelector('.card-players');
-        var cannotConnect = card.querySelector('.cannot-connect');
-
-        img.src = card.dataset.imgSrc;
-        title.textContent = card.dataset.title;
-        description.textContent = card.dataset.description;
-        button.href = card.dataset.link;
-
-        const server = servers.find(s => s.id === card.dataset.id);
-
-        if (server) {
-            fetch(`https://gameserveranalytics.com/api/v2/query?game=source&ip=${server.ip}&port=${server.port}&type=info`)
-                .then(response => {
-                    if (!response.ok) throw new Error('Network response was not ok');
-                    return response.json();
-                })
-                .then(serverInfo => {
-                    if (
-                        (serverInfo && serverInfo.status && serverInfo.status.toLowerCase() === 'online') ||
-                        (serverInfo && (serverInfo.players !== undefined || serverInfo.map))
-                    ) {
-                        status.classList.add('online');
-                        status.classList.remove('offline');
-                        status.style.filter = 'none';
-
-                        const currentPlayers = serverInfo.players || serverInfo.num_players || serverInfo.playercount || 0;
-                        const maxPlayers = serverInfo.maxplayers || serverInfo.max_players || serverInfo.maxclients || "Unknown";
-
-                        players.textContent = `${currentPlayers}/${maxPlayers} players online`;
-
-                        button.classList.remove('disabled');
-                        button.style.display = 'inline-block';
-                        cannotConnect.style.display = 'none';
-                    } else {
-                        status.classList.add('offline');
-                        status.classList.remove('online');
-                        status.style.filter = 'none';
-                        players.textContent = 'Server Offline';
-                        button.classList.add('disabled');
-                        button.style.display = 'none';
-                        cannotConnect.style.display = 'block';
-                    }
-                })
-                .catch(error => {
-                    console.error(`Error fetching data for ${server.id}:`, error);
-                    status.classList.add('offline');
-                    status.classList.remove('online');
-                    status.style.filter = 'none';
-                    players.textContent = 'Server Offline';
-                    button.classList.add('disabled');
-                    button.style.display = 'none';
-                    cannotConnect.style.display = 'block';
-                });
-        }
-    });
-
-    var navbar = document.getElementById('navbar');
-    var downArrow = document.getElementById('downArrow');
-
-    window.addEventListener('scroll', function() {
-        if (window.pageYOffset > 0) {
-            navbar.classList.add('blur');
-            downArrow.classList.add('hide-arrow');
-        } else {
-            navbar.classList.remove('blur');
-            downArrow.classList.remove('hide-arrow');
-        }
-    });
-
-    downArrow.addEventListener('click', function() {
-        var banner = document.querySelector('.banner');
-        var bannerBottom = banner.offsetTop + banner.offsetHeight;
-
-        window.scrollTo({
-            top: bannerBottom,
-            behavior: 'smooth'
-        });
-    });
-
-    const hamburger = document.getElementById('hamburger');
-    const navMenu = document.getElementById('nav-menu');
-
-    hamburger.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
-        hamburger.classList.toggle('active');
-    });
-});
-
-    </script>
+    
+    <!-- JavaScript files in dependency order -->
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/landing.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/badge.js"></script>
+    <script src="js/server-status.js"></script>
+    <script src="js/discord-popup.js"></script>
 </body>
 </html>
