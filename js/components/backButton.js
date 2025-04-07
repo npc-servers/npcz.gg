@@ -51,7 +51,7 @@ window.NPCZ.components.BackButton = {
             window.history.back();
         } else {
             // Fallback to home page if no history
-            window.location.href = '/index.html';
+            window.location.href = '/index';
         }
     },
     
@@ -64,8 +64,8 @@ window.NPCZ.components.BackButton = {
         
         // Hide on home page, show everywhere else
         const isHomePage = window.location.pathname === '/' || 
-                          window.location.pathname === '/index.html' ||
-                          window.location.pathname.endsWith('/index.html');
+                          window.location.pathname === '/index' ||
+                          window.location.pathname.endsWith('/index');
         
         backButton.style.display = isHomePage ? 'none' : 'flex';
     }

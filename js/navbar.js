@@ -113,7 +113,7 @@ function initNavbar() {
     
     navbarLinkItems.forEach(link => {
         const href = link.getAttribute('href');
-        if (href === currentPage || (currentPage === '' && href === 'index.html')) {
+        if (href === currentPage || (currentPage === '' && href === 'index')) {
             link.classList.add('active');
         }
     });
