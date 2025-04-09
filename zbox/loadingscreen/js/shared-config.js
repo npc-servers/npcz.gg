@@ -52,28 +52,6 @@ const SharedConfig = {
         ]
     },
 
-    // Server Updates Configuration
-    changes: {
-        headerTitle: "Server Updates",
-        mainUpdate: {
-            title: "Squad Update",
-            date: "Feburary 8, 2025",
-            content: "Added squads. Type !squad to create one."
-        },
-        updates: [
-            {
-                title: "PVP Balancing",
-                date: "March 21, 2025",
-                content: "Disabled crouching spamming mid-air."
-            },
-            {
-                title: "Weapon Balancing",
-                date: "Feburary 9, 2025",
-                content: "Removed some overpowered M9K Specialties."
-            }
-        ]
-    },
-
     // Servers Configuration
     servers: {
         headerTitle: "Other Servers",

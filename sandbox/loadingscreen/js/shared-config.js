@@ -54,28 +54,6 @@ const SharedConfig = {
         ]
     },
 
-    // Server Updates Configuration
-    changes: {
-        headerTitle: "Server Updates",
-        mainUpdate: {
-            title: "New Glide Vehicles",
-            date: "March 20, 2025",
-            content: "Added JB 700, Infernus, Insurgent Pickup."
-        },
-        updates: [
-            {
-                title: "PVP Balancing",
-                date: "March 21, 2025",
-                content: "Disabled crouching spamming mid-air."
-            },
-            {
-                title: "New Map",
-                date: "March 16, 2025",
-                content: "Added gm_windswept. Fear the wind."
-            }
-        ]
-    },
-
     // Servers Configuration
     servers: {
         headerTitle: "Other Servers",
