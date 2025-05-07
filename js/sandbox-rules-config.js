@@ -21,7 +21,7 @@ const rulesConfig = {
     'prop-abuse': {
         title: 'Prop Abuse',
         rules: [
-            {id: 'no-prop-push', title: 'Prop Push/Kill', description: 'Do not prop push or prop kill under any circumstances, Gravgun propkill in PVP is except from this.'},
+            {id: 'no-prop-push', title: 'Prop Push/Kill', description: 'Do not prop push or prop kill under any circumstances. Gravgun propkill in PVP is exempt from this.'},
             {id: 'no-prop-entry', title: 'Unauthorized Base Entry', description: 'Using props/vehicles to enter peoples bases is not allowed.'},
             {id: 'no-prop-spam', title: 'Prop Spam', description: 'Do not prop spam, doing this may result in a ban without warning!'},
             {id: 'no-blocking', title: 'Map Blocking', description: 'Blocking off large parts of the map, including roads and spawnpoints, is not allowed.'},
