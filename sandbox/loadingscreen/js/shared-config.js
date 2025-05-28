@@ -20,7 +20,6 @@ const SharedConfig = {
         tipRotationTime: 5000,
         tipMessages: [
             "You can switch modes by typing !PVE or !PVP in chat.",
-            "Press E on a player with Outfitter to view their playermodel.",
             "You can use /p to talk in Squad chat.",
             "You can make a squad by typing !squad in chat.",
             "You can message a player by typing !p [name] [message] in chat.",
