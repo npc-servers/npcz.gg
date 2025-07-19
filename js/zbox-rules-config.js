@@ -25,7 +25,7 @@ const rulesConfig = {
     'gameplay': {
         title: 'Props/Wire/E2/Starfall/Contraptions',
         rules: [
-            {id: 'no-griefing', title: 'Griefing', description: 'Avoid behavior that disrupts the game experience for others, including excessive mic spam, punching & searching players without valid reason, or other forms of disruptive gameplay.'},
+            {id: 'no-griefing', title: 'Griefing', description: 'Avoid behavior that disrupts the game experience for others, including excessive mic spam or other forms of disruptive gameplay.'},
             {id: 'no-prop-push', title: 'Prop Push/Kill', description: 'Do not excessively proppush/propkill.'},
             {id: 'no-prop-entry', title: 'Unauthorized Base Entry', description: 'Using props/vehicles to enter peoples bases is not allowed.'},
             {id: 'no-prop-spam', title: 'Prop Spam', description: 'Do not prop spam, doing this may result in a ban without warning!'},
