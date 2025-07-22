@@ -115,7 +115,7 @@ body {
     align-items: center;
     background-color: rgba(255, 0, 0, 0.3);
     color: #ff0000;
-    font-family: Arial, sans-serif;
+    font-family: 'Tektur', Arial, sans-serif;
     font-size: 16px;
     font-weight: bold;
     padding: 10px;
@@ -123,6 +123,7 @@ body {
 
 .loading-percentage {
     color: #00ff00;
+    font-family: 'Tektur', Arial, sans-serif;
 }
 
 .file-history {
@@ -131,7 +132,7 @@ body {
     color: #ffffff;
     font-size: 12px;
     line-height: 1.4;
-    font-family: Arial, sans-serif;
+    font-family: 'Tektur', Arial, sans-serif;
     text-align: center;
 }
 
@@ -143,6 +144,7 @@ body {
     align-items: center;
     gap: 8px;
     flex-wrap: wrap;
+    font-family: 'Tektur', Arial, sans-serif;
 }
 
 .status-important {
@@ -307,5 +309,164 @@ body {
     .zmod-logo {
         width: 12px;
         height: 12px;
+    }
+}
+
+/* Discord Sections */
+.discord-sections {
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 0 40px;
+    z-index: 100;
+}
+
+.discord-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.animated-divider {
+    flex: 1;
+    height: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 20px;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.connecting-line {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: #ff0000;
+    opacity: 0.8;
+}
+
+.slash-line {
+    color: #ff0000;
+    font-family: 'Tektur', Arial, sans-serif;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0.6;
+    animation: slideRight 8s linear infinite;
+    transform: translateX(-200px);
+}
+
+@keyframes slideRight {
+    0% {
+        transform: translateX(-200px);
+    }
+    100% {
+        transform: translateX(0px);
+    }
+}
+
+.discord-title {
+    color: #ff0000;
+    font-family: 'Wallpoet', cursive;
+    font-size: 16px;
+    font-weight: normal;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+.discord-frame {
+    width: 220px;
+    height: 55px;
+    background-image: url('../../../assets/svgs/rect.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.discord-frame:hover {
+    opacity: 0.8;
+}
+
+.discord-link {
+    text-decoration: none;
+    display: block;
+}
+
+.discord-text {
+    color: #000000;
+    font-family: 'Tektur', Arial, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Media queries for Discord sections */
+@media (max-width: 768px) {
+    .discord-sections {
+        padding: 0 20px;
+        gap: 20px;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .animated-divider {
+        width: 200px;
+        margin: 8px 0;
+    }
+    
+    .discord-title {
+        font-size: 14px;
+    }
+    
+    .discord-frame {
+        width: 200px;
+        height: 50px;
+    }
+    
+    .discord-text {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .discord-sections {
+        bottom: 10px;
+        padding: 0 10px;
+    }
+    
+    .animated-divider {
+        width: 150px;
+        margin: 6px 0;
+    }
+    
+    .slash-line {
+        font-size: 10px;
+    }
+    
+    .discord-title {
+        font-size: 12px;
+    }
+    
+    .discord-frame {
+        width: 180px;
+        height: 45px;
+    }
+    
+    .discord-text {
+        font-size: 11px;
     }
 } 
