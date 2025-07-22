@@ -6,17 +6,23 @@ var totalFiles = 50;
 var totalCalled = false;
 var percentage = 0;
 
-// Check if running in GMod based on user agent
-function isRunningInGmod() {
-    var userAgent = navigator.userAgent.toLowerCase();
-    return userAgent.indexOf('gmod') !== -1 || 
-           userAgent.indexOf('garry') !== -1 || 
-           userAgent.indexOf('source') !== -1;
+/**
+ * Gmod Called functions
+ */
+function GameDetails(
+    servername,
+    serverurl,
+    mapname,
+    maxplayers,
+    steamid,
+    gamemode
+) {
+    isGmod = true;
+    if (!isTest) {
+        // GMod has connected, we can now show the loading screen properly
+    }
 }
 
-/**
- * Gmod Called functions - File Loading System
- */
 function SetFilesTotal(total) {
     totalCalled = true;
     totalFiles = total;
@@ -234,21 +240,16 @@ function startTestMode() {
 document.addEventListener("DOMContentLoaded", function() {
     updateStatus("Initializing...", 0);
     
-    // Check if we're running in GMod
-    if (isRunningInGmod()) {
-        isGmod = true;
-    }
-    
     // Update SVG height to match container
     setTimeout(updateSvgHeight, 100); // Small delay to ensure elements are rendered
     
     // Update SVG on window resize
     window.addEventListener('resize', updateSvgHeight);
     
-    // Start test mode after 5 seconds if not loaded by GMod and not in GMod environment
+    // if it isn't loaded by gmod load manually
     setTimeout(function() {
-        if (!isGmod && !isRunningInGmod()) {
+        if (!isGmod) {
             startTestMode();
         }
-    }, 5000);
+    }, 1000);
 }); 
