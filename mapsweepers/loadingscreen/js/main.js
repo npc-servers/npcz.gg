@@ -44,12 +44,8 @@ function DownloadingFile(filename) {
     filename = filename.replace("'", "").replace("?", "");
     downloadingFileCalled = true;
     
-    // Calculate current file number based on percentage if we have total files
-    var currentFileNum = fileCount;
-    if (totalFiles > 0 && percentage > 0) {
-        currentFileNum = Math.round((percentage / 100) * totalFiles);
-    }
-    fileCount = Math.max(fileCount + 1, currentFileNum);
+    // Simple increment for file count
+    fileCount++;
     
     // Add to file history
     var history = document.getElementById("fileHistory");
@@ -96,9 +92,6 @@ function SetStatusChanged(status) {
     if (history) {
         var newItem = document.createElement("div");
         newItem.className = "file-item";
-        
-        // Debug: Log the exact status to see what GMod is actually sending
-        console.log("Status received:", JSON.stringify(status));
         
         // Check for important status messages that get green boxes (try both exact and contains)
         var isImportantStatus = false;
@@ -166,7 +159,7 @@ function updateStatus(statusText, percent) {
     }
     
     if (percentElement) {
-        percentElement.textContent = percent + "%";
+        percentElement.textContent = Math.round(percent) + "%";
     }
 }
 
