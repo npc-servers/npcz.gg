@@ -32,7 +32,7 @@ function SetFilesTotal(total) {
 function SetFilesNeeded(needed) {
     if (totalCalled) {
         var calculatedPercentage = 100 - Math.round((needed / totalFiles) * 100);
-        percentage = Math.max(0, Math.min(100, calculatedPercentage));
+        percentage = Math.round(Math.max(0, Math.min(100, calculatedPercentage)));
         updateStatus("Loading files...", percentage);
     }
 }
@@ -111,15 +111,15 @@ function SetStatusChanged(status) {
     // Update loading percentage based on status (matching sandbox behavior exactly)
     if (status === "Workshop Complete" || status.indexOf("Workshop Complete") !== -1) {
         allow_increment = false;
-        percentage = 80;
+        percentage = Math.round(80);
         updateStatus("Workshop Complete", percentage);
     } else if (status === "Client info sent!" || status.indexOf("Client info sent") !== -1) {
         allow_increment = false;
-        percentage = 95;
+        percentage = Math.round(95);
         updateStatus("Client info sent!", percentage);
     } else if (status === "Starting Lua..." || status.indexOf("Starting Lua") !== -1) {
         allow_increment = false;
-        percentage = 100;
+        percentage = Math.round(100);
         updateStatus("Ready to play!", percentage);
     } else {
         if (allow_increment) {
