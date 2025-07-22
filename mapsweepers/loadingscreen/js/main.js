@@ -174,55 +174,33 @@ function updateSvgHeight() {
 }
 
 /**
- * Test Mode - Simulate file loading for preview
+ * Test Mode - Simulate file loading for preview (matching sandbox)
  */
 function startTestMode() {
     isTest = true;
-    
-    var testFiles = [
-        "materials/maps/gm_flatgrass.vmt",
-        "models/props/cs_office/radio.mdl",
-        "sound/ambient/creatures/pigeon_idle1.wav",
-        "scripts/game_sounds_manifest.txt",
-        "materials/models/player/shared/ice_player.vmt",
-        "models/weapons/v_crowbar.mdl",
-        "sound/weapons/crowbar/crowbar_impact1.wav",
-        "lua/autorun/client/example.lua",
-        "materials/gui/gradient_up.vmt",
-        "models/props_c17/oildrum001.mdl"
-    ];
-    
-    var totalTestFiles = 50;
+
+    GameDetails(
+        "Servername",
+        "Serverurl", 
+        "Mapname",
+        "Maxplayers",
+        "SteamID",
+        "Gamemode"
+    );
+
+    var totalTestFiles = 100;
     SetFilesTotal(totalTestFiles);
-    
+
     var needed = totalTestFiles;
-    var fileIndex = 0;
-    
-    var loadingInterval = setInterval(function() {
+    setInterval(function() {
         if (needed > 0) {
             needed = needed - 1;
             SetFilesNeeded(needed);
-            
-            // Show a random test file
-            var filename = testFiles[fileIndex % testFiles.length];
-            DownloadingFile(filename + " (" + (totalTestFiles - needed) + ")");
-            fileIndex++;
-            
-            // Add occasional status updates
-            if (needed === 40) {
-                SetStatusChanged("Downloading Workshop content...");
-            } else if (needed === 20) {
-                SetStatusChanged("Extracting files...");
-            } else if (needed === 5) {
-                SetStatusChanged("Workshop Complete");
-            } else if (needed === 2) {
-                SetStatusChanged("Client info sent!");
-            } else if (needed === 0) {
-                SetStatusChanged("Starting Lua...");
-                clearInterval(loadingInterval);
-            }
+            DownloadingFile("Filename " + needed);
         }
-    }, 300);
+    }, 500);
+
+    SetStatusChanged("Testing..");
 }
 
 /**
