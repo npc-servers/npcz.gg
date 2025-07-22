@@ -32,7 +32,27 @@ function DownloadingFile(filename) {
     if (history) {
         var newItem = document.createElement("div");
         newItem.className = "file-item";
-        newItem.textContent = "→ " + filename;
+        
+        // Check if filename has addon count in parentheses
+        var countMatch = filename.match(/^(.+)\s*\((\d+)\)$/);
+        if (countMatch && totalFiles > 0) {
+            var baseFilename = countMatch[1].trim();
+            var currentCount = parseInt(countMatch[2]);
+            
+            // Create filename span
+            var filenameSpan = document.createElement("span");
+            filenameSpan.textContent = baseFilename;
+            newItem.appendChild(filenameSpan);
+            
+            // Create addon count box
+            var countBox = document.createElement("span");
+            countBox.className = "addon-count";
+            countBox.textContent = currentCount + "/" + totalFiles;
+            newItem.appendChild(countBox);
+        } else {
+            newItem.textContent = filename;
+        }
+        
         history.insertBefore(newItem, history.firstChild);
 
         // Update opacity for existing items and remove old ones
@@ -50,13 +70,37 @@ function DownloadingFile(filename) {
 }
 
 function SetStatusChanged(status) {
+    // List of important status messages that get green boxes
+    var importantStatuses = [
+        "Workshop Complete",
+        "Client info sent!",
+        "Starting Lua...",
+        "Ready to play!",
+        "Downloading Workshop content...",
+        "Extracting files..."
+    ];
+    
     // Add status to history
     var history = document.getElementById("fileHistory");
     if (history) {
         var newItem = document.createElement("div");
         newItem.className = "file-item";
-        newItem.textContent = "• " + status;
-        newItem.style.color = "#00ff00"; // Green for status messages
+        
+        // Check if this is an important status
+        var isImportant = importantStatuses.some(function(importantStatus) {
+            return status.indexOf(importantStatus) !== -1;
+        });
+        
+        if (isImportant) {
+            var statusBox = document.createElement("span");
+            statusBox.className = "status-important";
+            statusBox.textContent = status;
+            newItem.appendChild(statusBox);
+        } else {
+            newItem.textContent = status;
+            newItem.style.color = "#00ff00"; // Green for regular status messages
+        }
+        
         history.insertBefore(newItem, history.firstChild);
 
         // Update opacity and remove old items
