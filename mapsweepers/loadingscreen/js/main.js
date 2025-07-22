@@ -44,30 +44,12 @@ function DownloadingFile(filename) {
     filename = filename.replace("'", "").replace("?", "");
     downloadingFileCalled = true;
     
-    // Simple increment for file count
-    fileCount++;
-    
     // Add to file history
     var history = document.getElementById("fileHistory");
     if (history) {
         var newItem = document.createElement("div");
         newItem.className = "file-item";
-        
-        // Always show the file count if we have total files
-        if (totalFiles > 0) {
-            // Create filename span
-            var filenameSpan = document.createElement("span");
-            filenameSpan.textContent = filename;
-            newItem.appendChild(filenameSpan);
-            
-            // Create addon count box showing current/total
-            var countBox = document.createElement("span");
-            countBox.className = "addon-count";
-            countBox.textContent = fileCount + "/" + totalFiles;
-            newItem.appendChild(countBox);
-        } else {
-            newItem.textContent = filename;
-        }
+        newItem.textContent = filename;
         
         history.insertBefore(newItem, history.firstChild);
 
@@ -141,7 +123,7 @@ function SetStatusChanged(status) {
         updateStatus("Ready to play!", percentage);
     } else {
         if (allow_increment) {
-            percentage = percentage + 0.1;
+            percentage = Math.round(percentage + 1);
         }
         updateStatus(status, percentage);
     }
