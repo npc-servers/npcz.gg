@@ -197,6 +197,15 @@ function startTestMode() {
             needed = needed - 1;
             SetFilesNeeded(needed);
             DownloadingFile("Filename " + needed);
+            
+            // Add status changes at specific points to match sandbox behavior
+            if (needed === 20) {
+                SetStatusChanged("Workshop Complete");
+            } else if (needed === 5) {
+                SetStatusChanged("Client info sent!");
+            } else if (needed === 0) {
+                SetStatusChanged("Starting Lua...");
+            }
         }
     }, 500);
 
