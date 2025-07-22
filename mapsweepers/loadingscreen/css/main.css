@@ -122,7 +122,7 @@ body {
 }
 
 .loading-percentage {
-    color: #00ff00;
+    color: #3db6fe;
     font-family: 'Tektur', Arial, sans-serif;
 }
 
@@ -148,7 +148,7 @@ body {
 }
 
 .status-important {
-    background-color: rgba(0, 255, 0, 0.3);
+    background-color: rgba(61, 182, 254, 0.3);
     padding: 4px 8px;
     font-weight: bold;
     width: 100%;

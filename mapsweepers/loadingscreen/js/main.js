@@ -92,7 +92,7 @@ function SetStatusChanged(status) {
             newItem.appendChild(statusBox);
         } else {
             newItem.textContent = status;
-            newItem.style.color = "#00ff00"; // Green for regular status messages
+            newItem.style.color = "#3db6fe"; // Blue for regular status messages
         }
         
         history.insertBefore(newItem, history.firstChild);
