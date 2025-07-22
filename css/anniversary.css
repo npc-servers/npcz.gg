@@ -1,0 +1,818 @@
+/* Anniversary Page Styles */
+:root {
+    --anniversary-red: #e60000;
+    --anniversary-red-light: #ff4444;
+    --anniversary-red-dark: #b30000;
+    --anniversary-crimson: #cc0000;
+    --celebration-gradient: linear-gradient(135deg, var(--anniversary-red) 0%, var(--anniversary-red-dark) 100%);
+}
+
+.anniversary-container {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
+    overflow-x: hidden;
+}
+
+/* Header Reveal Section */
+.header-reveal-section {
+    position: relative;
+    width: 100%;
+    height: 60vh;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at center, rgba(230, 0, 0, 0.1) 0%, transparent 70%);
+    overflow: hidden;
+}
+
+.reveal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, 
+        transparent 0%, 
+        rgba(230, 0, 0, 0.8) 45%, 
+        rgba(230, 0, 0, 1) 50%, 
+        rgba(230, 0, 0, 0.8) 55%, 
+        transparent 100%);
+    transform: translateX(-100%) skewX(-25deg);
+    animation: revealSweep 1.5s ease-in-out forwards;
+    animation-delay: 0s;
+    z-index: 2;
+}
+
+@keyframes revealSweep {
+    0% {
+        transform: translateX(-100%) skewX(-25deg);
+    }
+    100% {
+        transform: translateX(150%) skewX(-25deg);
+    }
+}
+
+.anniversary-header-container {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.anniversary-header {
+    max-width: 70%;
+    max-height: 80%;
+    width: auto;
+    height: auto;
+    filter: drop-shadow(0 0 20px rgba(230, 0, 0, 0.5));
+    transition: all 0.5s ease;
+}
+
+.anniversary-header.hidden {
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+}
+
+.anniversary-header.revealed {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    animation: headerGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes headerGlow {
+    0% {
+        filter: drop-shadow(0 0 20px rgba(230, 0, 0, 0.5));
+        transform: scale(1);
+    }
+    100% {
+        filter: drop-shadow(0 0 40px rgba(230, 0, 0, 0.8)) drop-shadow(0 0 60px rgba(204, 0, 0, 0.5));
+        transform: scale(1.02);
+    }
+}
+
+/* Sparkles Animation */
+.sparkles-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 3;
+}
+
+.sparkle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--anniversary-red);
+    border-radius: 50%;
+    animation: sparkleFloat 3s ease-in-out infinite;
+    opacity: 0;
+    box-shadow: 0 0 6px var(--anniversary-red);
+}
+
+@keyframes sparkleFloat {
+    0%, 100% {
+        opacity: 0;
+        transform: translateY(0) scale(0);
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(-30px) scale(1);
+    }
+}
+
+/* Content Section */
+.anniversary-content {
+    position: relative;
+    padding: 4rem 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(230, 0, 0, 0.05) 50%, transparent 100%);
+}
+
+.content-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    text-align: center;
+}
+
+.celebration-text {
+    margin-bottom: 3rem;
+}
+
+.anniversary-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    background: var(--celebration-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    animation: titleSlideIn 1s ease-out forwards;
+    animation-delay: 1.2s;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.anniversary-subtitle {
+    font-size: 1.3rem;
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    line-height: 1.6;
+    animation: subtitleFadeIn 1s ease-out forwards;
+    animation-delay: 1.6s;
+    opacity: 0;
+}
+
+@keyframes titleSlideIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes subtitleFadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+/* Milestone Stats */
+.milestone-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 3rem 0;
+    animation: statsSlideUp 1s ease-out forwards;
+    animation-delay: 2s;
+    opacity: 0;
+    transform: translateY(40px);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.stat-item {
+    background: rgba(230, 0, 0, 0.1);
+    border: 2px solid rgba(230, 0, 0, 0.3);
+    border-radius: 10px;
+    padding: 1rem 1.5rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.stat-item:hover {
+    border-color: var(--anniversary-red);
+    background: rgba(230, 0, 0, 0.15);
+    transform: translateY(-5px);
+}
+
+.stat-number {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    background: var(--celebration-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0;
+    min-width: 100px;
+    text-align: left;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 0.5px;
+    text-align: left;
+    flex: 1;
+    margin-left: 1.5rem;
+}
+
+@keyframes statsSlideUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Total Stat */
+.total-stat {
+    text-align: center;
+    margin: 2rem 0 3rem;
+    padding: 0;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    animation: totalStatSlideIn 1s ease-out forwards;
+    animation-delay: 2.2s;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.total-number {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    background: var(--celebration-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+}
+
+.total-label {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+.discord-stat {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    margin-top: 0.5rem;
+}
+
+@keyframes totalStatSlideIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Big Reveal Section */
+.big-reveal {
+    text-align: center;
+    margin: 3rem 0;
+    animation: revealSlideIn 1s ease-out forwards;
+    animation-delay: 2.4s;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.reveal-text {
+    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 2rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.zmod-announcement {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 4rem;
+    font-weight: 700;
+    background: var(--celebration-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    animation: zmodGlow 3s ease-in-out infinite alternate;
+    animation-delay: 3.5s;
+}
+
+@keyframes zmodGlow {
+    0% {
+        filter: drop-shadow(0 0 10px rgba(230, 0, 0, 0.3));
+        transform: scale(1);
+    }
+    100% {
+        filter: drop-shadow(0 0 20px rgba(230, 0, 0, 0.6));
+        transform: scale(1.02);
+    }
+}
+
+.zmod-logo-container {
+    margin: 2rem 0;
+    display: flex;
+    justify-content: center;
+}
+
+.zmod-logo {
+    max-width: 400px;
+    max-height: 200px;
+    width: auto;
+    height: auto;
+    filter: drop-shadow(0 0 20px rgba(230, 0, 0, 0.3));
+    animation: logoFloat 4s ease-in-out infinite;
+    animation-delay: 4s;
+}
+
+@keyframes logoFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.website-announcement {
+    font-size: 1.3rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    margin: 1.5rem 0 2rem;
+    animation: websiteSlideIn 1s ease-out forwards;
+    animation-delay: 2.4s;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+@keyframes websiteSlideIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.explanation-area {
+    margin-top: 3rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.explanation-text {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.7;
+    padding: 2rem;
+    background: rgba(230, 0, 0, 0.05);
+    border: 1px solid rgba(230, 0, 0, 0.2);
+    border-radius: 10px;
+    font-weight: 500;
+    text-align: left;
+    margin-bottom: 1.5rem;
+}
+
+.explanation-text:last-child {
+    margin-bottom: 0;
+}
+
+@keyframes revealSlideIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Floating Particles */
+.particles-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: var(--anniversary-red);
+    border-radius: 50%;
+    animation: particleFloat 8s linear infinite;
+    opacity: 0.7;
+}
+
+@keyframes particleFloat {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.7;
+    }
+    90% {
+        opacity: 0.7;
+    }
+    100% {
+        transform: translateY(-10vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Server Connection Section */
+.servers-section {
+    background: linear-gradient(180deg, rgba(230, 0, 0, 0.05) 0%, transparent 100%);
+    padding: 4rem 0;
+    margin-top: 3rem;
+}
+
+.servers-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: var(--celebration-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.total-players {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.total-count {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: var(--celebration-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+}
+
+.total-label {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.servers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.server-card {
+    background: rgba(230, 0, 0, 0.1);
+    border: 2px solid rgba(230, 0, 0, 0.3);
+    border-radius: 15px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 120px;
+}
+
+.server-card:hover {
+    border-color: var(--anniversary-red);
+    background: rgba(230, 0, 0, 0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(230, 0, 0, 0.2);
+}
+
+.server-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    gap: 1rem;
+}
+
+.server-name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+    flex: 1;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.server-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+}
+
+.status-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #666;
+    transition: all 0.3s ease;
+}
+
+.status-indicator.online {
+    background: #2ecc71;
+    box-shadow: 0 0 10px rgba(46, 204, 113, 0.5);
+}
+
+.status-indicator.offline {
+    background: #e74c3c;
+    box-shadow: 0 0 10px rgba(231, 76, 60, 0.5);
+}
+
+.player-count {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 500;
+    min-width: 60px;
+    text-align: right;
+}
+
+.connect-btn {
+    background: var(--celebration-gradient);
+    border: none;
+    border-radius: 25px;
+    padding: 0.75rem 1.5rem;
+    color: white;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.connect-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(230, 0, 0, 0.4);
+}
+
+.connect-btn:active {
+    transform: translateY(0);
+}
+
+.connect-btn i {
+    font-size: 0.85rem;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .anniversary-header {
+        max-width: 85%;
+    }
+    
+    .anniversary-title {
+        font-size: 2.5rem;
+    }
+    
+    .anniversary-subtitle {
+        font-size: 1.1rem;
+        padding: 0 1rem;
+    }
+    
+    .milestone-stats {
+        gap: 0.75rem;
+        margin: 2rem 0;
+    }
+    
+    .stat-item {
+        flex-direction: column;
+        text-align: center;
+        padding: 1rem;
+    }
+    
+    .stat-number {
+        font-size: 1.8rem;
+        text-align: center;
+        margin-bottom: 0.5rem;
+    }
+    
+    .stat-label {
+        text-align: center;
+        margin-left: 0;
+        font-size: 0.85rem;
+    }
+    
+    .total-stat {
+        margin: 1.5rem 0 2rem;
+        padding: 0;
+    }
+    
+    .total-number {
+        font-size: 2.2rem;
+    }
+    
+    .total-label {
+        font-size: 0.95rem;
+    }
+    
+    .discord-stat {
+        font-size: 0.9rem;
+    }
+    
+    .reveal-text {
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .zmod-announcement {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .zmod-logo {
+        max-width: 300px;
+        max-height: 150px;
+    }
+    
+    .website-announcement {
+        font-size: 1.1rem;
+        margin: 1rem 0 1.5rem;
+    }
+    
+    .explanation-text {
+        font-size: 1rem;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .content-wrapper {
+        padding: 0 1.5rem;
+    }
+    
+    .header-reveal-section {
+        height: 50vh;
+        min-height: 300px;
+    }
+    
+    .servers-title {
+        font-size: 2rem;
+    }
+    
+    .total-count {
+        font-size: 2rem;
+    }
+    
+    .total-label {
+        font-size: 0.9rem;
+    }
+    
+    .servers-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 0 1.5rem;
+    }
+    
+    .server-card {
+        padding: 1.25rem;
+        min-height: 100px;
+    }
+    
+    .server-header {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 0.75rem;
+        gap: 0.5rem;
+    }
+    
+    .server-status {
+        align-self: flex-end;
+    }
+}
+
+@media (max-width: 480px) {
+    .anniversary-title {
+        font-size: 2rem;
+    }
+    
+    .anniversary-subtitle {
+        font-size: 1rem;
+    }
+    
+    .stat-item {
+        padding: 0.75rem;
+    }
+    
+    .stat-number {
+        font-size: 1.6rem;
+    }
+    
+    .stat-label {
+        font-size: 0.8rem;
+    }
+    
+    .total-number {
+        font-size: 2rem;
+    }
+    
+    .total-label {
+        font-size: 0.85rem;
+    }
+    
+    .discord-stat {
+        font-size: 0.8rem;
+    }
+    
+    .reveal-text {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+        padding: 0 1rem;
+    }
+    
+    .zmod-announcement {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+    
+    .zmod-logo {
+        max-width: 250px;
+        max-height: 125px;
+    }
+    
+    .website-announcement {
+        font-size: 1rem;
+        margin: 0.75rem 0 1rem;
+        padding: 0 1rem;
+    }
+    
+    .explanation-text {
+        font-size: 0.9rem;
+        padding: 1rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .anniversary-header {
+        max-width: 90%;
+    }
+    
+    .servers-title {
+        font-size: 1.75rem;
+    }
+    
+    .total-count {
+        font-size: 1.75rem;
+    }
+    
+    .total-label {
+        font-size: 0.85rem;
+    }
+    
+    .servers-section {
+        padding: 3rem 0;
+    }
+} 

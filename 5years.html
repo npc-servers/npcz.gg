@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5 Years of NPCZ</title>
+    
+    <!-- Resource hints for better performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="assets/5years/5years-header.png" as="image">
+    <link rel="preload" href="assets/5years/5year-logo.png" as="image">
+    <link rel="preload" href="assets/images/bg1.jpg" as="image">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500&family=Montserrat:wght@700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Consolidated CSS -->
+    <link rel="stylesheet" href="css/main.css">
+    
+    <!-- Meta tags for better SEO -->
+    <meta name="description" content="Celebrating 5 incredible years of NPCZ - Join us as we commemorate this milestone and reveal the next chapter: ZMOD.">
+    <meta name="keywords" content="NPCZ, ZMOD, 5 years, anniversary, celebration, rebrand, garry's mod, gmod, milestone">
+    
+    <!-- Discord/OpenGraph Embed Meta Tags -->
+    <meta property="og:title" content="5 Years of NPCZ">
+    <meta property="og:description" content="Celebrating 5 incredible years of NPCZ - Join us as we commemorate this milestone and reveal the next chapter: ZMOD.">
+    <meta property="og:image" content="https://npcz.gg/assets/5years/5years-header.png">
+    <meta property="og:url" content="https://npcz.gg/5years.html">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#e60000">
+    <meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+    <div class="anniversary-container">
+        <!-- Header Reveal Section -->
+        <div class="header-reveal-section">
+            <div class="reveal-overlay"></div>
+            <div class="anniversary-header-container">
+                <img src="assets/5years/5years-header.png" alt="5 Years of NPCZ" class="anniversary-header hidden">
+            </div>
+            <div class="sparkles-container"></div>
+        </div>
+        
+        <!-- Content Section -->
+        <div class="anniversary-content">
+            <div class="content-wrapper">
+                <div class="celebration-text">
+                    <h1 class="anniversary-title">Five Years Strong!</h1>
+                    <p class="anniversary-subtitle">
+                        What started out as a small community has grown into one none of us could have imagined. 
+                    </p>
+                    
+                    <div class="milestone-stats">
+                        <div class="stat-item">
+                            <div class="stat-number" data-target="98949">0</div>
+                            <div class="stat-label">Players over 3 years on NPC Zombies Vs. Players</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" data-target="32070">0</div>
+                            <div class="stat-label">Players over 7 months on ZGRAD Homigrad</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" data-target="8799">0</div>
+                            <div class="stat-label">Players over 1 year on ZBox</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" data-target="11000000">0</div>
+                            <div class="stat-label">Views over 9 months</div>
+                        </div>
+                    </div>
+                    
+                    <div class="total-stat">
+                        <div class="total-number" data-target="139818">0</div>
+                        <div class="total-label">Total Players Across All Servers</div>
+                        <div class="discord-stat">Over 6,000 on Discord</div>
+                    </div>
+                    
+                    <div class="big-reveal">
+                        <div class="reveal-text">And now for the big reveal, the final era of NPCZ:</div>
+                        <div class="zmod-announcement">We are now ZMOD</div>
+                        <div class="zmod-logo-container">
+                            <img src="assets/5years/5year-logo.png" alt="ZMOD" class="zmod-logo">
+                        </div>
+                        <div class="website-announcement">and a new website! zmod.gg coming soon</div>
+                        <div class="explanation-area">
+                            <p class="explanation-text">
+                                ZMOD represents more than just a rebrand, it's the evolution of our vision and the foundation for everything we've built and everything we're building towards. This new identity encompasses all of our current and future ambitions, serving as the unified umbrella name for our ever-expanding network.
+                            </p>
+                            <p class="explanation-text">
+                                Under the ZMOD banner, you'll find the servers that have defined our community: the legendary NPCZ that started it all, and the new and chaotic ZGRAD Homigrad gamemode, as well as all of our smaller projects, and all the innovative experiences we have yet to unveil. Each server retains its unique identity while being part of something greater.
+                            </p>
+                            <p class="explanation-text">
+                                This transition marks our commitment to growth, innovation, and delivering the highest quality gaming experiences. New servers, new features, new possibilities, all united under one powerful brand that represents the passion and creativity of our entire community.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Server Connection Section -->
+            <div class="servers-section">
+                <div class="content-wrapper">
+                    <h2 class="servers-title">Try a server!</h2>
+                    <div class="total-players">
+                        <div class="total-count" id="total-players">Loading...</div>
+                        <div class="total-label">Total Players Online</div>
+                    </div>
+                    <div class="servers-grid">
+                        <div class="server-card" data-ip="193.243.190.18" data-port="27015">
+                            <div class="server-header">
+                                <h3 class="server-name">NPC Zombies Vs. Players</h3>
+                                <div class="server-status">
+                                    <span class="status-indicator"></span>
+                                    <span class="player-count">Loading...</span>
+                                </div>
+                            </div>
+                            <button class="connect-btn" onclick="window.open('steam://connect/193.243.190.18:27015')">
+                                <i class="fas fa-gamepad"></i>
+                                Connect
+                            </button>
+                        </div>
+                        
+                        <div class="server-card" data-ip="193.243.190.18" data-port="27065">
+                            <div class="server-header">
+                                <h3 class="server-name">Horde</h3>
+                                <div class="server-status">
+                                    <span class="status-indicator"></span>
+                                    <span class="player-count">Loading...</span>
+                                </div>
+                            </div>
+                            <button class="connect-btn" onclick="window.open('steam://connect/193.243.190.18:27065')">
+                                <i class="fas fa-gamepad"></i>
+                                Connect
+                            </button>
+                        </div>
+                        
+                        <div class="server-card" data-ip="193.243.190.18" data-port="27064">
+                            <div class="server-header">
+                                <h3 class="server-name">ZBox</h3>
+                                <div class="server-status">
+                                    <span class="status-indicator"></span>
+                                    <span class="player-count">Loading...</span>
+                                </div>
+                            </div>
+                            <button class="connect-btn" onclick="window.open('steam://connect/193.243.190.18:27064')">
+                                <i class="fas fa-gamepad"></i>
+                                Connect
+                            </button>
+                        </div>
+                        
+                        <div class="server-card" data-ip="193.243.190.18" data-port="27066">
+                            <div class="server-header">
+                                <h3 class="server-name">ZGRAD US1</h3>
+                                <div class="server-status">
+                                    <span class="status-indicator"></span>
+                                    <span class="player-count">Loading...</span>
+                                </div>
+                            </div>
+                            <button class="connect-btn" onclick="window.open('steam://connect/193.243.190.18:27066')">
+                                <i class="fas fa-gamepad"></i>
+                                Connect
+                            </button>
+                        </div>
+                        
+                        <div class="server-card" data-ip="193.243.190.18" data-port="27051">
+                            <div class="server-header">
+                                <h3 class="server-name">ZGRAD US2</h3>
+                                <div class="server-status">
+                                    <span class="status-indicator"></span>
+                                    <span class="player-count">Loading...</span>
+                                </div>
+                            </div>
+                            <button class="connect-btn" onclick="window.open('steam://connect/193.243.190.18:27051')">
+                                <i class="fas fa-gamepad"></i>
+                                Connect
+                            </button>
+                        </div>
+                        
+                        <div class="server-card" data-ip="193.243.190.18" data-port="27053">
+                            <div class="server-header">
+                                <h3 class="server-name">ZGRAD US3</h3>
+                                <div class="server-status">
+                                    <span class="status-indicator"></span>
+                                    <span class="player-count">Loading...</span>
+                                </div>
+                            </div>
+                            <button class="connect-btn" onclick="window.open('steam://connect/193.243.190.18:27053')">
+                                <i class="fas fa-gamepad"></i>
+                                Connect
+                            </button>
+                        </div>
+                        
+                        <div class="server-card" data-ip="193.243.190.18" data-port="27052">
+                            <div class="server-header">
+                                <h3 class="server-name">ZGRAD US4</h3>
+                                <div class="server-status">
+                                    <span class="status-indicator"></span>
+                                    <span class="player-count">Loading...</span>
+                                </div>
+                            </div>
+                            <button class="connect-btn" onclick="window.open('steam://connect/193.243.190.18:27052')">
+                                <i class="fas fa-gamepad"></i>
+                                Connect
+                            </button>
+                        </div>
+                        
+                        <div class="server-card" data-ip="193.243.190.18" data-port="27025">
+                            <div class="server-header">
+                                <h3 class="server-name">ZScenario</h3>
+                                <div class="server-status">
+                                    <span class="status-indicator"></span>
+                                    <span class="player-count">Loading...</span>
+                                </div>
+                            </div>
+                            <button class="connect-btn" onclick="window.open('steam://connect/193.243.190.18:27025')">
+                                <i class="fas fa-gamepad"></i>
+                                Connect
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Floating particles -->
+    <div class="particles-container"></div>
+    
+    <!-- JavaScript files in dependency order -->
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/anniversary.js"></script>
+    <script src="js/navbar.js"></script>
+</body>
+</html> 
