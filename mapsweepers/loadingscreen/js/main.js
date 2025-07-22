@@ -6,6 +6,14 @@ var totalFiles = 50;
 var totalCalled = false;
 var percentage = 0;
 
+// Check if running in GMod based on user agent
+function isRunningInGmod() {
+    var userAgent = navigator.userAgent.toLowerCase();
+    return userAgent.indexOf('gmod') !== -1 || 
+           userAgent.indexOf('garry') !== -1 || 
+           userAgent.indexOf('source') !== -1;
+}
+
 /**
  * Gmod Called functions - File Loading System
  */
@@ -70,14 +78,11 @@ function DownloadingFile(filename) {
 }
 
 function SetStatusChanged(status) {
-    // List of important status messages that get green boxes
+    // Only the key GMod status messages get green boxes (matching original behavior)
     var importantStatuses = [
         "Workshop Complete",
         "Client info sent!",
-        "Starting Lua...",
-        "Ready to play!",
-        "Downloading Workshop content...",
-        "Extracting files..."
+        "Starting Lua..."
     ];
     
     // Add status to history
@@ -86,10 +91,8 @@ function SetStatusChanged(status) {
         var newItem = document.createElement("div");
         newItem.className = "file-item";
         
-        // Check if this is an important status
-        var isImportant = importantStatuses.some(function(importantStatus) {
-            return status.indexOf(importantStatus) !== -1;
-        });
+        // Check if this is an important status (exact match)
+        var isImportant = importantStatuses.indexOf(status) !== -1;
         
         if (isImportant) {
             var statusBox = document.createElement("span");
@@ -231,16 +234,21 @@ function startTestMode() {
 document.addEventListener("DOMContentLoaded", function() {
     updateStatus("Initializing...", 0);
     
+    // Check if we're running in GMod
+    if (isRunningInGmod()) {
+        isGmod = true;
+    }
+    
     // Update SVG height to match container
     setTimeout(updateSvgHeight, 100); // Small delay to ensure elements are rendered
     
     // Update SVG on window resize
     window.addEventListener('resize', updateSvgHeight);
     
-    // Start test mode after 2 seconds if not loaded by GMod
+    // Start test mode after 5 seconds if not loaded by GMod and not in GMod environment
     setTimeout(function() {
-        if (!isGmod) {
+        if (!isGmod && !isRunningInGmod()) {
             startTestMode();
         }
-    }, 2000);
+    }, 5000);
 }); 
