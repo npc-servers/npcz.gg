@@ -37,9 +37,11 @@ function SetFilesNeeded(needed) {
     }
 }
 
+var fileCount = 0;
 function DownloadingFile(filename) {
     // Clean up the filename
     filename = filename.replace("'", "").replace("?", "");
+    fileCount++;
     
     // Add to file history
     var history = document.getElementById("fileHistory");
@@ -47,21 +49,17 @@ function DownloadingFile(filename) {
         var newItem = document.createElement("div");
         newItem.className = "file-item";
         
-        // Check if filename has addon count in parentheses
-        var countMatch = filename.match(/^(.+)\s*\((\d+)\)$/);
-        if (countMatch && totalFiles > 0) {
-            var baseFilename = countMatch[1].trim();
-            var currentCount = parseInt(countMatch[2]);
-            
+        // Always show the file count if we have total files
+        if (totalFiles > 0) {
             // Create filename span
             var filenameSpan = document.createElement("span");
-            filenameSpan.textContent = baseFilename;
+            filenameSpan.textContent = filename;
             newItem.appendChild(filenameSpan);
             
-            // Create addon count box
+            // Create addon count box showing current/total
             var countBox = document.createElement("span");
             countBox.className = "addon-count";
-            countBox.textContent = currentCount + "/" + totalFiles;
+            countBox.textContent = fileCount + "/" + totalFiles;
             newItem.appendChild(countBox);
         } else {
             newItem.textContent = filename;
@@ -83,24 +81,16 @@ function DownloadingFile(filename) {
     }
 }
 
+var allow_increment = true;
 function SetStatusChanged(status) {
-    // Only the key GMod status messages get green boxes (matching original behavior)
-    var importantStatuses = [
-        "Workshop Complete",
-        "Client info sent!",
-        "Starting Lua..."
-    ];
-    
     // Add status to history
     var history = document.getElementById("fileHistory");
     if (history) {
         var newItem = document.createElement("div");
         newItem.className = "file-item";
         
-        // Check if this is an important status (exact match)
-        var isImportant = importantStatuses.indexOf(status) !== -1;
-        
-        if (isImportant) {
+        // Check for important status messages that get green boxes
+        if (status === "Workshop Complete" || status === "Client info sent!" || status === "Starting Lua...") {
             var statusBox = document.createElement("span");
             statusBox.className = "status-important";
             statusBox.textContent = status;
@@ -123,17 +113,22 @@ function SetStatusChanged(status) {
         }
     }
 
-    // Update loading percentage based on status
+    // Update loading percentage based on status (matching sandbox behavior exactly)
     if (status === "Workshop Complete") {
-        percentage = 85;
+        allow_increment = false;
+        percentage = 80;
         updateStatus("Workshop Complete", percentage);
     } else if (status === "Client info sent!") {
+        allow_increment = false;
         percentage = 95;
         updateStatus("Client info sent!", percentage);
     } else if (status === "Starting Lua...") {
         percentage = 100;
         updateStatus("Ready to play!", percentage);
     } else {
+        if (allow_increment) {
+            percentage = percentage + 0.1;
+        }
         updateStatus(status, percentage);
     }
 }
