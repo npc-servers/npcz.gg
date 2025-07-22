@@ -8,14 +8,41 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Wallpoet&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css">
+    <script src="js/main.js"></script>
 </head>
 <body>
+    <video class="background-video" autoplay muted loop>
+        <source src="/assets/backgrounds/ms-static.webm" type="video/webm">
+    </video>
     <div class="loading-container">
         <div class="logo-container">
             <img src="../../assets/mapsweepers_logo.png" alt="Mapsweepers Logo" class="logo">
         </div>
         <div class="server-text">
             OFFICIAL SERVER
+        </div>
+    </div>
+    
+    <!-- File Loading Section -->
+    <div class="file-section">
+        <div class="line-left">
+            <svg id="leftLineSvg" width="12" viewBox="0 0 12 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path id="verticalLine" d="M0 11H1V38H0V11Z" fill="#ff0000"/>
+                <path d="M10.3133 0.686318L11.0204 1.39342L0.707107 11.7067L-1.20223e-07 10.9996L10.3133 0.686318Z" fill="#ff0000"/>
+            </svg>
+        </div>
+        <div class="file-box">
+            <div class="loading-status">
+                <span class="status-text">Initializing...</span>
+                <span class="loading-percentage">0%</span>
+            </div>
+            <div class="file-history" id="fileHistory"></div>
+        </div>
+        <div class="line-right">
+            <svg id="rightLineSvg" width="12" viewBox="0 0 12 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path id="rightVerticalLine" d="M0 11H1V38H0V11Z" fill="#ff0000"/>
+                <path d="M10.3133 0.686318L11.0204 1.39342L0.707107 11.7067L-1.20223e-07 10.9996L10.3133 0.686318Z" fill="#ff0000"/>
+            </svg>
         </div>
     </div>
 </body>
