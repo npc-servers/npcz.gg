@@ -143,6 +143,7 @@ function SetStatusChanged(status) {
         percentage = 95;
         updateStatus("Client info sent!", percentage);
     } else if (status === "Starting Lua..." || status.indexOf("Starting Lua") !== -1) {
+        allow_increment = false;
         percentage = 100;
         updateStatus("Ready to play!", percentage);
     } else {
