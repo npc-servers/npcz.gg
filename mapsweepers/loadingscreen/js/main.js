@@ -38,10 +38,18 @@ function SetFilesNeeded(needed) {
 }
 
 var fileCount = 0;
+var downloadingFileCalled = false;
 function DownloadingFile(filename) {
     // Clean up the filename
     filename = filename.replace("'", "").replace("?", "");
-    fileCount++;
+    downloadingFileCalled = true;
+    
+    // Calculate current file number based on percentage if we have total files
+    var currentFileNum = fileCount;
+    if (totalFiles > 0 && percentage > 0) {
+        currentFileNum = Math.round((percentage / 100) * totalFiles);
+    }
+    fileCount = Math.max(fileCount + 1, currentFileNum);
     
     // Add to file history
     var history = document.getElementById("fileHistory");
@@ -89,8 +97,20 @@ function SetStatusChanged(status) {
         var newItem = document.createElement("div");
         newItem.className = "file-item";
         
-        // Check for important status messages that get green boxes
-        if (status === "Workshop Complete" || status === "Client info sent!" || status === "Starting Lua...") {
+        // Debug: Log the exact status to see what GMod is actually sending
+        console.log("Status received:", JSON.stringify(status));
+        
+        // Check for important status messages that get green boxes (try both exact and contains)
+        var isImportantStatus = false;
+        if (status === "Workshop Complete" || status.indexOf("Workshop Complete") !== -1) {
+            isImportantStatus = true;
+        } else if (status === "Client info sent!" || status.indexOf("Client info sent") !== -1) {
+            isImportantStatus = true;
+        } else if (status === "Starting Lua..." || status.indexOf("Starting Lua") !== -1) {
+            isImportantStatus = true;
+        }
+        
+        if (isImportantStatus) {
             var statusBox = document.createElement("span");
             statusBox.className = "status-important";
             statusBox.textContent = status;
@@ -114,15 +134,15 @@ function SetStatusChanged(status) {
     }
 
     // Update loading percentage based on status (matching sandbox behavior exactly)
-    if (status === "Workshop Complete") {
+    if (status === "Workshop Complete" || status.indexOf("Workshop Complete") !== -1) {
         allow_increment = false;
         percentage = 80;
         updateStatus("Workshop Complete", percentage);
-    } else if (status === "Client info sent!") {
+    } else if (status === "Client info sent!" || status.indexOf("Client info sent") !== -1) {
         allow_increment = false;
         percentage = 95;
         updateStatus("Client info sent!", percentage);
-    } else if (status === "Starting Lua...") {
+    } else if (status === "Starting Lua..." || status.indexOf("Starting Lua") !== -1) {
         percentage = 100;
         updateStatus("Ready to play!", percentage);
     } else {
