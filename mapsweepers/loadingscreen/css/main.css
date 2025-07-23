@@ -118,6 +118,10 @@ body {
     padding: 10px;
     position: relative;
     overflow: hidden;
+    height: 40px;
+    min-height: 40px;
+    max-height: 40px;
+    flex-shrink: 0;
     --noise-x: 0%;
     --noise-y: 0%;
 }
@@ -149,13 +153,16 @@ body {
 }
 
 .file-history {
-    flex-grow: 1;
+    height: 225px;
+    min-height: 225px;
+    max-height: 225px;
     overflow: hidden;
     color: #ffffff;
     font-size: 12px;
     line-height: 1.4;
     font-family: 'Tektur', Arial, sans-serif;
     text-align: center;
+    flex-shrink: 0;
 }
 
 .file-item {
@@ -198,10 +205,16 @@ body {
     
     .loading-status {
         font-size: 14px;
+        height: 36px;
+        min-height: 36px;
+        max-height: 36px;
     }
     
     .file-history {
         font-size: 11px;
+        height: 149px;
+        min-height: 149px;
+        max-height: 149px;
     }
 }
 
@@ -232,6 +245,18 @@ body {
     
     #rightLineSvg {
         height: 180px;
+    }
+    
+    .loading-status {
+        height: 32px;
+        min-height: 32px;
+        max-height: 32px;
+    }
+    
+    .file-history {
+        height: 118px;
+        min-height: 118px;
+        max-height: 118px;
     }
 }
 
