@@ -116,6 +116,31 @@ body {
     font-size: 16px;
     font-weight: bold;
     padding: 10px;
+    position: relative;
+    overflow: hidden;
+    --noise-x: 0%;
+    --noise-y: 0%;
+}
+
+.loading-status::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../../../assets/backgrounds/noise.png');
+    background-repeat: repeat;
+    background-size: 100px 100px;
+    background-position: var(--noise-x, 0%) var(--noise-y, 0%);
+    opacity: 0.3;
+    z-index: 1;
+}
+
+.loading-status .status-text,
+.loading-status .loading-percentage {
+    position: relative;
+    z-index: 2;
 }
 
 .loading-percentage {

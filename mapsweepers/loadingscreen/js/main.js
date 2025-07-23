@@ -213,6 +213,24 @@ function startTestMode() {
 }
 
 /**
+ * Noise effect for loading status bar (similar to GMod's DrawNoiseRect)
+ */
+function updateNoiseEffect() {
+    var statusBar = document.querySelector(".loading-status");
+    if (statusBar) {
+        var pseudoElement = statusBar;
+        // Generate random offsets similar to the Lua code: math.random()*512
+        var nx = Math.random() * 512;
+        var ny = Math.random() * 512;
+        var scale = 100; // Default scale factor like 'sc' in the Lua code
+        
+        // Update CSS custom properties for the noise position
+        statusBar.style.setProperty('--noise-x', (nx / scale * 100) + '%');
+        statusBar.style.setProperty('--noise-y', (ny / scale * 100) + '%');
+    }
+}
+
+/**
  * Initialize the loading screen
  */
 document.addEventListener("DOMContentLoaded", function() {
@@ -223,6 +241,9 @@ document.addEventListener("DOMContentLoaded", function() {
     
     // Update SVG on window resize
     window.addEventListener('resize', updateSvgHeight);
+    
+    // Start noise effect animation (similar to GMod's constant noise updates)
+    setInterval(updateNoiseEffect, 50); // Update every 50ms (~20fps) for chaotic noise effect
     
     // if it isn't loaded by gmod load manually
     setTimeout(function() {
