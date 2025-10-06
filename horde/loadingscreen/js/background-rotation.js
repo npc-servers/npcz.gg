@@ -21,7 +21,7 @@ function setupBackgrounds() {
     backgroundContainer.className = 'background-container';
     document.body.appendChild(backgroundContainer);
     
-    // Hide the original .background div (used by legacy version)
+    // Hide the original .background div
     const originalBackground = document.querySelector('.background');
     if (originalBackground) {
         originalBackground.style.display = 'none';

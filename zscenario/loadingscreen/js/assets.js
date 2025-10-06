@@ -43,13 +43,10 @@ document.addEventListener('DOMContentLoaded', function() {
     updateAssetVariables();
 });
 
-// Also support legacy browsers
 if (typeof window !== 'undefined') {
-    // If document already loaded, run immediately
     if (document.readyState === 'complete' || document.readyState === 'interactive') {
         setTimeout(updateAssetVariables, 1);
     } else {
-        // Otherwise wait for window.onload
         var existingOnload = window.onload;
         window.onload = function() {
             if (typeof existingOnload === 'function') {

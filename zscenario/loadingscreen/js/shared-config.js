@@ -1,4 +1,4 @@
-// Shared configuration for both legacy and modern loading screens
+// Shared configuration for loading screens
 const SharedConfig = {
     // UI Configuration
     ui: {
@@ -110,9 +110,6 @@ const SharedConfig = {
     }
 };
 
-// For legacy JavaScript support
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = SharedConfig;
-} else if (typeof window !== 'undefined') {
+if (typeof window !== 'undefined') {
     window.SharedConfig = SharedConfig;
 } 

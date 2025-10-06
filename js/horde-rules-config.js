@@ -1,6 +1,5 @@
 // Rules configuration file
 // This central configuration file contains all rule definitions
-// to be used by both the modern and legacy rules scripts
 
 const rulesConfig = {
     'behavior': {
