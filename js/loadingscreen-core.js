@@ -17,8 +17,7 @@ var percentage = 0;
 var allow_increment = true;
 var currentDownloadingFile = "";
 var currentStatus = "Initializing...";
-var currentServerIp = null;
-var currentServerPort = null;
+var currentServerName = null;
 
 /**
  * Centralized Server List
@@ -99,13 +98,9 @@ var networkServers = [
 window.GameDetails = function(servername, serverurl, mapname, maxplayers, steamid, gamemode) {
     isGmod = true;
     
-    // Parse server URL to get IP and port
-    if (serverurl) {
-        var parts = serverurl.split(':');
-        if (parts.length >= 2) {
-            currentServerIp = parts[0];
-            currentServerPort = parseInt(parts[1], 10);
-        }
+    // Store the server name for filtering
+    if (servername) {
+        currentServerName = servername;
     }
 };
 
@@ -455,13 +450,22 @@ function fetchAllServersStatus(servers) {
  * @returns {Array} Filtered array without the current server
  */
 function filterCurrentServer(serverStatuses) {
-    if (!currentServerIp || !currentServerPort) {
+    if (!currentServerName) {
         return serverStatuses;
     }
     
     return serverStatuses.filter(function(serverStatus) {
         var server = serverStatus.server;
-        return !(server.ip === currentServerIp && server.port === currentServerPort);
+        // Use case-insensitive partial matching since GMod sends various formats:
+        // - "ZGRAD US1 | Now Playing: TDM"
+        // - "NPCZ | Horde - discord.gg/npc"
+        // - "Map Sweepers Official Server | ZMOD.GG"
+        // - "ZBox | random words"
+        // Remove spaces for comparison to handle "MAPSWEEPERS" vs "Map Sweepers"
+        var gmodName = currentServerName.toLowerCase().replace(/\s+/g, '');
+        var configTitle = server.title.toLowerCase().replace(/\s+/g, '');
+        var isSameServer = gmodName.includes(configTitle) || configTitle.includes(gmodName);
+        return !isSameServer;
     });
 }
 
