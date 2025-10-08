@@ -160,6 +160,21 @@ window.SetStatusChanged = function(status) {
     
     currentStatus = status;
     
+    // Try to parse progress from status message (e.g., "14/45 (2.7 GB) - Loading 'X'")
+    if (status) {
+        var progressMatch = status.match(/^(\d+)\/(\d+)/);
+        if (progressMatch) {
+            var current = parseInt(progressMatch[1], 10);
+            var total = parseInt(progressMatch[2], 10);
+            
+            if (total > 0) {
+                var calculatedPercentage = Math.round((current / total) * 100);
+                percentage = Math.max(0, Math.min(100, calculatedPercentage));
+                console.log("[LoadingScreen Core] Progress parsed from status:", percentage + "%", "(" + current + "/" + total + ")");
+            }
+        }
+    }
+    
     // Clear downloading file when status changes to indicate we're not downloading files anymore
     if (status && (
         status.includes("Workshop Complete") || 
