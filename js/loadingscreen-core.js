@@ -510,10 +510,24 @@ var statusTextElement = null;
  * Initialize UI elements and start update loop
  */
 function initializeUI() {
+    console.log("Core: Initializing UI elements...");
     progressBar = document.getElementById('progressBar');
     percentageElement = document.getElementById('percentage');
     statusTextElement = document.getElementById('statusText');
     
+    console.log("Core: Found elements:", {
+        progressBar: !!progressBar,
+        percentageElement: !!percentageElement,
+        statusTextElement: !!statusTextElement
+    });
+    
+    if (!progressBar || !percentageElement || !statusTextElement) {
+        console.error("Core: Missing UI elements! Retrying in 500ms...");
+        setTimeout(initializeUI, 500);
+        return;
+    }
+    
+    console.log("Core: Starting UI update loop");
     // Start the UI update loop
     updateUI();
 }
@@ -521,10 +535,12 @@ function initializeUI() {
 /**
  * Update the UI elements based on current loading state
  */
+var updateCount = 0;
 function updateUI() {
     if (progressBar && percentageElement && statusTextElement) {
         // Update percentage display and progress bar
         if (lastPercentage !== percentage) {
+            console.log("Core: Updating percentage from", lastPercentage, "to", percentage);
             lastPercentage = percentage;
             percentageElement.textContent = percentage + '%';
             progressBar.style.width = percentage + '%';
@@ -533,8 +549,15 @@ function updateUI() {
         // Update status text
         var currentStatusText = getCurrentStatus();
         if (lastStatus !== currentStatusText) {
+            console.log("Core: Updating status from", lastStatus, "to", currentStatusText);
             lastStatus = currentStatusText;
             statusTextElement.textContent = currentStatusText;
+        }
+        
+        // Log every 100 frames to show the loop is running
+        updateCount++;
+        if (updateCount % 100 === 0) {
+            console.log("Core: UI update loop running... (frame", updateCount, ") - percentage:", percentage, "status:", currentStatusText);
         }
     }
     
