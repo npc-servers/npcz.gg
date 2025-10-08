@@ -19,9 +19,6 @@ var allow_increment = true;
 var currentDownloadingFile = "";
 var currentStatus = "Initializing...";
 var currentServerName = null;
-var currentPhase = "workshop"; // Current loading phase: "workshop" or "lua"
-var workshopPercentageRange = { min: 0, max: 85 }; // Workshop downloads map to 0-85%
-var luaPercentageRange = { min: 85, max: 100 }; // Lua downloads map to 85-100%
 
 /**
  * Centralized Server List
@@ -117,25 +114,21 @@ window.GameDetails = function(servername, serverurl, mapname, maxplayers, steami
 
 // Bind SetFilesTotal to window for GMod compatibility
 window.SetFilesTotal = function(total) {
-    console.log("[LoadingScreen Core] SetFilesTotal called with total:", total, "- current percentage:", percentage, "- current phase:", currentPhase);
+    console.log("[LoadingScreen Core] SetFilesTotal called with total:", total);
     
     totalCalled = true;
     totalFiles = Math.max(1, total); // Ensure at least 1 to avoid division by zero
-    
-    // If this is called when we already have significant progress, we're switching to lua phase
-    if (percentage >= workshopPercentageRange.max - 5 && currentPhase === "workshop") {
-        currentPhase = "lua";
-        console.log("[LoadingScreen Core] Switching to LUA phase - percentage range:", luaPercentageRange.min + "% to", luaPercentageRange.max + "%");
-    }
-    
+    filesNeeded = total; // Reset filesNeeded to match total
     currentDownloadingFile = "";
     
-    console.log("[LoadingScreen Core] Total files set to:", totalFiles, "- Phase:", currentPhase);
+    updatePercentage();
+    
+    console.log("[LoadingScreen Core] Total files set to:", totalFiles);
 };
 
 // Bind SetFilesNeeded to window for GMod compatibility
 window.SetFilesNeeded = function(needed) {
-    console.log("[LoadingScreen Core] SetFilesNeeded called - needed:", needed, "total:", totalFiles, "phase:", currentPhase);
+    console.log("[LoadingScreen Core] SetFilesNeeded called - needed:", needed, "total:", totalFiles);
     
     filesNeeded = Math.max(0, needed);
     updatePercentage();
@@ -145,20 +138,12 @@ window.SetFilesNeeded = function(needed) {
 window.DownloadingFile = function(fileName) {
     console.log("[LoadingScreen Core] DownloadingFile:", fileName);
     
-    // Decrement filesNeeded (like the reference code does)
+    // Decrement filesNeeded (like load-seed does)
     filesNeeded = Math.max(0, filesNeeded - 1);
     
     // Clean up the filename and store it
     if (fileName) {
         currentDownloadingFile = fileName;
-        
-        // Check if we're downloading lua/gluapack files - switch to lua phase
-        if (fileName.toLowerCase().includes("gluapack") || fileName.toLowerCase().includes(".lua")) {
-            if (currentPhase === "workshop") {
-                currentPhase = "lua";
-                console.log("[LoadingScreen Core] Detected lua/gluapack download - switching to LUA phase");
-            }
-        }
         
         // Update status to show we're actively downloading
         if (!currentStatus || currentStatus === "Initializing..." || currentStatus === "Initializing downloads...") {
@@ -176,24 +161,6 @@ window.SetStatusChanged = function(status) {
     
     currentStatus = status;
     
-    // Try to parse progress from status message (e.g., "14/45 (2.7 GB) - Loading 'X'")
-    if (status) {
-        var progressMatch = status.match(/^(\d+)\/(\d+)/);
-        if (progressMatch) {
-            var current = parseInt(progressMatch[1], 10);
-            var total = parseInt(progressMatch[2], 10);
-            
-            if (total > 0) {
-                var oldPercentage = percentage;
-                var calculatedPercentage = Math.round((current / total) * 100);
-                percentage = Math.max(0, Math.min(100, calculatedPercentage));
-                console.log("[LoadingScreen Core] Progress parsed from status:", percentage + "%", "(" + current + "/" + total + ")", "- changed from", oldPercentage + "%");
-            }
-        } else {
-            console.log("[LoadingScreen Core] Status message did not match progress pattern:", status);
-        }
-    }
-    
     // Clear downloading file when status changes to indicate we're not downloading files anymore
     if (status && (
         status.includes("Workshop Complete") || 
@@ -204,26 +171,17 @@ window.SetStatusChanged = function(status) {
     )) {
         currentDownloadingFile = "";
         console.log("[LoadingScreen Core] Status indicates completion phase - clearing downloading file");
-        
-        // Handle phase transitions based on status
-        if (status.includes("Workshop Complete")) {
-            // Workshop is done, switch to lua phase
-            if (currentPhase === "workshop") {
-                currentPhase = "lua";
-                console.log("[LoadingScreen Core] Workshop complete - switching to LUA phase");
-                // Ensure we're at least at the start of lua range
-                percentage = Math.max(percentage, luaPercentageRange.min);
-            }
-        } else if (status.includes("Starting Lua") || status.includes("Lua")) {
-            // Final phase
-            percentage = Math.max(percentage, 100);
-            console.log("[LoadingScreen Core] Starting Lua - ensuring percentage is 100%");
-        }
+    }
+    
+    // Set percentage to 100% when sending client info (final step)
+    if (status && status.includes("Sending client info")) {
+        filesNeeded = 0;
+        updatePercentage();
     }
 };
 
 /**
- * Calculate and update the loading percentage based on current phase
+ * Calculate and update the loading percentage (simple linear calculation like load-seed)
  */
 function updatePercentage() {
     if (!totalCalled || totalFiles <= 0) {
@@ -231,25 +189,15 @@ function updatePercentage() {
         return;
     }
     
-    // Calculate how many files have been downloaded in this phase
-    var filesRemaining = Math.max(0, filesNeeded);
-    var filesDownloaded = Math.max(0, totalFiles - filesRemaining);
+    // Simple calculation: how many files have been downloaded / total files
+    var filesDownloaded = Math.max(0, totalFiles - filesNeeded);
+    var progress = (filesDownloaded / totalFiles);
     
-    // Calculate raw percentage (0-100) for this phase
-    var rawPercentage = (filesDownloaded / totalFiles) * 100;
-    
-    // Map to the appropriate range based on current phase
-    var range = currentPhase === "lua" ? luaPercentageRange : workshopPercentageRange;
-    var mappedPercentage = range.min + (rawPercentage / 100) * (range.max - range.min);
-    
-    // Round and clamp to range
-    percentage = Math.round(Math.max(range.min, Math.min(range.max, mappedPercentage)));
+    // Convert to percentage (0-100) and round
+    percentage = Math.round(Math.max(0, Math.min(100, progress * 100)));
     
     console.log("[LoadingScreen Core] Progress updated:", percentage + "%", 
-        "(" + filesDownloaded + "/" + totalFiles + " files)", 
-        "- raw:", rawPercentage.toFixed(1) + "%", 
-        "- phase:", currentPhase, 
-        "- range:", range.min + "-" + range.max + "%");
+        "(" + filesDownloaded + "/" + totalFiles + " files downloaded)");
 }
 
 // Keep the old function names for backward compatibility and internal use
@@ -281,13 +229,11 @@ function startTestMode() {
     
     // Reset state for test mode
     percentage = 0;
-    currentPhase = "workshop";
 
     GameDetails("Test Server", "test.server.com", "gm_construct", "32", "76561198000000000", "sandbox");
 
     var totalTestFiles = 100;
     SetFilesTotal(totalTestFiles);
-    SetFilesNeeded(totalTestFiles); // Set initial filesNeeded
 
     var testFiles = [
         "materials/models/weapons/ak47/ak47_texture.vtf",
@@ -324,35 +270,12 @@ function startTestMode() {
             // Add status changes at specific points
             if (filesNeeded === 20) {
                 SetStatusChanged("Workshop Complete");
-                // Clear file when status changes
-                setTimeout(function() {
-                    currentDownloadingFile = "";
-                }, 200);
+            } else if (filesNeeded === 5) {
+                SetStatusChanged("Client info sent!");
+            } else if (filesNeeded === 0) {
+                SetStatusChanged("Starting Lua...");
+                clearInterval(testInterval);
             }
-        } else if (filesNeeded === 0 && currentPhase === "workshop") {
-            // Workshop phase complete, start lua phase
-            clearInterval(testInterval);
-            
-            setTimeout(function() {
-                console.log("[LoadingScreen Core] TEST MODE: Starting lua download phase");
-                SetFilesTotal(30); // Simulate lua files
-                SetFilesNeeded(30); // Set initial lua filesNeeded
-                
-                var luaFileIndex = 0;
-                var luaInterval = setInterval(function() {
-                    if (filesNeeded > 0 && luaFileIndex < 30) {
-                        DownloadingFile("lua/gluapack_" + luaFileIndex + ".dat");
-                        luaFileIndex++;
-                        
-                        if (filesNeeded === 5) {
-                            SetStatusChanged("Client info sent!");
-                        }
-                    } else if (filesNeeded === 0) {
-                        SetStatusChanged("Starting Lua...");
-                        clearInterval(luaInterval);
-                    }
-                }, 100);
-            }, 500);
         }
     }, 50);
 
@@ -415,15 +338,11 @@ function getCurrentStatus() {
         return currentStatus;
     }
     
-    // Fallback to percentage-based status
+    // Fallback to simple status based on percentage
     if (percentage >= 100) {
         return "Starting Lua...";
-    } else if (percentage >= 95) {
-        return "Client info sent!";
-    } else if (percentage >= 85) {
-        return "Workshop Complete";
     } else if (percentage > 0) {
-        return "Downloading workshop content...";
+        return "Downloading files...";
     } else {
         return "Initializing...";
     }
