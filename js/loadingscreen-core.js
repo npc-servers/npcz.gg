@@ -96,6 +96,12 @@ var networkServers = [
 
 // Bind GameDetails to window for GMod compatibility
 window.GameDetails = function(servername, serverurl, mapname, maxplayers, steamid, gamemode) {
+    console.log("[LoadingScreen Core] GameDetails called - GMod detected!");
+    console.log("[LoadingScreen Core] Server:", servername);
+    console.log("[LoadingScreen Core] URL:", serverurl);
+    console.log("[LoadingScreen Core] Map:", mapname);
+    console.log("[LoadingScreen Core] Gamemode:", gamemode);
+    
     isGmod = true;
     isTest = false; // Disable test mode if GMod loads
     
@@ -107,6 +113,8 @@ window.GameDetails = function(servername, serverurl, mapname, maxplayers, steami
 
 // Bind SetFilesTotal to window for GMod compatibility
 window.SetFilesTotal = function(total) {
+    console.log("[LoadingScreen Core] SetFilesTotal called with total:", total);
+    
     totalCalled = true;
     totalFiles = total;
     
@@ -114,18 +122,27 @@ window.SetFilesTotal = function(total) {
     percentage = 0;
     currentDownloadingFile = "";
     currentStatus = "Initializing downloads...";
+    
+    console.log("[LoadingScreen Core] Total files set to:", totalFiles);
 };
 
 // Bind SetFilesNeeded to window for GMod compatibility
 window.SetFilesNeeded = function(needed) {
+    console.log("[LoadingScreen Core] SetFilesNeeded called - needed:", needed, "total:", totalFiles, "totalCalled:", totalCalled);
+    
     if (totalCalled && totalFiles > 0) {
         var calculatedPercentage = Math.round(((totalFiles - needed) / totalFiles) * 100);
         percentage = Math.max(0, Math.min(100, calculatedPercentage));
+        console.log("[LoadingScreen Core] Progress updated:", percentage + "%", "(" + (totalFiles - needed) + "/" + totalFiles + " files)");
+    } else {
+        console.warn("[LoadingScreen Core] Cannot calculate percentage - totalCalled:", totalCalled, "totalFiles:", totalFiles);
     }
 };
 
 // Bind DownloadingFile to window for GMod compatibility
 window.DownloadingFile = function(fileName) {
+    console.log("[LoadingScreen Core] DownloadingFile:", fileName);
+    
     // Clean up the filename and store it
     if (fileName) {
         currentDownloadingFile = fileName;
@@ -139,6 +156,8 @@ window.DownloadingFile = function(fileName) {
 
 // Bind SetStatusChanged to window for GMod compatibility
 window.SetStatusChanged = function(status) {
+    console.log("[LoadingScreen Core] SetStatusChanged:", status);
+    
     currentStatus = status;
     
     // Clear downloading file when status changes to indicate we're not downloading files anymore
@@ -150,14 +169,18 @@ window.SetStatusChanged = function(status) {
         status.includes("Complete")
     )) {
         currentDownloadingFile = "";
+        console.log("[LoadingScreen Core] Status indicates completion phase - clearing downloading file");
         
         // Set appropriate percentage based on status
         if (status.includes("Workshop Complete")) {
             percentage = Math.max(percentage, 85);
+            console.log("[LoadingScreen Core] Workshop complete - setting percentage to at least 85%");
         } else if (status.includes("Client info sent")) {
             percentage = Math.max(percentage, 95);
+            console.log("[LoadingScreen Core] Client info sent - setting percentage to at least 95%");
         } else if (status.includes("Starting Lua") || status.includes("Lua")) {
             percentage = Math.max(percentage, 100);
+            console.log("[LoadingScreen Core] Starting Lua - setting percentage to 100%");
         }
     }
 };
@@ -595,10 +618,14 @@ function initializeUI() {
     statusTextElement = document.getElementById('statusText');
     
     if (!progressBar || !percentageElement || !statusTextElement) {
-        console.error("Core: Missing UI elements! Retrying in 500ms...");
+        console.error("[LoadingScreen Core] Missing UI elements! Retrying in 500ms...");
+        console.error("[LoadingScreen Core] progressBar:", progressBar, "percentageElement:", percentageElement, "statusTextElement:", statusTextElement);
         setTimeout(initializeUI, 500);
         return;
     }
+    
+    console.log("[LoadingScreen Core] UI elements found - starting update loop");
+    console.log("[LoadingScreen Core] Current state - isGmod:", isGmod, "isTest:", isTest, "percentage:", percentage);
     
     // Start the UI update loop
     updateUI();
@@ -611,6 +638,7 @@ function updateUI() {
     if (progressBar && percentageElement && statusTextElement) {
         // Update percentage display and progress bar
         if (lastPercentage !== percentage) {
+            console.log("[LoadingScreen Core] UI: Updating percentage from", lastPercentage + "% to", percentage + "%");
             lastPercentage = percentage;
             percentageElement.textContent = percentage + '%';
             progressBar.style.width = percentage + '%';
@@ -619,6 +647,7 @@ function updateUI() {
         // Update status text
         var currentStatusText = getCurrentStatus();
         if (lastStatus !== currentStatusText) {
+            console.log("[LoadingScreen Core] UI: Updating status from '" + lastStatus + "' to '" + currentStatusText + "'");
             lastStatus = currentStatusText;
             statusTextElement.textContent = currentStatusText;
         }
@@ -632,6 +661,11 @@ function updateUI() {
  * Initialize the loading system
  */
 document.addEventListener("DOMContentLoaded", function() {
+    console.log("[LoadingScreen Core] ====================================");
+    console.log("[LoadingScreen Core] Loading Screen Core Initialized");
+    console.log("[LoadingScreen Core] Waiting for GMod callbacks...");
+    console.log("[LoadingScreen Core] ====================================");
+    
     // Initialize UI elements
     setTimeout(initializeUI, 100);
     
@@ -646,7 +680,10 @@ document.addEventListener("DOMContentLoaded", function() {
     // Auto-start test mode if not loaded by GMod after 1 second
     setTimeout(function() {
         if (!isGmod && !isTest) {
+            console.log("[LoadingScreen Core] No GMod detected after 1 second - starting TEST MODE");
             startTestMode();
+        } else if (isGmod) {
+            console.log("[LoadingScreen Core] GMod detected - running in PRODUCTION MODE");
         }
     }, 1000);
 });
