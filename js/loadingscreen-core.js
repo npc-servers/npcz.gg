@@ -109,11 +109,6 @@ window.GameDetails = function(servername, serverurl, mapname, maxplayers, steami
             console.log("Current server:", currentServerIp, currentServerPort);
         }
     }
-    
-    // Call custom handler if defined by the frontend
-    if (typeof window.onGameDetailsReceived === 'function') {
-        window.onGameDetailsReceived(servername, serverurl, mapname, maxplayers, steamid, gamemode);
-    }
 };
 
 // Bind SetFilesTotal to window for GMod compatibility
@@ -126,11 +121,6 @@ window.SetFilesTotal = function(total) {
     percentage = 0;
     currentDownloadingFile = "";
     currentStatus = "Initializing downloads...";
-    
-    // Call custom handler if defined by the frontend
-    if (typeof window.onFilesTotalReceived === 'function') {
-        window.onFilesTotalReceived(total);
-    }
 };
 
 // Bind SetFilesNeeded to window for GMod compatibility
@@ -139,11 +129,6 @@ window.SetFilesNeeded = function(needed) {
         var calculatedPercentage = Math.round(((totalFiles - needed) / totalFiles) * 100);
         percentage = Math.max(0, Math.min(100, calculatedPercentage));
         console.log("SetFilesNeeded called:", needed, "files remaining, Percentage:", percentage);
-        
-        // Call custom handler if defined by the frontend
-        if (typeof window.onProgressUpdate === 'function') {
-            window.onProgressUpdate(percentage, needed, totalFiles);
-        }
     }
 };
 
@@ -157,11 +142,6 @@ window.DownloadingFile = function(fileName) {
         // Update status to show we're actively downloading
         if (!currentStatus || currentStatus === "Initializing..." || currentStatus === "Initializing downloads...") {
             currentStatus = "Downloading files...";
-        }
-        
-        // Call custom handler if defined by the frontend
-        if (typeof window.onFileDownloading === 'function') {
-            window.onFileDownloading(fileName);
         }
     }
 };
@@ -189,11 +169,6 @@ window.SetStatusChanged = function(status) {
         } else if (status.includes("Starting Lua") || status.includes("Lua")) {
             percentage = Math.max(percentage, 100);
         }
-    }
-    
-    // Call custom handler if defined by the frontend
-    if (typeof window.onStatusChanged === 'function') {
-        window.onStatusChanged(status);
     }
 };
 
@@ -521,10 +496,60 @@ function sortServersByPlayers(serverStatuses) {
 }
 
 /**
+ * UI Integration - Updates the visual loading screen elements
+ */
+var lastPercentage = 0;
+var lastStatus = "";
+
+// DOM elements
+var progressBar = null;
+var percentageElement = null;
+var statusTextElement = null;
+
+/**
+ * Initialize UI elements and start update loop
+ */
+function initializeUI() {
+    progressBar = document.getElementById('progressBar');
+    percentageElement = document.getElementById('percentage');
+    statusTextElement = document.getElementById('statusText');
+    
+    // Start the UI update loop
+    updateUI();
+}
+
+/**
+ * Update the UI elements based on current loading state
+ */
+function updateUI() {
+    if (progressBar && percentageElement && statusTextElement) {
+        // Update percentage display and progress bar
+        if (lastPercentage !== percentage) {
+            lastPercentage = percentage;
+            percentageElement.textContent = percentage + '%';
+            progressBar.style.width = percentage + '%';
+        }
+        
+        // Update status text
+        var currentStatusText = getCurrentStatus();
+        if (lastStatus !== currentStatusText) {
+            lastStatus = currentStatusText;
+            statusTextElement.textContent = currentStatusText;
+        }
+    }
+    
+    // Continue updating
+    requestAnimationFrame(updateUI);
+}
+
+/**
  * Initialize the loading system
  */
 document.addEventListener("DOMContentLoaded", function() {
     console.log("Loading screen core initialized");
+    
+    // Initialize UI elements
+    setTimeout(initializeUI, 100);
     
     // Call custom initialization if defined by the frontend
     if (typeof window.onLoadingScreenInit === 'function') {

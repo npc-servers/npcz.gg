@@ -7,83 +7,24 @@
  * The core GMod backend logic is in /js/loadingscreen-core.js
  */
 
-// Server configuration (uses centralized server list from core)
-var serverConfig = {
-    servers: networkServers, // Defined in core
-    backgroundImages: [
-        'images/hallway.jpg',
-        'images/paradise.jpg',
-        'images/pov.jpg',
-        'images/warehouse.jpg'
-    ],
-    backgroundInterval: 15000 // 15 seconds
-};
+// Background configuration
+var backgroundImages = [
+    'images/hallway.jpg',
+    'images/paradise.jpg',
+    'images/pov.jpg',
+    'images/warehouse.jpg'
+];
 
-// State
-var progressBar = null;
-var percentageElement = null;
-var statusTextElement = null;
-var backgroundElement = null;
-var serverListElement = null;
-var totalPlayersElement = null;
+var backgroundInterval = 15000; // 15 seconds
 var currentBackgroundIndex = 0;
 var backgroundRotationInterval = null;
-var serverUpdateInterval = null;
-
-/**
- * Custom GMod callback handlers - Update the Sandbox UI
- */
-
-// Custom handler for when game details are received
-window.onGameDetailsReceived = function(servername, serverurl, mapname, maxplayers, steamid, gamemode) {
-    console.log("Sandbox: Game details received", servername, serverurl);
-    
-    // Refresh server list to exclude current server (IP/Port are parsed in core)
-    if (currentServerIp && currentServerPort) {
-        fetchAllServerStatus();
-    }
-};
-
-// Custom handler for progress updates
-window.onProgressUpdate = function(percentageValue, filesNeeded, filesTotal) {
-    // Lazy initialize DOM elements if they haven't been initialized yet
-    if (!progressBar) {
-        progressBar = document.getElementById('progressBar');
-    }
-    if (!percentageElement) {
-        percentageElement = document.getElementById('percentage');
-    }
-    
-    if (progressBar && percentageElement) {
-        progressBar.style.width = percentageValue + '%';
-        percentageElement.textContent = percentageValue + '%';
-    }
-};
-
-// Custom handler for status changes
-window.onStatusChanged = function(status) {
-    updateStatusDisplay();
-};
-
-// Custom handler for file downloads
-window.onFileDownloading = function(fileName) {
-    updateStatusDisplay();
-};
-
-/**
- * Update the status display with current loading state
- */
-function updateStatusDisplay() {
-    if (!statusTextElement) return;
-    
-    var status = getCurrentStatus();
-    statusTextElement.textContent = status;
-}
+var backgroundElement = null;
 
 /**
  * Initialize background rotation
  */
 function initBackgroundRotation() {
+    backgroundElement = document.getElementById('background');
     if (!backgroundElement) return;
     
     // Set initial background
@@ -91,9 +32,9 @@ function initBackgroundRotation() {
     
     // Start rotation
     backgroundRotationInterval = setInterval(function() {
-        currentBackgroundIndex = (currentBackgroundIndex + 1) % serverConfig.backgroundImages.length;
+        currentBackgroundIndex = (currentBackgroundIndex + 1) % backgroundImages.length;
         setBackground(currentBackgroundIndex, false);
-    }, serverConfig.backgroundInterval);
+    }, backgroundInterval);
 }
 
 /**
@@ -102,7 +43,7 @@ function initBackgroundRotation() {
 function setBackground(index, immediate) {
     if (!backgroundElement) return;
     
-    var imageUrl = serverConfig.backgroundImages[index];
+    var imageUrl = backgroundImages[index];
     
     if (immediate) {
         backgroundElement.style.transition = 'none';
@@ -113,19 +54,43 @@ function setBackground(index, immediate) {
         }, 50);
     } else {
         backgroundElement.style.backgroundImage = 'url(' + imageUrl + ')';
-  }
+    }
 }
 
-// fetchServerStatus is now in core - use the shared version
+/**
+ * Custom initialization
+ */
+window.onLoadingScreenInit = function() {
+    console.log("Sandbox: Loading screen initialized");
+    
+    // Initialize background rotation
+    initBackgroundRotation();
+    
+    // Initialize server list (now using core utilities)
+    if (currentServerIp && currentServerPort) {
+        fetchAllServerStatus();
+    } else {
+        // Fetch immediately if we don't have server info yet
+        fetchAllServerStatus();
+    }
+    
+    // Update server list every 30 seconds
+    setInterval(function() {
+        fetchAllServerStatus();
+    }, 30000);
+};
 
 /**
  * Fetch status for all servers and update UI
  */
 function fetchAllServerStatus() {
+    var serverListElement = document.getElementById('serverList');
+    var totalPlayersElement = document.getElementById('totalPlayers');
+    
     if (!serverListElement || !totalPlayersElement) return;
     
     // Use core utility to fetch all server statuses
-    fetchAllServersStatus(serverConfig.servers).then(function(serverStatuses) {
+    fetchAllServersStatus(networkServers).then(function(serverStatuses) {
         // Calculate total player count from ALL servers (including current one)
         var totalPlayers = getTotalPlayerCount(serverStatuses);
         
@@ -151,6 +116,7 @@ function fetchAllServerStatus() {
  * Update the server list display
  */
 function updateServerList(serverStatuses) {
+    var serverListElement = document.getElementById('serverList');
     if (!serverListElement) return;
     
     serverListElement.innerHTML = '';
@@ -226,39 +192,9 @@ function createServerElement(serverStatus) {
     return serverDiv;
 }
 
-/**
- * Custom initialization
- */
-window.onLoadingScreenInit = function() {
-    console.log("Sandbox: Loading screen initialized");
-    
-    // Get DOM elements
-    progressBar = document.getElementById('progressBar');
-    percentageElement = document.getElementById('percentage');
-    statusTextElement = document.getElementById('statusText');
-    backgroundElement = document.getElementById('background');
-    serverListElement = document.getElementById('serverList');
-    totalPlayersElement = document.getElementById('totalPlayers');
-    
-    // Initialize background rotation
-    initBackgroundRotation();
-    
-    // Initialize server list
-    fetchAllServerStatus();
-    
-    // Update server list every 30 seconds
-    serverUpdateInterval = setInterval(fetchAllServerStatus, 30000);
-    
-    // Update status display periodically
-    setInterval(updateStatusDisplay, 100);
-};
-
 // Cleanup on unload
 window.addEventListener('beforeunload', function() {
     if (backgroundRotationInterval) {
         clearInterval(backgroundRotationInterval);
-    }
-    if (serverUpdateInterval) {
-        clearInterval(serverUpdateInterval);
     }
 });
