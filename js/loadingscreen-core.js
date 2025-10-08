@@ -168,10 +168,13 @@ window.SetStatusChanged = function(status) {
             var total = parseInt(progressMatch[2], 10);
             
             if (total > 0) {
+                var oldPercentage = percentage;
                 var calculatedPercentage = Math.round((current / total) * 100);
                 percentage = Math.max(0, Math.min(100, calculatedPercentage));
-                console.log("[LoadingScreen Core] Progress parsed from status:", percentage + "%", "(" + current + "/" + total + ")");
+                console.log("[LoadingScreen Core] Progress parsed from status:", percentage + "%", "(" + current + "/" + total + ")", "- changed from", oldPercentage + "%");
             }
+        } else {
+            console.log("[LoadingScreen Core] Status message did not match progress pattern:", status);
         }
     }
     
@@ -649,8 +652,15 @@ function initializeUI() {
 /**
  * Update the UI elements based on current loading state
  */
+var updateCount = 0;
 function updateUI() {
     if (progressBar && percentageElement && statusTextElement) {
+        // Log current state every 60 frames (roughly once per second)
+        updateCount++;
+        if (updateCount % 60 === 0) {
+            console.log("[LoadingScreen Core] UI: Current state check - lastPercentage:", lastPercentage, "percentage:", percentage, "match:", lastPercentage === percentage);
+        }
+        
         // Update percentage display and progress bar
         if (lastPercentage !== percentage) {
             console.log("[LoadingScreen Core] UI: Updating percentage from", lastPercentage + "% to", percentage + "%");
