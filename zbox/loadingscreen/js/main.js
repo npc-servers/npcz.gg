@@ -44,6 +44,14 @@ window.onGameDetailsReceived = function(servername, serverurl, mapname, maxplaye
 
 // Custom handler for progress updates
 window.onProgressUpdate = function(percentageValue, filesNeeded, filesTotal) {
+    // Lazy initialize DOM elements if they haven't been initialized yet
+    if (!progressBar) {
+        progressBar = document.getElementById('progressBar');
+    }
+    if (!percentageElement) {
+        percentageElement = document.getElementById('percentage');
+    }
+    
     if (progressBar && percentageElement) {
         progressBar.style.width = percentageValue + '%';
         percentageElement.textContent = percentageValue + '%';
