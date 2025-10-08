@@ -398,7 +398,531 @@ body {
     font-weight: 600;
 }
 
-/* Responsive design */
+/* High resolution scaling - 1920p and above */
+@media (min-width: 1920px) and (min-height: 1080px) {
+    .top-bar {
+        padding: 25px 40px;
+    }
+    
+    .store-advert {
+        padding: 15px 20px;
+        gap: 15px;
+        border-radius: 10px;
+    }
+    
+    .advert-icon {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .advert-title {
+        font-size: 1.1rem;
+    }
+    
+    .advert-subtitle {
+        font-size: 0.9rem;
+    }
+    
+    .powered-by {
+        padding: 15px 20px;
+        gap: 12px;
+        border-radius: 10px;
+    }
+    
+    .powered-text {
+        font-size: 1.1rem;
+    }
+    
+    .zmod-logo {
+        height: 30px;
+    }
+    
+    .zmod-text {
+        font-size: 1.1rem;
+    }
+    
+    .center-content {
+        gap: 50px;
+        margin-bottom: 100px;
+    }
+    
+    .main-logo {
+        width: 350px;
+    }
+    
+    .loading-section {
+        width: 750px;
+        gap: 50px;
+    }
+    
+    .progress-bar-container {
+        height: 38px;
+        border-radius: 6px;
+    }
+    
+    .percentage {
+        font-size: 20px;
+    }
+    
+    .status-text {
+        font-size: 22px;
+    }
+    
+    .server-panel {
+        width: 425px;
+        max-height: 800px;
+        right: 40px;
+        border-radius: 12px;
+    }
+    
+    .server-panel-header {
+        padding: 25px;
+    }
+    
+    .server-panel-header h3 {
+        font-size: 1.5rem;
+        margin-bottom: 18px;
+    }
+    
+    .player-count {
+        font-size: 40px;
+    }
+    
+    .player-label {
+        font-size: 0.85rem;
+    }
+    
+    .server-list {
+        padding: 20px;
+    }
+    
+    .server-item {
+        padding: 18px;
+        margin-bottom: 12px;
+        border-radius: 6px;
+    }
+    
+    .server-logo {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .server-name {
+        font-size: 17px;
+    }
+    
+    .server-players {
+        font-size: 16px;
+    }
+    
+    .server-gamemode {
+        font-size: 15px;
+    }
+    
+    .server-offline {
+        font-size: 16px;
+    }
+    
+    .server-panel-footer {
+        padding: 18px 25px;
+        font-size: 13px;
+    }
+}
+
+/* 4K and 1440p scaling */
+@media (min-width: 2560px) and (min-height: 1440px) {
+    .top-bar {
+        padding: 30px 50px;
+    }
+    
+    .store-advert {
+        padding: 18px 24px;
+        gap: 18px;
+        border-radius: 12px;
+    }
+    
+    .advert-icon {
+        width: 48px;
+        height: 48px;
+    }
+    
+    .advert-title {
+        font-size: 1.3rem;
+    }
+    
+    .advert-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .powered-by {
+        padding: 18px 24px;
+        gap: 14px;
+        border-radius: 12px;
+    }
+    
+    .powered-text {
+        font-size: 1.3rem;
+    }
+    
+    .zmod-logo {
+        height: 36px;
+    }
+    
+    .zmod-text {
+        font-size: 1.3rem;
+    }
+    
+    .center-content {
+        gap: 60px;
+        margin-bottom: 120px;
+    }
+    
+    .main-logo {
+        width: 420px;
+    }
+    
+    .loading-section {
+        width: 900px;
+        gap: 60px;
+    }
+    
+    .progress-bar-container {
+        height: 45px;
+        border-radius: 8px;
+    }
+    
+    .percentage {
+        font-size: 24px;
+    }
+    
+    .status-text {
+        font-size: 26px;
+    }
+    
+    .server-panel {
+        width: 500px;
+        max-height: 950px;
+        right: 50px;
+        border-radius: 15px;
+    }
+    
+    .server-panel-header {
+        padding: 30px;
+    }
+    
+    .server-panel-header h3 {
+        font-size: 1.8rem;
+        margin-bottom: 22px;
+    }
+    
+    .player-count {
+        font-size: 48px;
+    }
+    
+    .player-label {
+        font-size: 1rem;
+    }
+    
+    .server-list {
+        padding: 25px;
+    }
+    
+    .server-item {
+        padding: 22px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+    }
+    
+    .server-logo {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .server-name {
+        font-size: 20px;
+    }
+    
+    .server-players {
+        font-size: 19px;
+    }
+    
+    .server-gamemode {
+        font-size: 18px;
+    }
+    
+    .server-offline {
+        font-size: 19px;
+    }
+    
+    .server-panel-footer {
+        padding: 22px 30px;
+        font-size: 16px;
+    }
+}
+
+/* Ultra-wide and higher 4K scaling */
+@media (min-width: 3440px) and (min-height: 1440px) {
+    .top-bar {
+        padding: 35px 60px;
+    }
+    
+    .store-advert {
+        padding: 22px 28px;
+        gap: 22px;
+        border-radius: 14px;
+    }
+    
+    .advert-icon {
+        width: 56px;
+        height: 56px;
+    }
+    
+    .advert-title {
+        font-size: 1.5rem;
+    }
+    
+    .advert-subtitle {
+        font-size: 1.3rem;
+    }
+    
+    .powered-by {
+        padding: 22px 28px;
+        gap: 16px;
+        border-radius: 14px;
+    }
+    
+    .powered-text {
+        font-size: 1.5rem;
+    }
+    
+    .zmod-logo {
+        height: 42px;
+    }
+    
+    .zmod-text {
+        font-size: 1.5rem;
+    }
+    
+    .center-content {
+        gap: 70px;
+        margin-bottom: 140px;
+    }
+    
+    .main-logo {
+        width: 500px;
+    }
+    
+    .loading-section {
+        width: 1050px;
+        gap: 70px;
+    }
+    
+    .progress-bar-container {
+        height: 52px;
+        border-radius: 10px;
+    }
+    
+    .percentage {
+        font-size: 28px;
+    }
+    
+    .status-text {
+        font-size: 30px;
+    }
+    
+    .server-panel {
+        width: 580px;
+        max-height: 1100px;
+        right: 60px;
+        border-radius: 18px;
+    }
+    
+    .server-panel-header {
+        padding: 35px;
+    }
+    
+    .server-panel-header h3 {
+        font-size: 2.1rem;
+        margin-bottom: 26px;
+    }
+    
+    .player-count {
+        font-size: 56px;
+    }
+    
+    .player-label {
+        font-size: 1.2rem;
+    }
+    
+    .server-list {
+        padding: 30px;
+    }
+    
+    .server-item {
+        padding: 26px;
+        margin-bottom: 18px;
+        border-radius: 10px;
+    }
+    
+    .server-logo {
+        width: 42px;
+        height: 42px;
+    }
+    
+    .server-name {
+        font-size: 24px;
+    }
+    
+    .server-players {
+        font-size: 22px;
+    }
+    
+    .server-gamemode {
+        font-size: 21px;
+    }
+    
+    .server-offline {
+        font-size: 22px;
+    }
+    
+    .server-panel-footer {
+        padding: 26px 35px;
+        font-size: 19px;
+    }
+}
+
+/* 8K and extreme high resolution scaling */
+@media (min-width: 7680px) and (min-height: 4320px) {
+    .top-bar {
+        padding: 70px 120px;
+    }
+    
+    .store-advert {
+        padding: 44px 56px;
+        gap: 44px;
+        border-radius: 28px;
+    }
+    
+    .advert-icon {
+        width: 112px;
+        height: 112px;
+    }
+    
+    .advert-title {
+        font-size: 3rem;
+    }
+    
+    .advert-subtitle {
+        font-size: 2.6rem;
+    }
+    
+    .powered-by {
+        padding: 44px 56px;
+        gap: 32px;
+        border-radius: 28px;
+    }
+    
+    .powered-text {
+        font-size: 3rem;
+    }
+    
+    .zmod-logo {
+        height: 84px;
+    }
+    
+    .zmod-text {
+        font-size: 3rem;
+    }
+    
+    .center-content {
+        gap: 140px;
+        margin-bottom: 280px;
+    }
+    
+    .main-logo {
+        width: 1000px;
+    }
+    
+    .loading-section {
+        width: 2100px;
+        gap: 140px;
+    }
+    
+    .progress-bar-container {
+        height: 104px;
+        border-radius: 20px;
+    }
+    
+    .percentage {
+        font-size: 56px;
+    }
+    
+    .status-text {
+        font-size: 60px;
+    }
+    
+    .server-panel {
+        width: 1160px;
+        max-height: 2200px;
+        right: 120px;
+        border-radius: 36px;
+    }
+    
+    .server-panel-header {
+        padding: 70px;
+    }
+    
+    .server-panel-header h3 {
+        font-size: 4.2rem;
+        margin-bottom: 52px;
+    }
+    
+    .player-count {
+        font-size: 112px;
+    }
+    
+    .player-label {
+        font-size: 2.4rem;
+    }
+    
+    .server-list {
+        padding: 60px;
+    }
+    
+    .server-item {
+        padding: 52px;
+        margin-bottom: 36px;
+        border-radius: 20px;
+    }
+    
+    .server-logo {
+        width: 84px;
+        height: 84px;
+    }
+    
+    .server-name {
+        font-size: 48px;
+    }
+    
+    .server-players {
+        font-size: 44px;
+    }
+    
+    .server-gamemode {
+        font-size: 42px;
+    }
+    
+    .server-offline {
+        font-size: 44px;
+    }
+    
+    .server-panel-footer {
+        padding: 52px 70px;
+        font-size: 38px;
+    }
+}
+
+/* Responsive design for smaller/medium screens */
 @media (max-width: 1400px) {
     .server-panel {
         width: 300px;
@@ -456,4 +980,3 @@ body {
         font-size: 12px;
     }
 }
-
