@@ -98,7 +98,6 @@ var networkServers = [
 // Bind GameDetails to window for GMod compatibility
 window.GameDetails = function(servername, serverurl, mapname, maxplayers, steamid, gamemode) {
     isGmod = true;
-    console.log("GameDetails called:", { servername, serverurl, mapname, maxplayers, steamid, gamemode });
     
     // Parse server URL to get IP and port
     if (serverurl) {
@@ -106,7 +105,6 @@ window.GameDetails = function(servername, serverurl, mapname, maxplayers, steami
         if (parts.length >= 2) {
             currentServerIp = parts[0];
             currentServerPort = parseInt(parts[1], 10);
-            console.log("Current server:", currentServerIp, currentServerPort);
         }
     }
 };
@@ -115,7 +113,6 @@ window.GameDetails = function(servername, serverurl, mapname, maxplayers, steami
 window.SetFilesTotal = function(total) {
     totalCalled = true;
     totalFiles = total;
-    console.log("SetFilesTotal called:", total);
     
     // Reset percentage when total files is set
     percentage = 0;
@@ -128,7 +125,6 @@ window.SetFilesNeeded = function(needed) {
     if (totalCalled && totalFiles > 0) {
         var calculatedPercentage = Math.round(((totalFiles - needed) / totalFiles) * 100);
         percentage = Math.max(0, Math.min(100, calculatedPercentage));
-        console.log("SetFilesNeeded called:", needed, "files remaining, Percentage:", percentage);
     }
 };
 
@@ -137,7 +133,6 @@ window.DownloadingFile = function(fileName) {
     // Clean up the filename and store it
     if (fileName) {
         currentDownloadingFile = fileName;
-        console.log("DownloadingFile called:", fileName);
         
         // Update status to show we're actively downloading
         if (!currentStatus || currentStatus === "Initializing..." || currentStatus === "Initializing downloads...") {
@@ -148,7 +143,6 @@ window.DownloadingFile = function(fileName) {
 
 // Bind SetStatusChanged to window for GMod compatibility
 window.SetStatusChanged = function(status) {
-    console.log("SetStatusChanged called:", status);
     currentStatus = status;
     
     // Clear downloading file when status changes to indicate we're not downloading files anymore
@@ -624,8 +618,6 @@ function initializeServerList() {
         return;
     }
     
-    console.log("Core: Initializing server list...");
-    
     // Fetch immediately
     fetchAllServerStatus();
     
@@ -650,16 +642,9 @@ var statusTextElement = null;
  * Initialize UI elements and start update loop
  */
 function initializeUI() {
-    console.log("Core: Initializing UI elements...");
     progressBar = document.getElementById('progressBar');
     percentageElement = document.getElementById('percentage');
     statusTextElement = document.getElementById('statusText');
-    
-    console.log("Core: Found elements:", {
-        progressBar: !!progressBar,
-        percentageElement: !!percentageElement,
-        statusTextElement: !!statusTextElement
-    });
     
     if (!progressBar || !percentageElement || !statusTextElement) {
         console.error("Core: Missing UI elements! Retrying in 500ms...");
@@ -667,7 +652,6 @@ function initializeUI() {
         return;
     }
     
-    console.log("Core: Starting UI update loop");
     // Start the UI update loop
     updateUI();
 }
@@ -675,12 +659,10 @@ function initializeUI() {
 /**
  * Update the UI elements based on current loading state
  */
-var updateCount = 0;
 function updateUI() {
     if (progressBar && percentageElement && statusTextElement) {
         // Update percentage display and progress bar
         if (lastPercentage !== percentage) {
-            console.log("Core: Updating percentage from", lastPercentage, "to", percentage);
             lastPercentage = percentage;
             percentageElement.textContent = percentage + '%';
             progressBar.style.width = percentage + '%';
@@ -689,15 +671,8 @@ function updateUI() {
         // Update status text
         var currentStatusText = getCurrentStatus();
         if (lastStatus !== currentStatusText) {
-            console.log("Core: Updating status from", lastStatus, "to", currentStatusText);
             lastStatus = currentStatusText;
             statusTextElement.textContent = currentStatusText;
-        }
-        
-        // Log every 100 frames to show the loop is running
-        updateCount++;
-        if (updateCount % 100 === 0) {
-            console.log("Core: UI update loop running... (frame", updateCount, ") - percentage:", percentage, "status:", currentStatusText);
         }
     }
     
@@ -709,8 +684,6 @@ function updateUI() {
  * Initialize the loading system
  */
 document.addEventListener("DOMContentLoaded", function() {
-    console.log("Loading screen core initialized");
-    
     // Initialize UI elements
     setTimeout(initializeUI, 100);
     
@@ -725,7 +698,6 @@ document.addEventListener("DOMContentLoaded", function() {
     // Auto-start test mode if not loaded by GMod after 1 second
     setTimeout(function() {
         if (!isGmod) {
-            console.log("Starting test mode...");
             startTestMode();
         }
     }, 1000);
