@@ -97,6 +97,7 @@ var networkServers = [
 // Bind GameDetails to window for GMod compatibility
 window.GameDetails = function(servername, serverurl, mapname, maxplayers, steamid, gamemode) {
     isGmod = true;
+    isTest = false; // Disable test mode if GMod loads
     
     // Store the server name for filtering
     if (servername) {
@@ -292,39 +293,6 @@ function getCurrentStatus() {
             displayName = displayName.split("\\").pop();
         }
         
-        // Handle different file types with appropriate icons/descriptions
-        var fileExtension = displayName.split('.').pop().toLowerCase();
-        var fileTypeDescription = "";
-        
-        switch (fileExtension) {
-            case 'mdl':
-                fileTypeDescription = "Model";
-                break;
-            case 'vmt':
-            case 'vtf':
-                fileTypeDescription = "Texture";
-                break;
-            case 'wav':
-            case 'mp3':
-            case 'ogg':
-                fileTypeDescription = "Sound";
-                break;
-            case 'lua':
-                fileTypeDescription = "Script";
-                break;
-            case 'bsp':
-                fileTypeDescription = "Map";
-                break;
-            case 'phy':
-                fileTypeDescription = "Physics";
-                break;
-            case 'ani':
-                fileTypeDescription = "Animation";
-                break;
-            default:
-                fileTypeDescription = "File";
-        }
-        
         // Truncate very long filenames but keep extension
         if (displayName.length > 35) {
             var nameWithoutExt = displayName.substring(0, displayName.lastIndexOf('.'));
@@ -334,7 +302,7 @@ function getCurrentStatus() {
             }
         }
         
-        return "Downloading " + fileTypeDescription + ": " + displayName;
+        return "Downloading: " + displayName;
     }
     
     // Show current status if we have one and no file is downloading
@@ -354,30 +322,6 @@ function getCurrentStatus() {
     } else {
         return "Initializing...";
     }
-}
-
-/**
- * Get file type description from filename
- */
-function getFileTypeDescription(filename) {
-    if (!filename) return "File";
-    
-    var extension = filename.split('.').pop().toLowerCase();
-    
-    var fileTypes = {
-        'mdl': 'Model',
-        'vmt': 'Texture',
-        'vtf': 'Texture',
-        'wav': 'Sound',
-        'mp3': 'Sound',
-        'ogg': 'Sound',
-        'lua': 'Script',
-        'bsp': 'Map',
-        'phy': 'Physics',
-        'ani': 'Animation'
-    };
-    
-    return fileTypes[extension] || 'File';
 }
 
 /**
@@ -701,7 +645,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
     // Auto-start test mode if not loaded by GMod after 1 second
     setTimeout(function() {
-        if (!isGmod) {
+        if (!isGmod && !isTest) {
             startTestMode();
         }
     }, 1000);
