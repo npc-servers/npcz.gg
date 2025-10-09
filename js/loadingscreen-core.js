@@ -10,7 +10,6 @@
  */
 
 var isGmod = false;
-var isTest = false;
 var totalFiles = 1;
 var filesNeeded = 1;
 var totalCalled = false;
@@ -19,7 +18,6 @@ var allow_increment = true;
 var currentDownloadingFile = "";
 var currentStatus = "Initializing...";
 var currentServerName = null;
-var testModeInterval = null;
 
 /**
  * Centralized Server List
@@ -100,15 +98,7 @@ var networkServers = [
 window.GameDetails = function(servername, serverurl, mapname, maxplayers, steamid, gamemode) {
     console.log("[LoadingScreen Core] Joining server:", servername);
     
-    // Clear test mode if it was running
-    if (testModeInterval) {
-        console.log("[LoadingScreen Core] Stopping test mode - real GMod detected");
-        clearInterval(testModeInterval);
-        testModeInterval = null;
-    }
-    
     isGmod = true;
-    isTest = false;
     
     // Reset state for real GMod loading
     totalFiles = 1;
@@ -269,72 +259,10 @@ function SetStatusChanged(status) {
 }
 
 /**
- * Test Mode - Simulate file loading for testing
- */
-function startTestMode() {
-    isTest = true;
-    
-    // Reset state for test mode
-    percentage = 0;
-
-    GameDetails("Test Server", "test.server.com", "gm_construct", "32", "76561198000000000", "sandbox");
-
-    var totalTestFiles = 100;
-    SetFilesTotal(totalTestFiles);
-
-    var testFiles = [
-        "materials/models/weapons/ak47/ak47_texture.vtf",
-        "sound/weapons/ak47/ak47_fire.wav", 
-        "models/weapons/w_ak47.mdl",
-        "materials/effects/muzzleflash.vmt",
-        "lua/autorun/client/hud_system.lua",
-        "materials/gui/health_icon.png",
-        "sound/ambient/combat_music.mp3",
-        "models/player/terrorist.mdl",
-        "materials/models/player/terrorist_body.vtf",
-        "lua/weapons/weapon_ak47.lua",
-        "materials/models/props/barrel01.vmt",
-        "sound/weapons/pistol/pistol_fire.wav",
-        "models/props_c17/chair01.mdl",
-        "lua/autorun/server/init.lua",
-        "materials/sprites/glow01.vmt",
-        "sound/ambient/atmosphere/forest_ambience.wav",
-        "models/player/combine_soldier.mdl",
-        "materials/models/player/combine_soldier_body.vtf",
-        "lua/entities/weapon_base/shared.lua",
-        "materials/effects/water_splash.vmt"
-    ];
-    
-    var currentFileIndex = 0;
-    
-    testModeInterval = setInterval(function() {
-        if (filesNeeded > 0 && currentFileIndex < totalTestFiles) {
-            // Use realistic filenames with proper timing
-            var fileIndex = currentFileIndex % testFiles.length;
-            DownloadingFile(testFiles[fileIndex]); // This will decrement filesNeeded
-            currentFileIndex++;
-            
-            // Add status changes at specific points
-            if (filesNeeded === 20) {
-                SetStatusChanged("Workshop Complete");
-            } else if (filesNeeded === 5) {
-                SetStatusChanged("Client info sent!");
-            } else if (filesNeeded === 0) {
-                SetStatusChanged("Starting Lua...");
-                clearInterval(testModeInterval);
-                testModeInterval = null;
-            }
-        }
-    }, 50);
-
-    SetStatusChanged("Loading workshop content...");
-}
-
-/**
  * Get the current loading status based on percentage and state
  */
 function getCurrentStatus() {
-    if (!isGmod && !isTest) {
+    if (!isGmod) {
         return "Waiting for game...";
     }
     
@@ -732,15 +660,5 @@ document.addEventListener("DOMContentLoaded", function() {
     if (typeof window.onLoadingScreenInit === 'function') {
         window.onLoadingScreenInit();
     }
-    
-    // Auto-start test mode if not loaded by GMod after 2 seconds
-    setTimeout(function() {
-        if (!isGmod && !isTest) {
-            console.log("[LoadingScreen Core] No GMod detected after 2 seconds - starting TEST MODE");
-            startTestMode();
-        } else if (isGmod) {
-            console.log("[LoadingScreen Core] GMod detected - running in PRODUCTION MODE");
-        }
-    }, 2000);
 });
 
