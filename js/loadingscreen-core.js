@@ -97,11 +97,7 @@ var networkServers = [
 
 // Bind GameDetails to window for GMod compatibility
 window.GameDetails = function(servername, serverurl, mapname, maxplayers, steamid, gamemode) {
-    console.log("[LoadingScreen Core] GameDetails called - GMod detected!");
-    console.log("[LoadingScreen Core] Server:", servername);
-    console.log("[LoadingScreen Core] URL:", serverurl);
-    console.log("[LoadingScreen Core] Map:", mapname);
-    console.log("[LoadingScreen Core] Gamemode:", gamemode);
+    console.log("[LoadingScreen Core] Joining server:", servername);
     
     isGmod = true;
     isTest = false; // Disable test mode if GMod loads
@@ -109,35 +105,30 @@ window.GameDetails = function(servername, serverurl, mapname, maxplayers, steami
     // Store the server name for filtering
     if (servername) {
         currentServerName = servername;
+        
+        // Refresh server list to apply the filter now that we know the current server
+        fetchAllServerStatus();
     }
 };
 
 // Bind SetFilesTotal to window for GMod compatibility
 window.SetFilesTotal = function(total) {
-    console.log("[LoadingScreen Core] SetFilesTotal called with total:", total);
-    
     totalCalled = true;
     totalFiles = Math.max(1, total); // Ensure at least 1 to avoid division by zero
     filesNeeded = total; // Reset filesNeeded to match total
     currentDownloadingFile = "";
     
     updatePercentage();
-    
-    console.log("[LoadingScreen Core] Total files set to:", totalFiles);
 };
 
 // Bind SetFilesNeeded to window for GMod compatibility
 window.SetFilesNeeded = function(needed) {
-    console.log("[LoadingScreen Core] SetFilesNeeded called - needed:", needed, "total:", totalFiles);
-    
     filesNeeded = Math.max(0, needed);
     updatePercentage();
 };
 
 // Bind DownloadingFile to window for GMod compatibility
 window.DownloadingFile = function(fileName) {
-    console.log("[LoadingScreen Core] DownloadingFile:", fileName);
-    
     // Decrement filesNeeded (like load-seed does)
     filesNeeded = Math.max(0, filesNeeded - 1);
     
@@ -157,8 +148,6 @@ window.DownloadingFile = function(fileName) {
 
 // Bind SetStatusChanged to window for GMod compatibility
 window.SetStatusChanged = function(status) {
-    console.log("[LoadingScreen Core] SetStatusChanged:", status);
-    
     currentStatus = status;
     
     // Clear downloading file when status changes to indicate we're not downloading files anymore
@@ -170,7 +159,6 @@ window.SetStatusChanged = function(status) {
         status.includes("Complete")
     )) {
         currentDownloadingFile = "";
-        console.log("[LoadingScreen Core] Status indicates completion phase - clearing downloading file");
     }
     
     // Set percentage to 100% when sending client info (final step)
@@ -185,7 +173,6 @@ window.SetStatusChanged = function(status) {
  */
 function updatePercentage() {
     if (!totalCalled || totalFiles <= 0) {
-        console.warn("[LoadingScreen Core] Cannot calculate percentage - totalCalled:", totalCalled, "totalFiles:", totalFiles);
         return;
     }
     
@@ -195,9 +182,6 @@ function updatePercentage() {
     
     // Convert to percentage (0-100) and round
     percentage = Math.round(Math.max(0, Math.min(100, progress * 100)));
-    
-    console.log("[LoadingScreen Core] Progress updated:", percentage + "%", 
-        "(" + filesDownloaded + "/" + totalFiles + " files downloaded)");
 }
 
 // Keep the old function names for backward compatibility and internal use
@@ -424,15 +408,29 @@ function filterCurrentServer(serverStatuses) {
     
     return serverStatuses.filter(function(serverStatus) {
         var server = serverStatus.server;
-        // Use case-insensitive partial matching since GMod sends various formats:
+        // Use case-insensitive token-based matching since GMod sends various formats:
         // - "ZGRAD.GG US1 | Now Playing: TDM"
         // - "NPCZ | Horde - discord.gg/npc"
         // - "Map Sweepers Official Server | ZMOD.GG"
         // - "ZBox | random words"
-        // Remove spaces and special characters for comparison
-        var gmodName = currentServerName.toLowerCase().replace(/[\s.\-_|]+/g, '');
-        var configTitle = server.title.toLowerCase().replace(/[\s.\-_|]+/g, '');
-        var isSameServer = gmodName.includes(configTitle) || configTitle.includes(gmodName);
+        
+        // Tokenize both names by splitting on special characters
+        var gmodName = currentServerName.toLowerCase();
+        var configTitle = server.title.toLowerCase();
+        
+        // Extract meaningful tokens (alphanumeric sequences)
+        var gmodTokens = gmodName.match(/[a-z0-9]+/g) || [];
+        var configTokens = configTitle.match(/[a-z0-9]+/g) || [];
+        
+        // Check if all config tokens are present in GMod tokens
+        var isSameServer = configTokens.every(function(token) {
+            return gmodTokens.indexOf(token) !== -1;
+        });
+        
+        if (isSameServer) {
+            console.log("[LoadingScreen Core] Filtering out current server:", server.title);
+        }
+        
         return !isSameServer;
     });
 }
@@ -619,14 +617,9 @@ function initializeUI() {
     statusTextElement = document.getElementById('statusText');
     
     if (!progressBar || !percentageElement || !statusTextElement) {
-        console.error("[LoadingScreen Core] Missing UI elements! Retrying in 500ms...");
-        console.error("[LoadingScreen Core] progressBar:", progressBar, "percentageElement:", percentageElement, "statusTextElement:", statusTextElement);
         setTimeout(initializeUI, 500);
         return;
     }
-    
-    console.log("[LoadingScreen Core] UI elements found - starting update loop");
-    console.log("[LoadingScreen Core] Current state - isGmod:", isGmod, "isTest:", isTest, "percentage:", percentage);
     
     // Start the UI update loop
     updateUI();
@@ -635,18 +628,10 @@ function initializeUI() {
 /**
  * Update the UI elements based on current loading state
  */
-var updateCount = 0;
 function updateUI() {
     if (progressBar && percentageElement && statusTextElement) {
-        // Log current state every 60 frames (roughly once per second)
-        updateCount++;
-        if (updateCount % 60 === 0) {
-            console.log("[LoadingScreen Core] UI: Current state check - lastPercentage:", lastPercentage, "percentage:", percentage, "match:", lastPercentage === percentage);
-        }
-        
         // Update percentage display and progress bar
         if (lastPercentage !== percentage) {
-            console.log("[LoadingScreen Core] UI: Updating percentage from", lastPercentage + "% to", percentage + "%");
             lastPercentage = percentage;
             percentageElement.textContent = percentage + '%';
             progressBar.style.width = percentage + '%';
@@ -655,7 +640,6 @@ function updateUI() {
         // Update status text
         var currentStatusText = getCurrentStatus();
         if (lastStatus !== currentStatusText) {
-            console.log("[LoadingScreen Core] UI: Updating status from '" + lastStatus + "' to '" + currentStatusText + "'");
             lastStatus = currentStatusText;
             statusTextElement.textContent = currentStatusText;
         }
@@ -685,14 +669,14 @@ document.addEventListener("DOMContentLoaded", function() {
         window.onLoadingScreenInit();
     }
     
-    // Auto-start test mode if not loaded by GMod after 1 second
+    // Auto-start test mode if not loaded by GMod after 2 seconds
     setTimeout(function() {
         if (!isGmod && !isTest) {
-            console.log("[LoadingScreen Core] No GMod detected after 1 second - starting TEST MODE");
+            console.log("[LoadingScreen Core] No GMod detected after 2 seconds - starting TEST MODE");
             startTestMode();
         } else if (isGmod) {
             console.log("[LoadingScreen Core] GMod detected - running in PRODUCTION MODE");
         }
-    }, 1000);
+    }, 2000);
 });
 
