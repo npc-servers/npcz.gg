@@ -19,6 +19,7 @@ var allow_increment = true;
 var currentDownloadingFile = "";
 var currentStatus = "Initializing...";
 var currentServerName = null;
+var testModeInterval = null;
 
 /**
  * Centralized Server List
@@ -99,8 +100,23 @@ var networkServers = [
 window.GameDetails = function(servername, serverurl, mapname, maxplayers, steamid, gamemode) {
     console.log("[LoadingScreen Core] Joining server:", servername);
     
+    // Clear test mode if it was running
+    if (testModeInterval) {
+        console.log("[LoadingScreen Core] Stopping test mode - real GMod detected");
+        clearInterval(testModeInterval);
+        testModeInterval = null;
+    }
+    
     isGmod = true;
-    isTest = false; // Disable test mode if GMod loads
+    isTest = false;
+    
+    // Reset state for real GMod loading
+    totalFiles = 1;
+    filesNeeded = 1;
+    totalCalled = false;
+    percentage = 0;
+    currentDownloadingFile = "";
+    currentStatus = "Initializing...";
     
     // Store the server name for filtering
     if (servername) {
@@ -113,9 +129,21 @@ window.GameDetails = function(servername, serverurl, mapname, maxplayers, steami
 
 // Bind SetFilesTotal to window for GMod compatibility
 window.SetFilesTotal = function(total) {
+    console.log("[LoadingScreen Core] SetFilesTotal called with total:", total);
+    
+    var previousTotal = totalFiles;
     totalCalled = true;
     totalFiles = Math.max(1, total); // Ensure at least 1 to avoid division by zero
-    filesNeeded = total; // Reset filesNeeded to match total
+    
+    // Only reset filesNeeded if this is the first time or if we need to increase it
+    // This preserves progress made during workshop loading
+    if (previousTotal === 1 || filesNeeded > total) {
+        filesNeeded = total;
+        console.log("[LoadingScreen Core] Total files set to:", total);
+    } else {
+        console.log("[LoadingScreen Core] Preserving existing progress - filesNeeded:", filesNeeded, "totalFiles:", totalFiles);
+    }
+    
     currentDownloadingFile = "";
     
     updatePercentage();
@@ -123,14 +151,24 @@ window.SetFilesTotal = function(total) {
 
 // Bind SetFilesNeeded to window for GMod compatibility
 window.SetFilesNeeded = function(needed) {
+    console.log("[LoadingScreen Core] SetFilesNeeded called - needed:", needed, "total:", totalFiles);
     filesNeeded = Math.max(0, needed);
     updatePercentage();
 };
 
 // Bind DownloadingFile to window for GMod compatibility
 window.DownloadingFile = function(fileName) {
-    // Decrement filesNeeded (like load-seed does)
-    filesNeeded = Math.max(0, filesNeeded - 1);
+    console.log("[LoadingScreen Core] DownloadingFile:", fileName);
+    
+    // Only decrement filesNeeded if we're in the actual file downloading phase
+    // (after SetFilesTotal has been called with a meaningful value)
+    // Don't decrement during workshop loading phase
+    if (totalCalled && totalFiles > 1) {
+        filesNeeded = Math.max(0, filesNeeded - 1);
+        console.log("[LoadingScreen Core] Decremented filesNeeded to:", filesNeeded);
+    } else {
+        console.log("[LoadingScreen Core] Ignoring DownloadingFile (workshop phase) - totalCalled:", totalCalled, "totalFiles:", totalFiles);
+    }
     
     // Clean up the filename and store it
     if (fileName) {
@@ -148,6 +186,7 @@ window.DownloadingFile = function(fileName) {
 
 // Bind SetStatusChanged to window for GMod compatibility
 window.SetStatusChanged = function(status) {
+    console.log("[LoadingScreen Core] SetStatusChanged:", status);
     currentStatus = status;
     
     // Clear downloading file when status changes to indicate we're not downloading files anymore
@@ -158,7 +197,24 @@ window.SetStatusChanged = function(status) {
         status.includes("Lua") ||
         status.includes("Complete")
     )) {
+        console.log("[LoadingScreen Core] Status indicates completion phase - clearing downloading file");
         currentDownloadingFile = "";
+    }
+    
+    // Parse workshop loading progress from status messages like "1/15 (1.8 GB) - Loading 'addon name'"
+    if (status && totalCalled) {
+        var progressMatch = status.match(/^(\d+)\/(\d+)\s*\(/);
+        if (progressMatch) {
+            var current = parseInt(progressMatch[1]);
+            var total = parseInt(progressMatch[2]);
+            
+            if (total > 0) {
+                // Update filesNeeded based on workshop progress
+                filesNeeded = Math.max(0, totalFiles - current);
+                console.log("[LoadingScreen Core] Parsed workshop progress:", current + "/" + total, "- filesNeeded now:", filesNeeded);
+                updatePercentage();
+            }
+        }
     }
     
     // Set percentage to 100% when sending client info (final step)
@@ -169,7 +225,7 @@ window.SetStatusChanged = function(status) {
 };
 
 /**
- * Calculate and update the loading percentage (simple linear calculation like load-seed)
+ * Calculate and update the loading percentage (simple linear calculation)
  */
 function updatePercentage() {
     if (!totalCalled || totalFiles <= 0) {
@@ -181,7 +237,14 @@ function updatePercentage() {
     var progress = (filesDownloaded / totalFiles);
     
     // Convert to percentage (0-100) and round
-    percentage = Math.round(Math.max(0, Math.min(100, progress * 100)));
+    var newPercentage = Math.round(Math.max(0, Math.min(100, progress * 100)));
+    
+    // Only log if percentage changed
+    if (newPercentage !== percentage) {
+        console.log("[LoadingScreen Core] Progress updated:", newPercentage + "% (" + filesDownloaded + "/" + totalFiles + " files downloaded)");
+    }
+    
+    percentage = newPercentage;
 }
 
 // Keep the old function names for backward compatibility and internal use
@@ -244,7 +307,7 @@ function startTestMode() {
     
     var currentFileIndex = 0;
     
-    var testInterval = setInterval(function() {
+    testModeInterval = setInterval(function() {
         if (filesNeeded > 0 && currentFileIndex < totalTestFiles) {
             // Use realistic filenames with proper timing
             var fileIndex = currentFileIndex % testFiles.length;
@@ -258,7 +321,8 @@ function startTestMode() {
                 SetStatusChanged("Client info sent!");
             } else if (filesNeeded === 0) {
                 SetStatusChanged("Starting Lua...");
-                clearInterval(testInterval);
+                clearInterval(testModeInterval);
+                testModeInterval = null;
             }
         }
     }, 50);
