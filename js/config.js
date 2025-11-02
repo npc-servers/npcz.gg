@@ -21,7 +21,7 @@ window.NPCZ.config = {
         { href: 'resources', text: 'Resources' },
         { href: 'support', text: 'Support' },
         { href: '/sandbox/rules', text: 'Rules' },
-        { href: 'https://store.npcz.gg', text: 'Store' },
+        { href: 'https://store.zmod.gg', text: 'Store' },
         { href: 'https://discord.gg/npc', text: 'Discord' }
     ],
     
