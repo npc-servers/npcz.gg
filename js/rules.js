@@ -115,7 +115,7 @@ function buildRulesUI() {
     const links = [
         { href: 'https://discord.gg/npc', text: 'discord.gg/npc' },
         { href: 'https://npcz.gg', text: 'npcz.gg' },
-        { href: 'https://store.npcz.gg', text: 'store.npcz.gg' }
+        { href: 'https://store.zmod.gg', text: 'store.zmod.gg' }
     ];
     
     links.forEach(link => {
