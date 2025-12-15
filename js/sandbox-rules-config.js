@@ -57,7 +57,7 @@ const rulesConfig = {
             {id: 'malicious-intent', title: 'Malicious Intent', description: 'If you wouldn\'t fight it, don\'t use it! Anything built for malicious intent is not allowed.'},
             {id: 'zombie-contraptions', title: 'Zombie Contraptions', description: 'Contraptions designed to automatically kill zombies in a large radius are not allowed. You are exempt from this rule if you are base building.'},
             {id: 'contraption-health', title: 'Contraption Health', description: 'If the intentions of the contraption is to fight with it you MUST have contraption health core present on the contraption. (see the construction tools section)'},
-            {id: 'contraption-power', title: 'Contraption Power', description: 'Contraptions should be equal in power to their Simfphys and LFS counterparts.'},
+            {id: 'contraption-power', title: 'Contraption Power', description: 'Contraptions should be equal in power to their glide counterparts.'},
             {id: 'drone-restrictions', title: 'Drone Restrictions', description: 'Drone contraptions are not allowed. You can use our counterparts in the entities tab or the !shop.'},
             {id: 'player-targeting', title: 'Player Targeting', description: 'Player targeting is not allowed. Using radars, Tracking Turrets, commands, or anything related is not allowed. This also includes player blinders and teleportation jails.'},
             {id: 'optimization', title: 'Optimization', description: 'Builds and contraptions must be optimized: paste without constraints, Prop2Mesh it, or rebuild it to be simpler. If your build degrades server or client performance, it will be deleted.'}
