@@ -95,9 +95,7 @@ var networkServers = [
  */
 
 // Bind GameDetails to window for GMod compatibility
-window.GameDetails = function(servername, serverurl, mapname, maxplayers, steamid, gamemode) {
-    console.log("[LoadingScreen Core] Joining server:", servername);
-    
+window.GameDetails = function(servername, serverurl, mapname, maxplayers, steamid, gamemode) {    
     isGmod = true;
     
     // Reset state for real GMod loading
@@ -118,9 +116,7 @@ window.GameDetails = function(servername, serverurl, mapname, maxplayers, steami
 };
 
 // Bind SetFilesTotal to window for GMod compatibility
-window.SetFilesTotal = function(total) {
-    console.log("[LoadingScreen Core] SetFilesTotal called with total:", total);
-    
+window.SetFilesTotal = function(total) {    
     var previousTotal = totalFiles;
     totalCalled = true;
     totalFiles = Math.max(1, total); // Ensure at least 1 to avoid division by zero
@@ -129,9 +125,6 @@ window.SetFilesTotal = function(total) {
     // This preserves progress made during workshop loading
     if (previousTotal === 1 || filesNeeded > total) {
         filesNeeded = total;
-        console.log("[LoadingScreen Core] Total files set to:", total);
-    } else {
-        console.log("[LoadingScreen Core] Preserving existing progress - filesNeeded:", filesNeeded, "totalFiles:", totalFiles);
     }
     
     currentDownloadingFile = "";
@@ -141,23 +134,17 @@ window.SetFilesTotal = function(total) {
 
 // Bind SetFilesNeeded to window for GMod compatibility
 window.SetFilesNeeded = function(needed) {
-    console.log("[LoadingScreen Core] SetFilesNeeded called - needed:", needed, "total:", totalFiles);
     filesNeeded = Math.max(0, needed);
     updatePercentage();
 };
 
 // Bind DownloadingFile to window for GMod compatibility
-window.DownloadingFile = function(fileName) {
-    console.log("[LoadingScreen Core] DownloadingFile:", fileName);
-    
+window.DownloadingFile = function(fileName) {    
     // Only decrement filesNeeded if we're in the actual file downloading phase
     // (after SetFilesTotal has been called with a meaningful value)
     // Don't decrement during workshop loading phase
     if (totalCalled && totalFiles > 1) {
         filesNeeded = Math.max(0, filesNeeded - 1);
-        console.log("[LoadingScreen Core] Decremented filesNeeded to:", filesNeeded);
-    } else {
-        console.log("[LoadingScreen Core] Ignoring DownloadingFile (workshop phase) - totalCalled:", totalCalled, "totalFiles:", totalFiles);
     }
     
     // Clean up the filename and store it
@@ -176,7 +163,6 @@ window.DownloadingFile = function(fileName) {
 
 // Bind SetStatusChanged to window for GMod compatibility
 window.SetStatusChanged = function(status) {
-    console.log("[LoadingScreen Core] SetStatusChanged:", status);
     currentStatus = status;
     
     // Clear downloading file when status changes to indicate we're not downloading files anymore
@@ -187,7 +173,6 @@ window.SetStatusChanged = function(status) {
         status.includes("Lua") ||
         status.includes("Complete")
     )) {
-        console.log("[LoadingScreen Core] Status indicates completion phase - clearing downloading file");
         currentDownloadingFile = "";
     }
     
@@ -201,7 +186,6 @@ window.SetStatusChanged = function(status) {
             if (total > 0) {
                 // Update filesNeeded based on workshop progress
                 filesNeeded = Math.max(0, totalFiles - current);
-                console.log("[LoadingScreen Core] Parsed workshop progress:", current + "/" + total, "- filesNeeded now:", filesNeeded);
                 updatePercentage();
             }
         }
@@ -228,11 +212,6 @@ function updatePercentage() {
     
     // Convert to percentage (0-100) and round
     var newPercentage = Math.round(Math.max(0, Math.min(100, progress * 100)));
-    
-    // Only log if percentage changed
-    if (newPercentage !== percentage) {
-        console.log("[LoadingScreen Core] Progress updated:", newPercentage + "% (" + filesDownloaded + "/" + totalFiles + " files downloaded)");
-    }
     
     percentage = newPercentage;
 }
@@ -418,10 +397,6 @@ function filterCurrentServer(serverStatuses) {
         var isSameServer = configTokens.every(function(token) {
             return gmodTokens.indexOf(token) !== -1;
         });
-        
-        if (isSameServer) {
-            console.log("[LoadingScreen Core] Filtering out current server:", server.title);
-        }
         
         return !isSameServer;
     });
@@ -644,12 +619,7 @@ function updateUI() {
 /**
  * Initialize the loading system
  */
-document.addEventListener("DOMContentLoaded", function() {
-    console.log("[LoadingScreen Core] ====================================");
-    console.log("[LoadingScreen Core] Loading Screen Core Initialized");
-    console.log("[LoadingScreen Core] Waiting for GMod callbacks...");
-    console.log("[LoadingScreen Core] ====================================");
-    
+document.addEventListener("DOMContentLoaded", function() {    
     // Initialize UI elements
     setTimeout(initializeUI, 100);
     
